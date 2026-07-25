@@ -1,8 +1,6 @@
 "use client"
 import axios from "axios"
 
-
-
 export const getToken = () => {
     return localStorage.getItem('token')
 }
@@ -15,7 +13,7 @@ export const getUserProfile = () => {
     return localStorage.getItem('user')
 }
 
-export const refreshToken = async (router) => {
+export const refreshToken = async () => {
     try{
         const response = await axios.post('http://localhost:8000/refresh',{"refresh":getRefreshToken()})
         localStorage.setItem("token",response.data.access)
