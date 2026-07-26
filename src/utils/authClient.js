@@ -19,10 +19,14 @@ api.interceptors.response.use(
     response => {return response},
     async error => {
         const originalRequest = error.config
-            if (error.response.status == 401){
-                const newToken = refreshToken(getRefreshToken())
-                originalRequest.headers.Authorization = `Bearer ${newToken}`
-                return this.api(originalRequest)
+            if (error.response.status == 401 && !originalRequest._retry){
+                originalRequest._retry = true
+                const newToken = await refreshToken(getRefreshToken())
+                if (newToken){
+                    originalRequest.headers.Authorization = `Bearer ${newToken}`
+                    return api(originalRequest)
+                }
+                throw new Error('Refresh token expired')
         }
         return Promise.reject(error);
     }   

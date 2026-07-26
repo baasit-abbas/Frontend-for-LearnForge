@@ -1,11 +1,14 @@
 "use client";
+import LoaderLogin from "@/Components/LoaderLogin";
 import api from "@/utils/authClient";
+import { login } from "@/utils/serviceClient";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+
 
 
 const Page = () => {
@@ -15,27 +18,19 @@ const Page = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [show, setshow] = useState(false);
-  const login = async (e) => {
+  const [loading, setloading] = useState(false)
+  const handleLogin = async (e) => {
     e.preventDefault()
     const data = {
       username,
       password,
     };
-    let response = ''
-    try{
-      response = await api.post("login", data);
-    }
-    catch(error){
-      toast.error('Wrong Username or Password')
+    setloading(true)
+    const user = await login(data)
+    setloading(false)
+    if (!user){
       return
     }
-    localStorage.setItem("token", response.data.access);
-    localStorage.setItem("refresh", response.data.refresh);
-    const userProfile = await api.get("app/getProfile");
-    const user = userProfile.data
-    localStorage.setItem("user", user);
-    setusername('')
-    setpassword('')
     if (user.role == 'Admin'){
       router.push('/admin')
     }
@@ -95,7 +90,7 @@ const Page = () => {
                 </p>
               </div>
 
-              <form onSubmit={login} className="space-y-5">
+              <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-700" htmlFor="username">
                     Username
@@ -134,8 +129,7 @@ const Page = () => {
                     </button>
                   </div>
                 </div>
-
-                <button
+                {loading ? <LoaderLogin />:<button
                   type="submit"
                   className="group inline-flex h-12 w-full items-center justify-center rounded-2xl bg-slate-950 px-5 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-950/20 cursor-pointer"
                 >
@@ -143,7 +137,8 @@ const Page = () => {
                   <span className="ml-2 transition-transform duration-200 group-hover:translate-x-0.5">
                     →
                   </span>
-                </button>
+                </button>}
+                
               </form>
               <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-center text-sm text-slate-600">
                 <span>Don&apos;t have an account?</span>{" "}

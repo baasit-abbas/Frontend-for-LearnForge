@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { login } from "@/utils/serviceClient";
+import LoaderLogin from "@/Components/LoaderLogin";
 
 const Page = () => {
   const router = useRouter();
@@ -16,58 +18,84 @@ const Page = () => {
   const [Dob, setDob] = useState("");
   const [show, setshow] = useState(false);
   const [Con_show, set_Conshow] = useState(false);
+  const [loading, setloading] = useState(false);
 
   const register = async (e) => {
     e.preventDefault();
     if (password !== confirm) {
       toast.error("Passwords do not match");
-      return
+      return;
     }
-    const data = { username, email, password, date_of_birth: Dob }
-    console.log(data)
-    let response = ''
+    const data = { username, email, password, date_of_birth: Dob };
+    setloading(true)
     try {
-      response = await api.post("app/student", data);
+      await api.post("app/student", data);
     } catch (error) {
       for (const field in error.response.data) {
         toast.error(error.response.data[field][0]);
-        return
+        setloading(false)
+        return;
       }
     }
-    setusername('')
-    setpassword('')
-    setemail('')
-    setconfirm('')
-    setDob('')
+    const loginData = { username, password };
+    login(loginData);
+    setusername("");
+    setpassword("");
+    setemail("");
+    setconfirm("");
+    setDob("");
     router.push("/student");
   };
 
   return (
-    <div className="bg-blue-500 h-screen w-screen text-gray-100 flex items-center justify-center">
-      <div className="w-[70%] h-[85%] flex">
-        <div className="w-[40%] h-full bg-blue-700 flex flex-col items-center justify-center gap-5">
-          <h1 className="text-6xl font-bold text-gray-100">Get Started</h1>
-          <div className="flex flex-col gap-2">
-            <p className="text-gray-100 ">Already have an account?</p>
-            <button onClick={() => router.push('/login')} className="border-2 border-gray-100 text-gray-100 px-6 py-4 rounded-2xl bg-transparent cursor-pointer hover:bg-gray-100 hover:border-blue-400 hover:text-blue-500 transition-all duration-300 outline-none">
+    <div className="min-h-screen w-full overflow-hidden bg-[radial-gradient(circle_at_top,#2563eb_0%,#1e3a8a_45%,#0f172a_100%)] px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-[88vh] max-w-6xl overflow-hidden rounded-4xl border border-white/10 bg-white/90 shadow-[0_30px_120px_rgba(0,0,0,0.35)] backdrop-blur-xl lg:min-h-[85vh]">
+        <div className="flex w-full flex-col justify-between bg-slate-950 px-6 py-8 text-white sm:px-8 lg:w-[42%] lg:px-10 lg:py-10">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-200/80">
+              LearnForge
+            </p>
+            <h1 className="mt-6 text-4xl font-semibold leading-tight sm:text-5xl">
+              Create your learning account
+            </h1>
+            <p className="mt-4 max-w-md text-base leading-7 text-slate-300">
+              Join thousands of learners and start building your path with a modern, focused workspace.
+            </p>
+          </div>
+
+          <div className="mt-8 rounded-2xl border border-white/10 bg-white/10 p-4 text-sm text-slate-200">
+            <p className="font-medium">Already have an account?</p>
+            <button
+              onClick={() => router.push("/login")}
+              className="mt-3 inline-flex items-center justify-center rounded-2xl border border-white/20 px-5 py-3 font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-slate-950 cursor-pointer"
+            >
               Log In
             </button>
           </div>
         </div>
-        <div className="w-[60%] h-full bg-gray-100 flex items-center justify-center">
-          <div className="flex flex-col gap-5 w-[60%] h-full items-center justify-center">
-            <h1 className="text-blue-600 text-5xl font-bold">Create Account</h1>
-            <form
-              className="flex flex-col items-center justify-center w-full text-gray-800 gap-3"
-              onSubmit={register}
-            >
-              <div className="flex flex-col gap-1 w-full">
-                <label className="text-gray-800" htmlFor="username">
-                  Username:
+
+        <div className="flex w-full items-center justify-center bg-slate-50 px-5 py-8 sm:px-8 lg:w-[58%] lg:px-10">
+          <div className="w-full max-w-md">
+            <div className="mb-7 text-center lg:text-left">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-700">
+                Sign up
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                Create Account
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Fill in your details to get started in just a few moments.
+              </p>
+            </div>
+
+            <form className="space-y-4" onSubmit={register}>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-700" htmlFor="username">
+                  Username
                 </label>
                 <input
-                  className="w-full rounded-lg border-2 border-blue-200 focus:border-blue-600 py-2 px-5 focus:outline-none"
-                  id="username"     
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/15"
+                  id="username"
                   type="text"
                   placeholder="Enter Username"
                   value={username}
@@ -75,13 +103,14 @@ const Page = () => {
                   required
                 />
               </div>
-              <div className="flex flex-col gap-1 w-full">
-                <label className="text-gray-800" htmlFor="email">
-                  Email:
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-700" htmlFor="email">
+                  Email
                 </label>
                 <input
-                  className="w-full rounded-lg border-2 border-blue-200 focus:border-blue-600 py-2 px-5 focus:outline-none"
-                  id="email"     
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/15"
+                  id="email"
                   type="email"
                   placeholder="Enter Email"
                   value={email}
@@ -89,55 +118,70 @@ const Page = () => {
                   required
                 />
               </div>
-              <div className="flex flex-col gap-2 w-full relative">
-                <label className="text-gray-800" htmlFor="password">
-                  Password:
+
+              <div className="relative space-y-2">
+                <label className="text-sm font-medium text-slate-700" htmlFor="password">
+                  Password
                 </label>
                 <input
-                  className="w-full rounded-lg border-2 border-blue-200 focus:border-blue-600 py-2 px-5 focus:outline-none pr-10"
-                  id="password"     
-                  type={show? "text":"password"}
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 pr-12 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/15"
+                  id="password"
+                  type={show ? "text" : "password"}
                   placeholder="Enter Password"
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}
                   required
                 />
-                <div onClick={() => setshow(!show)} className="absolute top-11 right-3 text-blue-500 hover:text-blue-800 transition-all duration-300 cursor-pointer">
-                    {show ? <FaEye size={20} /> : <FaEyeSlash size={20}/>}
+                <div
+                  onClick={() => setshow(!show)}
+                  className="absolute right-3 top-[2.45rem] cursor-pointer text-slate-500 transition hover:text-slate-800"
+                >
+                  {show ? <FaEye size={18} /> : <FaEyeSlash size={18} />}
                 </div>
               </div>
-              <div className="flex flex-col gap-2 w-full relative">
-                <label className="text-gray-800" htmlFor="confirm">
-                  Confirm Password:
+
+              <div className="relative space-y-2">
+                <label className="text-sm font-medium text-slate-700" htmlFor="confirm">
+                  Confirm Password
                 </label>
                 <input
-                  className="w-full rounded-lg border-2 border-blue-200 focus:border-blue-600 py-2 px-5 focus:outline-none pr-10"
-                  id="confirm"     
-                  type={Con_show? "text":"password"}
-                  placeholder="Confirm your passowrd"
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 pr-12 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/15"
+                  id="confirm"
+                  type={Con_show ? "text" : "password"}
+                  placeholder="Confirm your password"
                   value={confirm}
                   onChange={(e) => setconfirm(e.target.value)}
                   required
                 />
-                <div onClick={() => set_Conshow(!Con_show)} className="absolute top-11 right-3 text-blue-500 hover:text-blue-800 transition-all duration-300 cursor-pointer">
-                    {Con_show ? <FaEye size={20} /> : <FaEyeSlash size={20}/>}
+                <div
+                  onClick={() => set_Conshow(!Con_show)}
+                  className="absolute right-3 top-[2.45rem] cursor-pointer text-slate-500 transition hover:text-slate-800"
+                >
+                  {Con_show ? <FaEye size={18} /> : <FaEyeSlash size={18} />}
                 </div>
               </div>
-              <div className="flex flex-col gap-1 w-full">
-                <label className="text-gray-800" htmlFor="dob">
-                  Date of birth:
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-700" htmlFor="dob">
+                  Date of Birth
                 </label>
                 <input
-                  className="w-full rounded-lg border-2 border-blue-200 focus:border-blue-600 py-2 px-5 focus:outline-none"
-                  id="dob"     
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/15"
+                  id="dob"
                   type="date"
-                  placeholder="Enter Date"
                   value={Dob}
                   onChange={(e) => setDob(e.target.value)}
                   required
                 />
               </div>
-              <button className="bg-blue-500 w-full py-3 text-green-100 rounded-lg font-bold cursor-pointer hover:bg-blue-600 transition-all duration-300">Sign Up</button>
+
+              {loading ? (
+                <LoaderLogin />
+              ) : (
+                <button className="flex h-12 w-full items-center justify-center rounded-2xl bg-slate-950 px-5 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 cursor-pointer">
+                  Sign Up
+                </button>
+              )}
             </form>
           </div>
         </div>
