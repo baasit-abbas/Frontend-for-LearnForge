@@ -29,7 +29,6 @@ export const refreshToken = async () => {
 export const login = async (data) => {
     try{
         const response = await api.post('login',data)
-        console.log(response)
         localStorage.setItem('token',response.data.access)
         localStorage.setItem('refresh',response.data.refresh)
         const user = await api.get('app/getProfile')

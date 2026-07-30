@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Wrapper from "@/Components/Wrapper";
+import { SidebarProvider } from "@/Components/ui/sidebar";
 
 
 const geistSans = Geist({
@@ -26,7 +27,9 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
       <Wrapper>
+      <SidebarProvider>
       {children}
+      </SidebarProvider>
       </Wrapper>
       </body>
     </html>
