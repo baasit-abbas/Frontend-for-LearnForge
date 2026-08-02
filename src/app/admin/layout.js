@@ -9,9 +9,9 @@ const Layout = ({ children }) => {
   const [admin, setadmin] = useState("");
   const { toggleSidebar , open } = useSidebar();
   useEffect(() => {
-    const loadAdminData = async () => {
-      const adminProfile = await api.get("app/getProfile");
-      setadmin(adminProfile.data);
+    const loadAdminData =  () => {
+      const adminProfile = JSON.parse(localStorage.getItem('user'));
+      setadmin(adminProfile);
     };
     loadAdminData();
   }, []);

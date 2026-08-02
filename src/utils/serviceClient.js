@@ -32,7 +32,7 @@ export const login = async (data) => {
         localStorage.setItem('token',response.data.access)
         localStorage.setItem('refresh',response.data.refresh)
         const user = await api.get('app/getProfile')
-        localStorage.setItem('user',user.data)
+        localStorage.setItem('user',JSON.stringify(user.data))
         return user.data
     }
     catch(error){

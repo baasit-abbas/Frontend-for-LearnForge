@@ -19,7 +19,6 @@ import { IoSettings } from "react-icons/io5";
 import BarItem from "./BarItem";
 
 export function AdminSidebar(props) {
-  console.log(props);
   return (
     
     <Sidebar className="p-2 border-none select-none">
