@@ -14,6 +14,7 @@ import { IoIosFlash } from "react-icons/io";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import LineChartComp from "@/Components/LineChartComp";
 import DisplayCard from "@/Components/DisplayCard";
+import AdminItem from "@/Components/AdminItem";
 
 const Page = () => {
   const [data, setdata] = useState([])
@@ -112,33 +113,15 @@ const Page = () => {
           <div className="w-[27%] bg-slate-700 text-gray-100 flex flex-col gap-6 px-3 py-4">
             <h1 className="font-bold text-xl">Averages</h1>
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between">
-                <p>Average Quiz Score</p>
-                <p>80%</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Average Quiz Score</p>
-                <p>80%</p>
-              </div>
+              <AdminItem text = 'Average Quiz Score' average={data.averge_quiz_socre + '%'}/>
+              <AdminItem text = 'Average Course Complition' average={data.averge_course_complition+ '%'}/>
             </div>
             <div className="flex flex-col gap-3">
               <h1 className="font-bold text-xl">Remainings</h1>
-              <div className="flex justify-between">
-                <p>Total Quizes</p>
-                <p>24</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Total Quizes</p>
-                <p>24</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Total Quizes</p>
-                <p>24</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Total Quizes</p>
-                <p>24</p>
-              </div>
+                <AdminItem text = 'Total Quizes Generated' average={data.total_quizes}/>
+                <AdminItem text = 'Total Flashcards Generated' average={data.total_flashcards}/>
+                <AdminItem text = 'Total AI Chats' average={data.total_ai_chats}/>
+                <AdminItem text = 'Total Active Users' average={data.total_active_users}/>
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import {
 
 import { SiGreatlearning } from "react-icons/si";
 import { FcBusinessman } from "react-icons/fc";
+import { FaUsers } from "react-icons/fa6";
 import { PiStudentBold } from "react-icons/pi";
 import { GiTeacher } from "react-icons/gi";
 import { FaBook } from "react-icons/fa";
@@ -48,6 +49,11 @@ export function AdminSidebar(props) {
           href="/admin"
           name="Home"
           icon={<IoMdHome size={30} />}
+        />
+        <BarItem
+          href="/admin/users"
+          name="Users"
+          icon={<FaUsers size={30} />}
         />
         <BarItem
           href="/admin/students"
