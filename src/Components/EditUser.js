@@ -1,0 +1,120 @@
+"use client";
+import React, { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox";
+
+import { FaEdit } from "react-icons/fa";
+
+const EditUser = (props) => {
+  const [username, setusername] = useState(props.username);
+  const [email, setemail] = useState(props.email);
+  const [role, setrole] = useState(props.role);
+  const roles = ["Admin", "Instructor", "Student"];
+  const [open, setopen] = useState(false)
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+    const data = {
+        username,email,role
+    }
+    setopen(false)
+    console.log(data)
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setopen}>
+      <DialogTrigger aschild={true}>
+        <button className="px-2 py-1 rounded-full bg-blue-600 hover:bg-blue-500 transition-all duration-300 cursor-pointer text-gray-100">
+          <FaEdit size={20} />
+        </button>
+      </DialogTrigger>
+      <DialogContent className="bg-slate-800 text-gray-100">
+        <DialogHeader>
+          <DialogTitle className="text-gray-100 text-center text-2xl">
+            Edit User
+          </DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
+        <form
+          onSubmit={handleEdit}
+          className="flex flex-col gap-4 items-center justify-center bg-slate-700 rounded-md w-full p-1"
+        >
+          <div className="flex flex-col gap-2 w-full text-xl">
+            <label className="font-bold" htmlFor="username">
+              Username:
+            </label>
+            <input
+              id="username"
+              className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
+              onChange={(e) => setusername(e.target.value)}
+              type="text"
+              value={username}
+              required
+            />
+          </div>
+          <div className="flex flex-col gap-2 w-full text-xl">
+            <label className="font-bold" htmlFor="email">
+              Eamil:
+            </label>
+            <input
+              id="email"
+              className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
+              onChange={(e) => setemail(e.target.value)}
+              type="text"
+              value={email}
+              required
+            />
+          </div>
+          <div className="flex flex-col gap-2 w-full">
+            <h1 className="text-xl font-bold">Role:</h1>
+            <Combobox
+              className="bg-slate-600"
+              items={roles}
+              value={role}
+              onValueChange={(value) => setrole(value)}
+            >
+              <ComboboxInput placeholder={role} />
+              <ComboboxContent className="w-full text-gray-100">
+                <ComboboxEmpty>No items found.</ComboboxEmpty>
+                <ComboboxList className="bg-slate-700">
+                  {(item) => (
+                    <ComboboxItem
+                      className="w-full hover:bg-slate-500 cursor-pointer"
+                      key={item}
+                      value={item}
+                    >
+                      {item}
+                    </ComboboxItem>
+                  )}
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          </div>
+          <button
+            type="submit"
+            className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold"
+          >
+            Edit
+          </button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default EditUser;

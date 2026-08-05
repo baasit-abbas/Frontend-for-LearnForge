@@ -1,7 +1,5 @@
 "use client";
-import LoaderLogin from "@/Components/LoaderLogin";
 import api from "@/utils/authClient";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa6";
 import { PiStudentBold } from "react-icons/pi";
@@ -9,9 +7,6 @@ import { GiTeacher } from "react-icons/gi";
 import { FaBook } from "react-icons/fa";
 import { SiGoogledocs } from "react-icons/si";
 import { RiVideoFill } from "react-icons/ri";
-import { MdQuiz } from "react-icons/md";
-import { IoIosFlash } from "react-icons/io";
-import { BsFillChatDotsFill } from "react-icons/bs";
 import LineChartComp from "@/Components/LineChartComp";
 import DisplayCard from "@/Components/DisplayCard";
 import AdminItem from "@/Components/AdminItem";
