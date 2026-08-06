@@ -1,9 +1,9 @@
 "use client";
-import { ToastContainer } from "react-toastify";
 import React, { useState } from "react";
 import { SidebarProvider } from "./ui/sidebar";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { MdNightlight } from "react-icons/md";
+import { Toaster } from "./ui/toast";
 
 const Wrapper = ({ children }) => {
   // const theme = localStorage.getItem("theme");
@@ -36,10 +36,8 @@ const Wrapper = ({ children }) => {
             <MdOutlineWbSunny className="text-gray-100" size={20} />
           )}
         </div>
-
         {children}
-
-        <ToastContainer />
+        <Toaster />
       </SidebarProvider>
     </div>
   );

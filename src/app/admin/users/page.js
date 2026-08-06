@@ -4,26 +4,78 @@ import api from "@/utils/authClient";
 import React, { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import UserTable from "@/Components/UserTable";
+import { toast } from "@/Components/ui/toast";
 
 const Page = () => {
   const [users, setusers] = useState([]);
-  const [filter_users, setfilter_users] = useState([]);
+  const [text, setText] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const users = await api.get("app/user");
-      setusers(users.data);
-      setfilter_users(users.data);
+      const all_users = await api.get("app/user");
+      setusers(all_users.data);
     };
     fetchData();
   }, []);
 
+  const handleSearch = () => {
+    if (text == "") {
+      return users;
+    }
+    const search_users = users.filter(
+      (user) =>
+        user.id == text ||
+        user.username.startsWith(text) ||
+        user.email.startsWith(text),
+    );
+
+    return search_users;
+  };
+
+  const handleAdd = () => {};
+
+  const handleEdit = async (id,new_data) => {
+    try{
+      await api.patch(`app/user/${id}`,new_data)
+      let new_users = [...users]
+      const idx = new_users.findIndex(user => user.id == id)
+      new_users[idx] = {...new_users[idx],...new_data}
+      setusers(new_users)
+      console.log(idx)
+      toast.add({"title":"Updated User's data Successfully"})
+    }
+    catch(error){
+      console.log(error)
+      for (const field in error.response.data){
+        toast.add({"title":error.response.data[field]})
+      }
+    }
+  };
+
+  const handleDelete = (id) => {
+    try{
+      api.delete(`app/user/${id}`)
+      const new_users = users.filter(user => user.id !== id)
+      setusers(new_users)
+      toast.add({"title":"User Deleted Successfully"})
+    }
+    catch(error){
+      console.log(error)
+      toast.error("Failed to delete user.")
+    }
+  };
+
   return (
     <div className="bg-slate-700 text-gray-100 px-15">
-      <AdminPageHeader getall={users} setfilter={setfilter_users} />
-      <div className="w-full h-135 text-gray-100 mt-7 rounded-xl border-2 border-gray-100">
+      <AdminPageHeader getall={users} search={setText} />
+      <div className="w-full h-135 text-gray-100 mt-7">
         <ScrollArea className="h-full w-full border-none outline-none rounded-lg">
-          <UserTable users={filter_users} />
+          <UserTable
+            users={handleSearch}
+            add={handleAdd}
+            edit={handleEdit}
+            delete={handleDelete}
+          />
         </ScrollArea>
       </div>
     </div>

@@ -1,22 +1,11 @@
-"use client"
+"use client";
 import React from "react";
 import { FaSearch, FaUser } from "react-icons/fa";
 
-
 const AdminPageHeader = (props) => {
-    const handleSearch = (e) => {
+  const handleSearch = (e) => {
     const text = e.target.value;
-    if (text != "") {
-      const filter = props.getall.filter(
-        (item) =>
-          item.username.startsWith(text) ||
-          item.email.startsWith(text) ||
-          item.id == text,
-      );
-      props.setfilter(filter);
-    } else {
-      props.setfilter(props.getall);
-    }
+    props.search(text)
   };
   return (
     <header className="flex justify-between py-5 items-center">

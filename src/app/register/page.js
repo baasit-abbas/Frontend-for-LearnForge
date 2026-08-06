@@ -2,11 +2,11 @@
 import api from "@/utils/authClient";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { login } from "@/utils/serviceClient";
 import LoaderLogin from "@/Components/LoaderLogin";
+import { toast, Toast } from "@/Components/ui/toast";
 
 const Page = () => {
   const router = useRouter();
@@ -32,7 +32,7 @@ const Page = () => {
       await api.post("app/student", data);
     } catch (error) {
       for (const field in error.response.data) {
-        toast.error(error.response.data[field][0]);
+        toast.add({"title":error.response.data[field][0]})
         setloading(false)
         return;
       }

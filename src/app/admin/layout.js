@@ -1,7 +1,6 @@
 "use client";
 import { AdminSidebar } from "@/Components/AdminSidebar";
 import { useSidebar } from "@/Components/ui/sidebar";
-import api from "@/utils/authClient";
 import React, { useEffect, useState } from "react";
 import { VscLayoutSidebarLeftDock } from "react-icons/vsc";
 

@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,14 +13,18 @@ import EditUser from "./EditUser";
 import Delete from "./Delete";
 
 const UserTable = (props) => {
-
-  const handleDelte = (id) => {
-    console.log(id)
+  const users = props.users()
+  
+  const handleDelete = (id) => {
+    props.delete(id)
   }
 
-  const users = props.users;
+  const handleEdit = (id,new_data) => {
+    props.edit(id,new_data)
+  }
+
   return (
-      <Table className="min-w-full">
+      <Table className="min-w-full max-h-full">
         <TableCaption></TableCaption>
         <TableHeader className="sticky top-0 z-10 bg-slate-900">
           <TableRow className="text-center">
@@ -44,8 +49,8 @@ const UserTable = (props) => {
                 <TableCell className='border-l-2 border-gray-100'>{user.last_login?.split('T')[0]}</TableCell>
                 <TableCell className='border-l-2 border-gray-100'>  
                   <div className="flex gap-3 items-center justify-center">
-                    <EditUser id={user.id} username={user.username} email={user.email} role={user.role} />
-                    <Delete id={user.id} func = {handleDelte}/>
+                    <EditUser id={user.id} username={user.username} email={user.email} role={user.role} func={handleEdit} />
+                    <Delete id={user.id} func = {handleDelete}/>
                   </div>
                 </TableCell>
               </TableRow>

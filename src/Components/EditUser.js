@@ -33,13 +33,13 @@ const EditUser = (props) => {
         username,email,role
     }
     setopen(false)
-    console.log(data)
+    props.func(props.id,data)
   };
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger aschild={true}>
-        <button className="px-2 py-1 rounded-full bg-blue-600 hover:bg-blue-500 transition-all duration-300 cursor-pointer text-gray-100">
+      <DialogTrigger aschild="true">
+        <button className="px-2 py-1 rounded-full bg-slate-600 hover:bg-slate-500 transition-all duration-300 cursor-pointer text-gray-100 outline-none border-none">
           <FaEdit size={20} />
         </button>
       </DialogTrigger>
