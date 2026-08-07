@@ -4,6 +4,7 @@ import { SidebarProvider } from "./ui/sidebar";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { MdNightlight } from "react-icons/md";
 import { Toaster } from "./ui/toast";
+import { TooltipProvider } from './ui/tooltip';
 
 const Wrapper = ({ children }) => {
   // const theme = localStorage.getItem("theme");
@@ -36,7 +37,7 @@ const Wrapper = ({ children }) => {
             <MdOutlineWbSunny className="text-gray-100" size={20} />
           )}
         </div>
-        {children}
+        <TooltipProvider>{children}</TooltipProvider>
         <Toaster />
       </SidebarProvider>
     </div>

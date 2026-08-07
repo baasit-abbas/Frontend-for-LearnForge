@@ -10,25 +10,32 @@ import { RiVideoFill } from "react-icons/ri";
 import LineChartComp from "@/Components/LineChartComp";
 import DisplayCard from "@/Components/DisplayCard";
 import AdminItem from "@/Components/AdminItem";
+import AddInstructor from "@/Components/AddInstructor";
 
 const Page = () => {
-  const [data, setdata] = useState([])
+  const [data, setdata] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await api.get('app/adminData')
-      setdata(data.data)
-    }
-    fetchData()
-  }, [])
-  
+      const data = await api.get("app/adminData");
+      setdata(data.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="min-h-screen pt-17">
       <main className="bg-slate-900 px-6 flex flex-col gap-8 h-full">
-        <div className="py-4 flex flex-col gap-4">
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p>
-            Manage your LearnForge students , instructors , courses , docs etc
-          </p>
+        <div className="py-4 flex justify-between">
+          <div className="flex flex-col gap-4">
+            <h1 className="text-3xl font-bold">Dashboard</h1>
+            <p>
+              Manage your LearnForge students , instructors , courses , docs etc
+            </p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <AddInstructor />
+            <button className="bg-slate-700 hover:bg-slate-600 transition-all duration-300 cursor-pointer text-gray-100 font-bold text-md rounded-full px-3 py-2">Add Admin</button>
+          </div>
         </div>
         <div className="flex gap-3">
           <div className="w-[72%] flex flex-col gap-4">
@@ -108,15 +115,30 @@ const Page = () => {
           <div className="w-[27%] bg-slate-700 text-gray-100 flex flex-col gap-6 px-3 py-4">
             <h1 className="font-bold text-xl">Averages</h1>
             <div className="flex flex-col gap-2">
-              <AdminItem text = 'Average Quiz Score' average={data.averge_quiz_socre + '%'}/>
-              <AdminItem text = 'Average Course Complition' average={data.averge_course_complition+ '%'}/>
+              <AdminItem
+                text="Average Quiz Score"
+                average={data.averge_quiz_socre + "%"}
+              />
+              <AdminItem
+                text="Average Course Complition"
+                average={data.averge_course_complition + "%"}
+              />
             </div>
             <div className="flex flex-col gap-3">
               <h1 className="font-bold text-xl">Remainings</h1>
-                <AdminItem text = 'Total Quizes Generated' average={data.total_quizes}/>
-                <AdminItem text = 'Total Flashcards Generated' average={data.total_flashcards}/>
-                <AdminItem text = 'Total AI Chats' average={data.total_ai_chats}/>
-                <AdminItem text = 'Total Active Users' average={data.total_active_users}/>
+              <AdminItem
+                text="Total Quizes Generated"
+                average={data.total_quizes}
+              />
+              <AdminItem
+                text="Total Flashcards Generated"
+                average={data.total_flashcards}
+              />
+              <AdminItem text="Total AI Chats" average={data.total_ai_chats} />
+              <AdminItem
+                text="Total Active Users"
+                average={data.total_active_users}
+              />
             </div>
           </div>
         </div>

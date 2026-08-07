@@ -19,29 +19,41 @@ import {
 } from "@/components/ui/combobox";
 
 import { FaEdit } from "react-icons/fa";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Input } from "./ui/input";
+import { Field, FieldLabel } from "./ui/field";
 
 const EditUser = (props) => {
   const [username, setusername] = useState(props.username);
   const [email, setemail] = useState(props.email);
   const [role, setrole] = useState(props.role);
   const roles = ["Admin", "Instructor", "Student"];
-  const [open, setopen] = useState(false)
+  const [open, setopen] = useState(false);
 
   const handleEdit = (e) => {
     e.preventDefault();
     const data = {
-        username,email,role
-    }
-    setopen(false)
-    props.func(props.id,data)
+      username,
+      email,
+      role,
+    };
+    setopen(false);
+    props.func(props.id, data);
   };
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
       <DialogTrigger aschild="true">
-        <button className="px-2 py-1 rounded-full bg-slate-600 hover:bg-slate-500 transition-all duration-300 cursor-pointer text-gray-100 outline-none border-none">
-          <FaEdit size={20} />
-        </button>
+        <Tooltip>
+          <TooltipTrigger>
+            <button className="px-2 py-1 rounded-full bg-slate-600 hover:bg-slate-500 transition-all duration-300 cursor-pointer text-gray-100 outline-none border-none">
+              <FaEdit size={20} />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="px-3 py-2 text-gray-100 bg-slate-700 rounded-md font-bold">Edit</p>
+          </TooltipContent>
+        </Tooltip>
       </DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100">
         <DialogHeader>
@@ -52,13 +64,13 @@ const EditUser = (props) => {
         </DialogHeader>
         <form
           onSubmit={handleEdit}
-          className="flex flex-col gap-4 items-center justify-center bg-slate-700 rounded-md w-full p-1"
+          className="flex flex-col gap-4 items-center justify-center  rounded-md w-full p-1"
         >
-          <div className="flex flex-col gap-2 w-full text-xl">
-            <label className="font-bold" htmlFor="username">
+          <Field className="flex flex-col gap-2 w-full text-xl">
+            <FieldLabel className="font-bold" htmlFor="username">
               Username:
-            </label>
-            <input
+            </FieldLabel>
+            <Input
               id="username"
               className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
               onChange={(e) => setusername(e.target.value)}
@@ -66,12 +78,12 @@ const EditUser = (props) => {
               value={username}
               required
             />
-          </div>
-          <div className="flex flex-col gap-2 w-full text-xl">
-            <label className="font-bold" htmlFor="email">
+          </Field>
+          <Field className="flex flex-col gap-2 w-full text-xl">
+            <FieldLabel className="font-bold" htmlFor="email">
               Eamil:
-            </label>
-            <input
+            </FieldLabel>
+            <Input
               id="email"
               className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
               onChange={(e) => setemail(e.target.value)}
@@ -79,7 +91,7 @@ const EditUser = (props) => {
               value={email}
               required
             />
-          </div>
+          </Field>
           <div className="flex flex-col gap-2 w-full">
             <h1 className="text-xl font-bold">Role:</h1>
             <Combobox
@@ -90,7 +102,7 @@ const EditUser = (props) => {
             >
               <ComboboxInput placeholder={role} />
               <ComboboxContent className="w-full text-gray-100">
-                <ComboboxEmpty>No items found.</ComboboxEmpty>
+                <ComboboxEmpty>No Role found.</ComboboxEmpty>
                 <ComboboxList className="bg-slate-700">
                   {(item) => (
                     <ComboboxItem

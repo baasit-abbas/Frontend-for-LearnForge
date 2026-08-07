@@ -24,7 +24,7 @@ const Page = () => {
     }
     const search_users = users.filter(
       (user) =>
-        user.id == text ||
+        String(user.id).startsWith(text)||
         user.username.startsWith(text) ||
         user.email.startsWith(text),
     );
@@ -41,7 +41,6 @@ const Page = () => {
       const idx = new_users.findIndex(user => user.id == id)
       new_users[idx] = {...new_users[idx],...new_data}
       setusers(new_users)
-      console.log(idx)
       toast.add({"title":"Updated User's data Successfully"})
     }
     catch(error){

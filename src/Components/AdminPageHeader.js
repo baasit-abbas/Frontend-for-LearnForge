@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { FaSearch, FaUser } from "react-icons/fa";
+import { Input } from "./ui/input";
 
 const AdminPageHeader = (props) => {
   const handleSearch = (e) => {
@@ -14,9 +15,9 @@ const AdminPageHeader = (props) => {
         <h1 className="text-2xl ">All Users</h1>
       </div>
       <div className="w-85 h-15 relative">
-        <input
+        <Input
           onChange={handleSearch}
-          className="w-full h-full pl-10 py-2 pr-2 bg-gray-100 text-slate-800 border-4 border-gray-600 outline-none placeholder:text-slate-400 placeholder:text-sm focus:border-gray-700 text-lg  rounded-full"
+          className="w-full h-full pl-10 py-2 pr-2 bg-gray-100 text-slate-800 border-4  text-lg  rounded-full"
           type="text"
           placeholder="Search by Name, Email or ID"
         />
