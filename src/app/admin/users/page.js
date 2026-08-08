@@ -67,8 +67,8 @@ const Page = () => {
   return (
     <div className="bg-slate-700 text-gray-100 px-15">
       <AdminPageHeader getall={users} search={setText} />
-      <div className="w-full h-135 text-gray-100 mt-7">
-        <ScrollArea className="h-full w-full border-none outline-none rounded-lg">
+      <div className="w-full max-h-135 text-gray-100 mt-7">
+        <ScrollArea className="max-h-full w-full border-none outline-none rounded-lg">
           <UserTable
             users={handleSearch}
             add={handleAdd}

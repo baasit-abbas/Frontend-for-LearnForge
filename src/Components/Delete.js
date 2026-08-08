@@ -11,6 +11,7 @@ import {
 
 import { MdDelete } from "react-icons/md";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import DeleteBtn from "./DeleteBtn";
 
 const Delete = (props) => {
   const [open, setopen] = useState(false);
@@ -22,18 +23,8 @@ const Delete = (props) => {
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger aschild="true">
-        <Tooltip>
-          <TooltipTrigger>
-            <button className="px-2 py-1 rounded-full bg-slate-500 hover:bg-slate-400 transition-all duration-300 cursor-pointer text-gray-100 outline-none border-none">
-              <MdDelete size={20} />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p className="bg-slate-700 text-gray-100 px-3 py-2 rounded-md font-bold">Delete</p>
-          </TooltipContent>
-        </Tooltip>
-      </DialogTrigger>
+      <DeleteBtn />
+
       <DialogContent className="bg-slate-800 text-gray-100">
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>

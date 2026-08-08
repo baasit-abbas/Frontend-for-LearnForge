@@ -22,6 +22,8 @@ import { FaEdit } from "react-icons/fa";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { Input } from "./ui/input";
 import { Field, FieldLabel } from "./ui/field";
+import { Spinner } from "./ui/spinner";
+import EditBtn from "./EditBtn";
 
 const EditUser = (props) => {
   const [username, setusername] = useState(props.username);
@@ -29,9 +31,11 @@ const EditUser = (props) => {
   const [role, setrole] = useState(props.role);
   const roles = ["Admin", "Instructor", "Student"];
   const [open, setopen] = useState(false);
+  const [loading, setloading] = useState(false);
 
   const handleEdit = (e) => {
     e.preventDefault();
+    setloading(true);
     const data = {
       username,
       email,
@@ -39,22 +43,12 @@ const EditUser = (props) => {
     };
     setopen(false);
     props.func(props.id, data);
+    setloading(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger aschild="true">
-        <Tooltip>
-          <TooltipTrigger>
-            <button className="px-2 py-1 rounded-full bg-slate-600 hover:bg-slate-500 transition-all duration-300 cursor-pointer text-gray-100 outline-none border-none">
-              <FaEdit size={20} />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p className="px-3 py-2 text-gray-100 bg-slate-700 rounded-md font-bold">Edit</p>
-          </TooltipContent>
-        </Tooltip>
-      </DialogTrigger>
+      <EditBtn />
       <DialogContent className="bg-slate-800 text-gray-100">
         <DialogHeader>
           <DialogTitle className="text-gray-100 text-center text-2xl">
@@ -121,7 +115,7 @@ const EditUser = (props) => {
             type="submit"
             className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold"
           >
-            Edit
+            {loading ? <Spinner className="w-10 h-10" /> : "Edit"}
           </button>
         </form>
       </DialogContent>

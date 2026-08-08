@@ -1,15 +1,20 @@
 "use client";
 import { AdminSidebar } from "@/Components/AdminSidebar";
 import { useSidebar } from "@/Components/ui/sidebar";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { VscLayoutSidebarLeftDock } from "react-icons/vsc";
 
 const Layout = ({ children }) => {
   const [admin, setadmin] = useState("");
   const { toggleSidebar , open } = useSidebar();
+  const router = useRouter()
   useEffect(() => {
     const loadAdminData =  () => {
       const adminProfile = JSON.parse(localStorage.getItem('user'));
+      if (adminProfile.role != 'Admin'){
+        router.push('/login')
+      }
       setadmin(adminProfile);
     };
     loadAdminData();

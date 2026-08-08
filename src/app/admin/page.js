@@ -11,13 +11,16 @@ import LineChartComp from "@/Components/LineChartComp";
 import DisplayCard from "@/Components/DisplayCard";
 import AdminItem from "@/Components/AdminItem";
 import AddInstructor from "@/Components/AddInstructor";
+import AddAdmin from "@/Components/AddAdmin";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [data, setdata] = useState([]);
+  const router = useRouter()
   useEffect(() => {
     const fetchData = async () => {
-      const data = await api.get("app/adminData");
-      setdata(data.data);
+        const data = await api.get("app/adminData");
+        setdata(data.data);
     };
     fetchData();
   }, []);
@@ -34,7 +37,7 @@ const Page = () => {
           </div>
           <div className="flex flex-col gap-3">
             <AddInstructor />
-            <button className="bg-slate-700 hover:bg-slate-600 transition-all duration-300 cursor-pointer text-gray-100 font-bold text-md rounded-full px-3 py-2">Add Admin</button>
+            <AddAdmin />
           </div>
         </div>
         <div className="flex gap-3">

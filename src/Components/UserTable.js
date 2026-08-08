@@ -24,7 +24,8 @@ const UserTable = (props) => {
   }
 
   return (
-      <Table className="min-w-full max-h-full">
+    <div className="max-h-135">
+      <Table className="min-w-full">
         <TableCaption></TableCaption>
         <TableHeader className="sticky top-0 z-10 bg-slate-900">
           <TableRow className="text-center">
@@ -56,8 +57,10 @@ const UserTable = (props) => {
               </TableRow>
             );
           })}
+          
         </TableBody>
       </Table>
+    </div>
   );
 };
 
