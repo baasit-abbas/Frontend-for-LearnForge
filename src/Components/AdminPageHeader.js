@@ -12,7 +12,7 @@ const AdminPageHeader = (props) => {
     <header className="flex justify-between py-5 items-center">
       <div className="flex gap-5 items-center">
         <FaUser size={20} />
-        <h1 className="text-2xl ">All Users</h1>
+        <h1 className="text-2xl ">All {props.heading}</h1>
       </div>
       <div className="w-85 h-15 relative">
         <Input

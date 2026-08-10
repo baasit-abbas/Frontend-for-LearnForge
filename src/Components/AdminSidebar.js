@@ -22,7 +22,7 @@ import BarItem from "./BarItem";
 export function AdminSidebar(props) {
   return (
     
-    <Sidebar className="p-2 border-none select-none">
+    <Sidebar className="p-2 border-r-4 border-slate-900 select-none">
     
       <SidebarHeader />
       <div className="flex flex-col gap-5 ">

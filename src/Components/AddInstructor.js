@@ -51,21 +51,29 @@ const AddInstructor = () => {
     try {
       await api.post("app/instructor", data);
       toast.add({ title: "Added Instructor Successfully." });
-    } catch (error) {
-      console.log(error);
-      toast.add({ title: "Unable to add Instructor." });
-    } finally {
+      setusername('')
+      setemail('')
+      setpassword('')
+      setconfirm('')
+      setspecialization('')
+      setexperience_years('')
+      setphone('')
       setopen(false);
       setloading(false);
-    }
+    } catch (error) {
+      console.log(error.response.data);
+      for (const field in error.response.data){
+        toast.add({ title: error.response.data[field] });
+      setloading(false);
+      return
+      } 
+    } 
   };
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
       <DialogTrigger className='bg-slate-700 hover:bg-slate-600 transition-all duration-300 cursor-pointer text-gray-100 font-bold text-md rounded-full px-3 py-2'>
-        
           Add Instructor
-       
       </DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 select-none">
         <DialogHeader>

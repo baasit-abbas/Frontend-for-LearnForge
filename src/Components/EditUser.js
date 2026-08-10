@@ -31,7 +31,7 @@ const EditUser = (props) => {
   const [role, setrole] = useState(props.role);
   const roles = ["Admin", "Instructor", "Student"];
   const [open, setopen] = useState(false);
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -113,7 +113,7 @@ const EditUser = (props) => {
           </div>
           <button
             type="submit"
-            className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold"
+            className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center"
           >
             {loading ? <Spinner className="w-10 h-10" /> : "Edit"}
           </button>

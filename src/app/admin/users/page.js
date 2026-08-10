@@ -32,7 +32,6 @@ const Page = () => {
     return search_users;
   };
 
-  const handleAdd = () => {};
 
   const handleEdit = async (id,new_data) => {
     try{
@@ -66,17 +65,21 @@ const Page = () => {
 
   return (
     <div className="bg-slate-700 text-gray-100 px-15">
-      <AdminPageHeader getall={users} search={setText} />
-      <div className="w-full max-h-135 text-gray-100 mt-7">
+      <AdminPageHeader search={setText} heading = "Users" />
+      {handleSearch().length == 0 ? (
+        <div className="w-full h-full flex items-center justify-center">
+          <h1 className="text-5xl font-bold">No Users Found</h1>
+        </div>
+      ):<div className="w-full max-h-135 text-gray-100 mt-7">
         <ScrollArea className="max-h-full w-full border-none outline-none rounded-lg">
           <UserTable
             users={handleSearch}
-            add={handleAdd}
             edit={handleEdit}
             delete={handleDelete}
           />
         </ScrollArea>
-      </div>
+      </div>}
+      
     </div>
   );
 };

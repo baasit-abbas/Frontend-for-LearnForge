@@ -1,4 +1,4 @@
-"use clieny"
+"use client"
 import React from 'react'
 import { Tooltip , TooltipTrigger, TooltipContent  } from './ui/tooltip'
 import { DialogTrigger } from './ui/dialog'

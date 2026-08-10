@@ -6,7 +6,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { login } from "@/utils/serviceClient";
 import LoaderLogin from "@/Components/LoaderLogin";
-import { toast, Toast } from "@/Components/ui/toast";
+import { toast } from "@/Components/ui/toast";
 
 const Page = () => {
   const router = useRouter();
