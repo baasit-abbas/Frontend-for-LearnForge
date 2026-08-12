@@ -19,7 +19,7 @@ const AdminPageHeader = (props) => {
           onChange={handleSearch}
           className="w-full h-full pl-10 py-2 pr-2 bg-gray-100 text-slate-800 border-4  text-lg  rounded-full"
           type="text"
-          placeholder="Search by Name, Email or ID"
+          placeholder={props.placeholder}
         />
         <FaSearch
           className="text-slate-700 absolute top-1/2 translate-y-[-50%] left-3"

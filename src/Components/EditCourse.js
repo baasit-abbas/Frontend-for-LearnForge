@@ -28,18 +28,28 @@ const EditCourse = (props) => {
     try {
       const data = { title, description };
       await api.patch(`app/course/${props.id}`, data);
-      let new_courses = {...props.getter};
-      const idx = new_courses.courses.findIndex((course) => course.id == props.id);
-      new_courses.courses[idx] = { ...new_courses.courses[idx], ...data };
+      let new_courses = []
+      if (props.getter.courses) {
+        new_courses = { ...props.getter };
+        const idx = new_courses.courses.findIndex(
+          (course) => course.id == props.id,
+        );
+        new_courses.courses[idx] = { ...new_courses.courses[idx], ...data };
+      } else {
+        new_courses = [...props.getter];
+        const idx = new_courses.findIndex((course) => course.id == props.id);
+        new_courses[idx] = { ...new_courses[idx], ...data };
+      }
       setloading(false);
       setopen(false);
       props.setter(new_courses);
+      toast.add({ title: "Updated Course Data Successfully" });
     } catch (error) {
-      console.log(error.response.data);
-      for (const field in error.response.data){
-        toast.add({ title: `${field} : ${error.response.data[field]}`});
-      }
+      console.log(error);
       setloading(false);
+      for (const field in error.response.data) {
+        toast.add({ title: `${field} : ${error.response.data[field]}` });
+      }
     }
   };
   return (

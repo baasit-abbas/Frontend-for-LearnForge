@@ -9,11 +9,12 @@ import {
   ProgressValue,
 } from "@/components/ui/progress";
 import EditCourse from "./EditCourse";
+import DeleteCourse from "./DeleteCourse";
 
-const CourseCard = (props) => {
+const AdminCourseCard = (props) => {
   return (
     <div
-      className={`card bg-slate-700 w-85 ${props.role == "Admin" ? "h-65" : "h-55"} flex flex-col gap-5 p-3`}
+      className={`card bg-slate-700 w-85 "h-65"  flex flex-col gap-5 p-3`}
     >
       <h1 className="bg-slate-800 w-full py-2 rounded-md text-center h-[20%]">
         {props.title}
@@ -30,28 +31,29 @@ const CourseCard = (props) => {
             <ProgressValue />
           </Progress>
         </div>
-        {props.role == "Admin" && (
-          <div className="flex gap-3 w-full items-center justify-between">
-            <EditCourse
-              id={props.id}
-              title={props.title}
-              description={props.description}
-              setter={props.setter}
-              getter={props.getter}
-              text="Edit"
-              icon={<FaEdit size={20} />}
-            />
-            <CardBtn text="Delete" icon={<MdDelete size={20} />} />
-            <CardBtn
-              href={"/course"}
-              text="View Course"
-              icon={<FaEye size={20} />}
-            />
-          </div>
-        )}
+        <div className="flex gap-3 w-full items-center justify-between">
+          <EditCourse
+            id={props.id}
+            title={props.title}
+            description={props.description}
+            setter={props.setter}
+            getter={props.getter}
+            icon={<FaEdit size={20} />}
+          />
+          <DeleteCourse
+            id={props.id}
+            setter={props.setter}
+            getter={props.getter}
+          />
+          <CardBtn
+            href={`/admin/courses/${props.id}`}
+            text="View Course"
+            icon={<FaEye size={20} />}
+          />
+        </div>
       </div>
     </div>
   );
 };
 
-export default CourseCard;
+export default AdminCourseCard;

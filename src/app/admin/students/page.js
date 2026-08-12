@@ -31,7 +31,11 @@ const Page = () => {
 
   return (
     <div className="flex flex-col gap-3 px-15">
-      <AdminPageHeader search={settext} heading="Students" />
+      <AdminPageHeader
+        search={settext}
+        heading="Students"
+        placeholder="Search by ID , username or email"
+      />
       {handleSearch().length == 0 && (
         <div className="w-full h-full flex items-center justify-center">
           <h1 className="text-5xl font-bold">No Students Found</h1>

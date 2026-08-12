@@ -1,3 +1,4 @@
+"use client"
 import {
   Sidebar,
   SidebarContent,
@@ -18,8 +19,10 @@ import { IoMdHome } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 
 import BarItem from "./BarItem";
+import { useState } from "react";
 
 export function AdminSidebar(props) {
+  const [selected, setselected] = useState('')
   return (
     
     <Sidebar className="p-2 border-r-4 border-slate-900 select-none">
@@ -48,36 +51,50 @@ export function AdminSidebar(props) {
         <BarItem
           href="/admin"
           name="Home"
+          selected = {selected}
+          setselected = {setselected}
           icon={<IoMdHome size={30} />}
         />
         <BarItem
           href="/admin/users"
           name="Users"
+          selected = {selected}
+          setselected = {setselected}
           icon={<FaUsers size={30} />}
         />
         <BarItem
           href="/admin/students"
           name="Students"
+          selected = {selected}
+          setselected = {setselected}
           icon={<PiStudentBold size={30} />}
         />
         <BarItem
           href="/admin/instructors"
           name="Instructors"
+          selected = {selected}
+          setselected = {setselected}
           icon={<GiTeacher  size={30} />}
         />
         <BarItem
           href="/admin/courses"
           name="Courses"
+          selected = {selected}
+          setselected = {setselected}
           icon={<FaBook  size={30} />}
         />
         <BarItem
           href="/admin/docs"
           name="Documents"
+          selected = {selected}
+          setselected = {setselected}
           icon={<SiGoogledocs  size={30} />}
         />
         <BarItem
           href="/admin/videos"
           name="Videos"
+          selected = {selected}
+          setselected = {setselected}
           icon={<RiVideoFill  size={30} />}
         />
 
@@ -86,6 +103,8 @@ export function AdminSidebar(props) {
       <BarItem
           href="/admin/settings"
           name="Settings"
+          selected = {selected}
+          setselected = {setselected}
           icon={<IoSettings  size={30} />}
         />
       <SidebarFooter />

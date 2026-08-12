@@ -18,7 +18,7 @@ const StudentCard = (props) => {
             <PiStudentBold size={120} />
           </div>
           <div className="flex gap-2 justify-around">
-            <CardBtn icon={<FaEye size={20} />} text="View Student" href={`/student/${props.id}`} />
+            <CardBtn icon={<FaEye size={20} />} text="View Student" href={`/admin/students/${props.id}`} />
             <EditStudent
               id={props.id}
               username={props.username}

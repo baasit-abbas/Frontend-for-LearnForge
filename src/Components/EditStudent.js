@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -16,35 +16,39 @@ import { Field, FieldLabel } from "./ui/field";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
 
-
 const EditStudent = (props) => {
-
-  const [username, setusername] = useState(props.username)
-  const [email, setemail] = useState(props.email)
-  const [dob, setdob] = useState(props.dob)
-  const [loading, setloading] = useState(false)
-  const [open, setopen] = useState(false)
+  const [username, setusername] = useState(props.username);
+  const [email, setemail] = useState(props.email);
+  const [dob, setdob] = useState(props.dob);
+  const [loading, setloading] = useState(false);
+  const [open, setopen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {username,email,date_of_birth:dob}
-    setloading(true)
-    try{
-      await api.patch(`app/student/${props.id}`,data) 
-      const new_stds = [...props.getter]
-      const idx = new_stds.findIndex(std => std.id == props.id)
-      new_stds[idx] = {...new_stds[idx],...data}
-      props.setter(new_stds)
-      toast.add({title:"Updated Student's data Successfully"})
-      setloading(false)
-      setopen(false)
-    }
-    catch(error){
-      console.log(error.response.data)
-      for (const field in error.response.data){
-        toast.add({title:error.response.data[field]})
+    const data = { username, email, date_of_birth: dob };
+    setloading(true);
+    let new_stds = []
+    try {
+      await api.patch(`app/student/${props.id}`, data);
+      if (props.getter.students) {
+        new_stds = {...props.getter};
+        const idx = new_stds.students.findIndex((std) => std.id == props.id);
+        new_stds.students[idx] = { ...new_stds.students[idx], ...data };
+      } else {
+        new_stds = [...props.getter];
+        const idx = new_stds.findIndex((std) => std.id == props.id);
+        new_stds[idx] = { ...new_stds[idx], ...data };
       }
-      setloading(false)
+      props.setter(new_stds);
+      toast.add({ title: "Updated Student's data Successfully" });
+      setloading(false);
+      setopen(false);
+    } catch (error) {
+      console.log(error.response.data);
+      for (const field in error.response.data) {
+        toast.add({ title: error.response.data[field] });
+      }
+      setloading(false);
     }
   };
 
@@ -53,9 +57,11 @@ const EditStudent = (props) => {
       <DialogTrigger>
         <CardBtn icon={<FaEdit size={20} />} text="Edit Student" />
       </DialogTrigger>
-      <DialogContent className='bg-slate-800 text-gray-100'>
+      <DialogContent className="bg-slate-800 text-gray-100">
         <DialogHeader>
-          <DialogTitle className='font-bold text-xl text-center'>Edit Student</DialogTitle>
+          <DialogTitle className="font-bold text-xl text-center">
+            Edit Student
+          </DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <form

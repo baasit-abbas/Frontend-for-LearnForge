@@ -62,7 +62,11 @@ const Page = () => {
 
   return (
     <div className="bg-slate-700 text-gray-100 px-15">
-      <AdminPageHeader search={setText} heading="Users" />
+      <AdminPageHeader
+        search={setText}
+        heading="Users"
+        placeholder="Search by ID , username or email"
+      />
       {handleSearch().length == 0 ? (
         <div className="w-full h-full flex items-center justify-center">
           <h1 className="text-5xl font-bold">No Users Found</h1>

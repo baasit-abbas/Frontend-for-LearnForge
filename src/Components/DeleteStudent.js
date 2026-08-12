@@ -21,7 +21,14 @@ const Delete = (props) => {
     setloading(true)
     try{
         api.delete(`app/student/${props.id}`)
-        const students = props.getter.filter(std => std.id != props.id)
+        let students = []
+        if (props.getter.students){
+          students = props.getter.students.filter(std => std.id != props.id)
+        }
+        else{
+          students = props.getter.filter(std => std.id != props.id)
+        }
+        
         props.setter(students)
         toast.add({"title":"Deleted Student's data Successfully"})
         setloading(false)
