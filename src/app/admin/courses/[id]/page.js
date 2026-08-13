@@ -1,12 +1,15 @@
 "use client";
+import AdminDocCard from "@/Components/AdminDocCard";
 import StudentCard from "@/Components/StudentCard";
 import api from "@/utils/authClient";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaBook } from "react-icons/fa";
+import { FaFilePdf } from "react-icons/fa6";
 
 const Page = () => {
   const [course, setcourse] = useState({});
+  const [selected, setselected] = useState("Students");
   const params = useParams();
   useEffect(() => {
     const fetchData = async () => {
@@ -15,7 +18,7 @@ const Page = () => {
       setcourse(all_data.data);
     };
     fetchData();
-  }, []);
+  }, [params.id]);
 
   return (
     <div className="flex flex-col gap-5 bg-slate-800 w-full h-full p-10 pt-12 text-gray-100">
@@ -28,29 +31,73 @@ const Page = () => {
           <FaBook size={80} />
         </div>
       </header>
-      <div className="w-full py-2 px-3 bg-slate-700 rounded-md">
-        <h1 className="font-bold text-xl">Current Enrolled Students</h1>
+      <div className="w-full bg-slate-700 rounded-md h-10 flex justify-around">
+        <button
+          onClick={() => setselected("Students")}
+          className={`font-bold text-xl h-full ${selected == "Students" ? "bg-slate-900" : "bg-slate-600"} cursor-pointer rounded-md px-2`}
+        >
+          Current Enrolled Students
+        </button>
+        <button
+          onClick={() => setselected("Documents")}
+          className={`font-bold text-xl h-full ${selected == "Documents" ? "bg-slate-900" : "bg-slate-600"} cursor-pointer rounded-md px-2`}
+        >
+          Uploaded Documents
+        </button>
+        <button
+          onClick={() => setselected("Videos")}
+          className={`font-bold text-xl h-full ${selected == "Videos" ? "bg-slate-900" : "bg-slate-600"} cursor-pointer rounded-md px-2`}
+        >
+          Uploaded Videos
+        </button>
       </div>
-      <div className="flex flex-wrap gap-3">
-        {course.students?.map((std) => {
-          return (
-            <StudentCard
-              key={std.id}
-              id={std.id}
-              username={std.username}
-              email={std.email}
-              last_login={
-                std.last_login
-                  ? std.last_login.split("T")[0]
-                  : "Not logged in yet"
-              }
-              date_of_birth={std.date_of_birth.split("T")[0]}
-              getter={course}
-              setter={setcourse}
-            />
-          );
-        })}
-      </div>
+      {selected == "Students" ? (
+        <>
+          {course.students?.length == 0 && (
+            <div className="text-5xl font-bold text-center">
+              No Students Found
+            </div>
+          )}
+          <div className="flex flex-wrap gap-3">
+            {course.students?.map((std) => {
+              return (
+                <StudentCard
+                  key={std.id}
+                  id={std.id}
+                  username={std.username}
+                  email={std.email}
+                  last_login={
+                    std.last_login
+                      ? std.last_login.split("T")[0]
+                      : "Not logged in yet"
+                  }
+                  date_of_birth={std.date_of_birth.split("T")[0]}
+                  getter={course}
+                  setter={setcourse}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <div className="flex flex-wrap gap-4">
+          {course.docs?.length == 0 && (
+            <div className="text-5xl font-bold">No Document Found</div>
+          )}
+          {course.docs?.map((doc) => {
+            return (
+              <AdminDocCard
+                key={doc.id}
+                title={doc.title}
+                fileType={doc.fileType}
+                fileUrl={doc.fileUrl}
+                course={course.title}
+                instructor={course.instructor}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

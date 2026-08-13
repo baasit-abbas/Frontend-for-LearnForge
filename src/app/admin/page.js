@@ -13,6 +13,7 @@ import AdminItem from "@/Components/AdminItem";
 import AddInstructor from "@/Components/AddInstructor";
 import AddAdmin from "@/Components/AddAdmin";
 import { useRouter } from "next/navigation";
+import AddCourseAdmin from "@/Components/AddCourseAdmin";
 
 const Page = () => {
   const [data, setdata] = useState([]);
@@ -35,9 +36,10 @@ const Page = () => {
               Manage your LearnForge students , instructors , courses , docs etc
             </p>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex gap-3">
             <AddInstructor />
             <AddAdmin />
+            <AddCourseAdmin />
           </div>
         </div>
         <div className="flex gap-3">

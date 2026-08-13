@@ -35,7 +35,7 @@ const Page = () => {
           <h1 className="text-5xl font-bold">No Course Found</h1>
         </div>
       )}
-      <div className="flex flex-wrap gap-3 justify-between ">
+      <div className="flex flex-wrap gap-10">
         {handleSearch().map((course) => {
           return (
             <AdminCourseCard
