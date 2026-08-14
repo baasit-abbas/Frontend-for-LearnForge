@@ -13,9 +13,7 @@ import DeleteCourse from "./DeleteCourse";
 
 const AdminCourseCard = (props) => {
   return (
-    <div
-      className={`card bg-slate-700 w-85 "h-65"  flex flex-col gap-5 p-3`}
-    >
+    <div className={`card bg-slate-700 w-85 "h-65"  flex flex-col gap-5 p-3`}>
       <h1 className="bg-slate-800 w-full py-2 rounded-md text-center h-[20%]">
         {props.title}
       </h1>
@@ -32,6 +30,11 @@ const AdminCourseCard = (props) => {
           </Progress>
         </div>
         <div className="flex gap-3 w-full items-center justify-between">
+          <CardBtn
+            href={`/admin/courses/${props.id}`}
+            text="View Course"
+            icon={<FaEye size={20} />}
+          />
           <EditCourse
             id={props.id}
             title={props.title}
@@ -44,11 +47,6 @@ const AdminCourseCard = (props) => {
             id={props.id}
             setter={props.setter}
             getter={props.getter}
-          />
-          <CardBtn
-            href={`/admin/courses/${props.id}`}
-            text="View Course"
-            icon={<FaEye size={20} />}
           />
         </div>
       </div>

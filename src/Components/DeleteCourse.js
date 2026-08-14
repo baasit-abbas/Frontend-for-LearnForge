@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,9 +12,13 @@ import CardBtn from "./CardBtn";
 import { MdDelete } from "react-icons/md";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
+import { Spinner } from "./ui/spinner";
 
 const DeleteCourse = (props) => {
+  const [open, setopen] = useState(false)
+  const [loading, setloading] = useState(false)
     const handleSubmit = async () => {
+      setloading(true)
         try{
             await api.delete(`app/course/${props.id}`)
             let new_courses = []
@@ -27,6 +31,7 @@ const DeleteCourse = (props) => {
             }
             props.setter(new_courses)
             toast.add({'title':"Deleted Course Succssfully"})
+            setopen(false)
         } 
         catch(error){
             console.log(error.response.data)
@@ -34,9 +39,12 @@ const DeleteCourse = (props) => {
                 toast.add({"title":`${field} : ${error.response.data[field]}`})
             }
         }
+        finally{
+          setloading(false)
+        }
     }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setopen}>
       <DialogTrigger>
         <CardBtn text="Delete" icon={<MdDelete size={20} />} />
       </DialogTrigger>
@@ -48,8 +56,8 @@ const DeleteCourse = (props) => {
             course.
           </DialogDescription>
         </DialogHeader>
-        <button onClick={handleSubmit} className="bg-red-600 hover:bg-red-500 transition-all duration-300 w-full py-2 text-lg select-none rounded-full cursor-pointer">
-          Delete
+        <button onClick={handleSubmit} className="bg-red-600 hover:bg-red-500 transition-all duration-300 w-full py-2 text-lg select-none rounded-full cursor-pointer flex items-center justify-center">
+          {loading ? <Spinner className='h-5 w-5' /> : "Delete"}
         </button>
       </DialogContent>
     </Dialog>

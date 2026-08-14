@@ -1,11 +1,11 @@
 "use client";
+import AddDoc from "@/Components/AddDoc";
 import AdminDocCard from "@/Components/AdminDocCard";
 import StudentCard from "@/Components/StudentCard";
 import api from "@/utils/authClient";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaBook } from "react-icons/fa";
-import { FaFilePdf } from "react-icons/fa6";
 
 const Page = () => {
   const [course, setcourse] = useState({});
@@ -27,8 +27,16 @@ const Page = () => {
           <h1 className="text-3xl font-bold">{course.title}</h1>
           <p>{course.description}</p>
         </div>
-        <div className="p-6 rounded-full bg-slate-500">
-          <FaBook size={80} />
+        <div className="flex gap-5 items-center">
+          <div className="flex flex-col gap-3">
+           <AddDoc course_id={course.id} getter={course} setter={setcourse} />
+            <button className="px-3 py-2 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 transition-all duration-300 cursor-pointer">
+              Add Video
+            </button>
+          </div>
+          <div className="p-6 rounded-full bg-slate-500">
+            <FaBook size={80} />
+          </div>
         </div>
       </header>
       <div className="w-full bg-slate-700 rounded-md h-10 flex justify-around">
@@ -88,11 +96,14 @@ const Page = () => {
             return (
               <AdminDocCard
                 key={doc.id}
+                id={doc.id}
                 title={doc.title}
                 fileType={doc.fileType}
                 fileUrl={doc.fileUrl}
                 course={course.title}
                 instructor={course.instructor}
+                getter={course}
+                setter={setcourse}
               />
             );
           })}
