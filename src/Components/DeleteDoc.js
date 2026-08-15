@@ -34,6 +34,7 @@ const DeleteDoc = (props) => {
     } catch (error) {
       console.log(error.response.data);
       for (const field in error.response.data) {
+        console.log(error)
         toast.add({ title: `${field} : ${error.response.data[field]}` });
       }
     }

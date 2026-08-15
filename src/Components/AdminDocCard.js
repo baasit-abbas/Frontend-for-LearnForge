@@ -18,17 +18,21 @@ const AdminDocCard = (props) => {
   const [title, settitle] = useState(props.title);
   const inputRef = useRef();
 
-  const handleDownload = () => {
-
-  }
-
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
       await api.patch(`app/docs/${props.id}`, { title });
-      let new_docs = { ...props.getter };
-      const idx = new_docs.docs.filter((doc) => doc.id == props.id);
-      new_docs.docs[idx] = { ...new_docs.docs[idx], title: title };
+      let new_docs = []
+      if (props.getter.docs) {
+        new_docs = { ...props.getter };
+        const idx = new_docs.docs.filter((doc) => doc.id == props.id);
+        new_docs.docs[idx] = { ...new_docs.docs[idx], title: title };
+      }
+      else{
+        new_docs = [...props.getter]
+        const idx = new_docs.filter((doc) => doc.id == props.id);
+        new_docs[idx] = { ...new_docs[idx], title: title };
+      }
       props.setter(new_docs);
       setchange(false);
       toast.add({ title: "Updated title Successfully" });
@@ -42,7 +46,7 @@ const AdminDocCard = (props) => {
   };
 
   return (
-    <div className="bg-slate-900/80 text-gray-100 p-4 rounded-xl border-2 border-slate-500 w-115 flex flex-col gap-4">
+    <div className="bg-slate-900/80 text-gray-100 p-4 rounded-xl border-2 border-slate-500 w-140 flex flex-col gap-4 ">
       <div className="flex items-center justify-between">
         <div className="flex gap-4 items-center">
           <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-slate-700">
@@ -57,7 +61,7 @@ const AdminDocCard = (props) => {
             )}
           </div>
           <div className="flex-col flex justify-center ">
-            <h1 className="text-lg">{title}</h1>
+            <h1 className="text-lg">{props.course}</h1>
             <p className="text-sm text-slate-400">
               Uploaded by {props.instructor}
             </p>
@@ -70,7 +74,10 @@ const AdminDocCard = (props) => {
             getter={props.getter}
           />
           <Tooltip>
-            <Link href={`http://localhost:8000/${props.fileUrl}`} target="_blank">
+            <Link
+              href={`http://localhost:8000/upload/${props.fileUrl}`}
+              target="_blank"
+            >
               <TooltipTrigger className="px-3 py-2 cursor-pointer rounded-full bg-slate-700 uppercase text-sm font-bold hover:bg-slate-800 transition-all duration-300">
                 <FaFileDownload size={20} />
               </TooltipTrigger>
@@ -82,7 +89,7 @@ const AdminDocCard = (props) => {
         </div>
       </div>
       <div className="flex flex-col gap-1 bg-slate-800 rounded-xl py-2 px-4 border-2 border-slate-500/15">
-        <h1 className="text-sm text-slate-400 font-bold uppercase">Course</h1>
+        <h1 className="text-sm text-slate-400 font-bold uppercase tracking-[2]">Title</h1>
         <div className="flex gap-5 items-center justify-between">
           <form className="w-[80%]" onSubmit={handleEdit}>
             <Input
@@ -98,7 +105,9 @@ const AdminDocCard = (props) => {
           <Tooltip>
             <TooltipTrigger
               onClick={() => {
-                (setchange(true),inputRef.current.disabled = false , inputRef.current.focus());
+                (setchange(true),
+                  (inputRef.current.disabled = false),
+                  inputRef.current.focus());
               }}
               className="px-3 py-2 cursor-pointer rounded-xl bg-slate-700 uppercase text-sm font-bold hover:bg-slate-800 transiti on-all duration-300"
             >

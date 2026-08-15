@@ -2,10 +2,7 @@ import axios  from "axios";
 import { getToken , refreshToken , getRefreshToken } from "./serviceClient";
 
 const url = 'http://localhost:8000/'
-const headers = {
-    'Content-Type':'application/json'
-}
-const api = axios.create({baseURL:url,headers:headers})
+const api = axios.create({baseURL:url})
 api.interceptors.request.use(
 config => {
     const token = getToken()

@@ -37,24 +37,27 @@ const AddDoc = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setloading(true);
-    const data = {
-      course: props.course_id,
-      title,
-      file,
-    };
+    const data = new FormData();
+    (data.append("title", title), data.append("course", props.course_id));
+    data.append("file", file);
     try {
-      await api.post("app/docs", data);
+      const new_doc = await api.post("app/docs", data);
+      let new_docs = { ...props.getter };
+      new_docs.docs = [...new_docs.docs,new_doc.data];
+      props.setter(new_docs);
       toast.add({ title: "Added Document Sucessfully" });
+      setopen(false);
     } catch (error) {
-      console.log(error.respone.data);
+      console.log(error);
       for (const field in error.respone.data) {
         toast.add({ title: error.respone.data[field] });
+
       }
     }
-    setopen(false);
-    setloading(false);
+    finally{
+      setloading(false);
+    }
   };
-
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
@@ -86,7 +89,10 @@ const AddDoc = (props) => {
             />
           </Field>
           <Field className="flex flex-col gap-2 w-full text-xl">
-            <FieldLabel className="font-bold w-full px-3 py-2 cursor-pointer bg-slate-600 border-2 border-slate-500 rounded-xl" htmlFor="doc">
+            <FieldLabel
+              className="font-bold w-full px-3 py-2 cursor-pointer bg-slate-600 border-2 border-slate-500 rounded-xl"
+              htmlFor="doc"
+            >
               Upload Document
             </FieldLabel>
             <Input
@@ -104,14 +110,16 @@ const AddDoc = (props) => {
               </AttachmentMedia>
               <AttachmentContent>
                 <AttachmentTitle>{file.name}</AttachmentTitle>
-                <AttachmentDescription className='flex gap-2'>
-                    <p className="uppercase font-bold">{file.name.split('.')[1]}</p>
-                    <p>{(file.size / (1024*1024)).toFixed(2)} MB</p>
+                <AttachmentDescription className="flex gap-2">
+                  <p className="uppercase font-bold">
+                    {file.name.split(".")[1]}
+                  </p>
+                  <p>{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
                 </AttachmentDescription>
               </AttachmentContent>
               <AttachmentActions>
                 <AttachmentAction onClick={() => setfile("")}>
-                  <XIcon/>
+                  <XIcon />
                 </AttachmentAction>
               </AttachmentActions>
             </Attachment>

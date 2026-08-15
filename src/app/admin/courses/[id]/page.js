@@ -88,10 +88,11 @@ const Page = () => {
           </div>
         </>
       ) : (
-        <div className="flex flex-wrap gap-4">
+        <>
           {course.docs?.length == 0 && (
-            <div className="text-5xl font-bold">No Document Found</div>
+            <div className="text-5xl font-bold self-center">No Document Found</div>
           )}
+          <div className="flex flex-wrap justify-between gap-4">
           {course.docs?.map((doc) => {
             return (
               <AdminDocCard
@@ -107,7 +108,8 @@ const Page = () => {
               />
             );
           })}
-        </div>
+          </div>
+        </>
       )}
     </div>
   );
