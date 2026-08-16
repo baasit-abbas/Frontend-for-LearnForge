@@ -1,11 +1,16 @@
 "use client";
 import AddDoc from "@/Components/AddDoc";
 import AdminDocCard from "@/Components/AdminDocCard";
+import AdminVideoCard from "@/Components/AdminVideoCard";
 import StudentCard from "@/Components/StudentCard";
+import { Tooltip, TooltipTrigger } from "@/Components/ui/tooltip";
 import api from "@/utils/authClient";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { FaBook } from "react-icons/fa";
+import { FaBook, FaEdit } from "react-icons/fa";
+import { GiTeacher } from "react-icons/gi";
+import { MdDelete } from "react-icons/md";
 
 const Page = () => {
   const [course, setcourse] = useState({});
@@ -29,7 +34,7 @@ const Page = () => {
         </div>
         <div className="flex gap-5 items-center">
           <div className="flex flex-col gap-3">
-           <AddDoc course_id={course.id} getter={course} setter={setcourse} />
+            <AddDoc course_id={course.id} getter={course} setter={setcourse} />
             <button className="px-3 py-2 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 transition-all duration-300 cursor-pointer">
               Add Video
             </button>
@@ -87,27 +92,53 @@ const Page = () => {
             })}
           </div>
         </>
-      ) : (
+      ) : selected == "Documents" ? (
         <>
           {course.docs?.length == 0 && (
-            <div className="text-5xl font-bold self-center">No Document Found</div>
+            <div className="text-5xl font-bold text-center">
+              No Document Found
+            </div>
           )}
           <div className="flex flex-wrap justify-between gap-4">
-          {course.docs?.map((doc) => {
-            return (
-              <AdminDocCard
-                key={doc.id}
-                id={doc.id}
-                title={doc.title}
-                fileType={doc.fileType}
-                fileUrl={doc.fileUrl}
-                course={course.title}
+            {course.docs?.map((doc) => {
+              return (
+                <AdminDocCard
+                  key={doc.id}
+                  id={doc.id}
+                  title={doc.title}
+                  fileType={doc.fileType}
+                  fileUrl={doc.fileUrl}
+                  course={course.title}
+                  instructor={course.instructor}
+                  getter={course}
+                  setter={setcourse}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <>
+          {course.videos?.length == 0 && (
+            <div className="text-5xl font-bold self-center">
+              No Videos Found
+            </div>
+          )}
+          <div className="w-full flex flex-wrap gap-3">
+            {course.videos?.map((video) => {
+              return (
+                <AdminVideoCard 
+                key={video.id}
+                id={video.id}
+                course_name={course.title}
                 instructor={course.instructor}
-                getter={course}
-                setter={setcourse}
-              />
-            );
-          })}
+                title={video.title}
+                thumbnailUrl = {video.thumbnailUrl}
+                videoUrl = {video.videoUrl}
+                created_at = {video.created_at}
+                />
+              );
+            })}
           </div>
         </>
       )}

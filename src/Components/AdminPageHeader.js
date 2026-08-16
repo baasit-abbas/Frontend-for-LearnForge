@@ -14,7 +14,7 @@ const AdminPageHeader = (props) => {
         <FaUser size={20} />
         <h1 className="text-2xl ">All {props.heading}</h1>
       </div>
-      <div className="w-85 h-15 relative">
+      <div className="w-130 h-15 relative">
         <Input
           onChange={handleSearch}
           className="w-full h-full pl-10 py-2 pr-2 bg-gray-100 text-slate-800 border-4  text-lg  rounded-full"

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +17,10 @@ import { Spinner } from "./ui/spinner";
 const DeleteCourse = (props) => {
   const [open, setopen] = useState(false)
   const [loading, setloading] = useState(false)
+  useEffect(() => {
+    
+  }, [])
+  
     const handleSubmit = async () => {
       setloading(true)
         try{
