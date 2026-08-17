@@ -47,7 +47,7 @@ const Delete = (props) => {
       <DialogTrigger>
         <CardBtn icon={<MdDelete size={20} />} text="Delete Student" />
       </DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100">
+      <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-center">
             Are you absolutely sure?

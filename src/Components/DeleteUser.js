@@ -24,7 +24,7 @@ const Delete = (props) => {
   return (
     <Dialog open={open} onOpenChange={setopen}>
       <DeleteBtn />
-      <DialogContent className="bg-slate-800 text-gray-100">
+      <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>

@@ -11,46 +11,47 @@ import {
 import { MdDelete } from "react-icons/md";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
-import { Tooltip, TooltipContent , TooltipTrigger } from "./ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { Spinner } from "./ui/spinner";
 
-const DeleteDoc = (props) => {
+const DeleteVideo = (props) => {
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
   const handleSubmit = async () => {
-    setloading(true)
+    setloading(true);
     try {
-      await api.delete(`app/docs/${props.id}`);
-      let new_docs = [];
-      if (props.getter.docs) {
-        new_docs = { ...props.getter };
-        new_docs.docs = new_docs.docs.filter((doc) => doc.id != props.id);
+      await api.delete(`app/videos/${props.id}`);
+      let new_videos = [];
+      if (props.getter.videos) {
+        new_videos = { ...props.getter };
+        new_videos.videos = new_videos.videos.filter(
+          (video) => video.id != props.id,
+        );
       } else {
-        new_docs = props.getter.filter((doc) => doc.id != props.id);
+        new_videos = props.getter.filter((video) => video.id != props.id);
       }
-      props.setter(new_docs);
-      toast.add({ title: "Deleted Document Succssfully" });
-      setopen(false)
+      props.setter(new_videos);
+      toast.add({ title: "Deleted Video Succssfully" });
+      setopen(false);
     } catch (error) {
       console.log(error.response.data);
       for (const field in error.response.data) {
-        console.log(error)
+        console.log(error);
         toast.add({ title: `${field} : ${error.response.data[field]}` });
       }
-    }
-    finally{
-      setloading(false)
+    } finally {
+      setloading(false);
     }
   };
   return (
     <Dialog open={open} onOpenChange={setopen}>
       <DialogTrigger>
         <Tooltip>
-          <TooltipTrigger className="px-3 py-2 cursor-pointer rounded-xl bg-slate-700  hover:bg-slate-800 transition-all duration-300">
+          <TooltipTrigger className="p-2 rounded-full bg-slate-700 cursor-pointer hover:bg-slate-600 transition-all duration-300">
             <MdDelete size={20} />
           </TooltipTrigger>
           <TooltipContent className="bg-slate-800 text-gray-100 py-2 font-bold">
-            Delete Document
+            Delete Video
           </TooltipContent>
         </Tooltip>
       </DialogTrigger>
@@ -59,18 +60,18 @@ const DeleteDoc = (props) => {
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>
             This action cannot be undone. This will permanently delete this
-            document.
+            video.
           </DialogDescription>
         </DialogHeader>
         <button
           onClick={handleSubmit}
           className="bg-red-600 hover:bg-red-500 transition-all duration-300 w-full py-2 text-lg select-none rounded-xl cursor-pointer flex items-center justify-center"
         >
-          {loading ? <Spinner className='h-5 w-5' /> : "Delete"}
+          {loading ? <Spinner className="h-5 w-5" /> : "Delete Video"}
         </button>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default DeleteDoc;
+export default DeleteVideo;

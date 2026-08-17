@@ -1,5 +1,6 @@
 "use client";
 import AddDoc from "@/Components/AddDoc";
+import AddVideo from "@/Components/AddVideo";
 import AdminDocCard from "@/Components/AdminDocCard";
 import AdminVideoCard from "@/Components/AdminVideoCard";
 import StudentCard from "@/Components/StudentCard";
@@ -35,9 +36,7 @@ const Page = () => {
         <div className="flex gap-5 items-center">
           <div className="flex flex-col gap-3">
             <AddDoc course_id={course.id} getter={course} setter={setcourse} />
-            <button className="px-3 py-2 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 transition-all duration-300 cursor-pointer">
-              Add Video
-            </button>
+            <AddVideo course_id={course.id} getter={course} setter={setcourse} />
           </div>
           <div className="p-6 rounded-full bg-slate-500">
             <FaBook size={80} />
@@ -124,18 +123,20 @@ const Page = () => {
               No Videos Found
             </div>
           )}
-          <div className="w-full flex flex-wrap gap-3">
+          <div className="w-full flex flex-wrap gap-12">
             {course.videos?.map((video) => {
               return (
-                <AdminVideoCard 
-                key={video.id}
-                id={video.id}
-                course_name={course.title}
-                instructor={course.instructor}
-                title={video.title}
-                thumbnailUrl = {video.thumbnailUrl}
-                videoUrl = {video.videoUrl}
-                created_at = {video.created_at}
+                <AdminVideoCard
+                  key={video.id}
+                  id={video.id}
+                  course_name={course.title}
+                  instructor={course.instructor}
+                  title={video.title}
+                  thumbnailUrl={video.thumbnailUrl}
+                  videoUrl={video.videoUrl}
+                  created_at={video.created_at}
+                  getter = {course}
+                  setter = {setcourse}
                 />
               );
             })}

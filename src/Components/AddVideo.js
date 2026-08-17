@@ -27,36 +27,45 @@ import { Spinner } from "./ui/spinner";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
 
-const AddDoc = (props) => {
+const AddVideo = (props) => {
   const [title, settitle] = useState("");
-  const [file, setfile] = useState("");
+  const [image, setimage] = useState("");
+  const [video, setvideo] = useState("");
 
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!image){
+        toast.add({title:"Upload image for thumbnail"})
+        return
+    }
+    if (!video){
+        toast.add({title:"Upload video"})
+        return
+    }
     setloading(true);
     const data = new FormData();
     (data.append("title", title), data.append("course", props.course_id));
-    data.append("file", file);
+    data.append("image", image);
+    data.append("video", video);
     try {
-      const new_doc = await api.post("app/docs", data);
-      let new_docs = { ...props.getter };
-      new_docs.docs = [...new_docs.docs,new_doc.data];
-      props.setter(new_docs);
-      toast.add({ title: "Added Document Sucessfully" });
+      const new_video = await api.post("app/videos", data);
+      let new_videos = { ...props.getter };
+      new_videos.videos = [...new_videos.videos, new_video.data];
+      props.setter(new_videos);
+      toast.add({ title: "Uploaded Video Sucessfully" });
       setopen(false);
-      settitle('')
-      setfile('')
+      setimage("")
+      setvideo("")
+      settitle("")
     } catch (error) {
       console.log(error);
       for (const field in error.respone.data) {
         toast.add({ title: error.respone.data[field] });
-
       }
-    }
-    finally{
+    } finally {
       setloading(false);
     }
   };
@@ -64,12 +73,12 @@ const AddDoc = (props) => {
   return (
     <Dialog open={open} onOpenChange={setopen}>
       <DialogTrigger className="px-3 py-2 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 transition-all duration-300 cursor-pointer">
-        Add Document
+        Add Video
       </DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle className="text-gray-100 text-center text-2xl">
-            Add Document
+            Add Video
           </DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
@@ -95,44 +104,78 @@ const AddDoc = (props) => {
               className="font-bold w-full px-3 py-2 cursor-pointer bg-slate-600 border-2 border-slate-500 rounded-xl"
               htmlFor="doc"
             >
-              Upload Document
+              Upload Thumbnail Image
             </FieldLabel>
             <Input
               id="doc"
               className="hidden"
-              onChange={(e) => setfile(e.target.files[0])}
+              onChange={(e) => setimage(e.target.files[0])}
               type="file"
-              accept=".pdf,.txt,.pptx,.docx"
-              required
+              accept="image/*"
             />
           </Field>
-          {file && (
+          {image && (
             <Attachment className="w-full">
               <AttachmentMedia>
                 <FileCodeIcon />
               </AttachmentMedia>
               <AttachmentContent>
-                <AttachmentTitle>{file.name}</AttachmentTitle>
+                <AttachmentTitle>{image.name}</AttachmentTitle>
                 <AttachmentDescription className="flex gap-2">
                   <p className="uppercase font-bold">
-                    {file.name.split(".")[1]}
+                    {image.name.split(".")[1]}
                   </p>
-                  <p>{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                  <p>{(image.size / (1024 * 1024)).toFixed(2)} MB</p>
                 </AttachmentDescription>
               </AttachmentContent>
               <AttachmentActions>
-                <AttachmentAction onClick={() => setfile("")}>
+                <AttachmentAction onClick={() => setimage("")}>
                   <XIcon />
                 </AttachmentAction>
               </AttachmentActions>
             </Attachment>
           )}
-
+          <Field className="flex flex-col gap-2 w-full text-xl">
+            <FieldLabel
+              className="font-bold w-full px-3 py-2 cursor-pointer bg-slate-600 border-2 border-slate-500 rounded-xl"
+              htmlFor="video"
+            >
+              Upload Video
+            </FieldLabel>
+            <Input
+              id="video"
+              className="hidden"
+              onChange={(e) => setvideo(e.target.files[0])}
+              type="file"
+              accept="video/*"
+            />
+          </Field>
+          {video && (
+            <Attachment className="w-full">
+              <AttachmentMedia>
+                <FileCodeIcon />
+              </AttachmentMedia>
+              <AttachmentContent>
+                <AttachmentTitle>{video.name}</AttachmentTitle>
+                <AttachmentDescription className="flex gap-2">
+                  <p className="uppercase font-bold">
+                    {video.name.split(".")[1]}
+                  </p>
+                  <p>{(video.size / (1024 * 1024)).toFixed(2)} MB</p>
+                </AttachmentDescription>
+              </AttachmentContent>
+              <AttachmentActions>
+                <AttachmentAction onClick={() => setvideo("")}>
+                  <XIcon />
+                </AttachmentAction>
+              </AttachmentActions>
+            </Attachment>
+          )}
           <button
             type="submit"
             className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center"
           >
-            {loading ? <Spinner className="w-10 h-10" /> : "Upload Document"}
+            {loading ? <Spinner className="w-10 h-10" /> : "Upload Video"}
           </button>
         </form>
       </DialogContent>
@@ -140,4 +183,4 @@ const AddDoc = (props) => {
   );
 };
 
-export default AddDoc;
+export default AddVideo;

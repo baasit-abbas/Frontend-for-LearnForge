@@ -57,7 +57,7 @@ const EditCourse = (props) => {
       <DialogTrigger>
         <CardBtn text="Edit" icon={<FaEdit size={20} />} />
       </DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100">
+      <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle className="text-2xl text-center">
             Edit Course
