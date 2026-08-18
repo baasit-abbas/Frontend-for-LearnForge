@@ -25,7 +25,7 @@ const Page = () => {
     const search_users = users.filter(
       (user) =>
         String(user.id).startsWith(text) ||
-        user.username.startsWith(text) ||
+        user.username.toLowerCase().startsWith(text) ||
         user.email.startsWith(text),
     );
 

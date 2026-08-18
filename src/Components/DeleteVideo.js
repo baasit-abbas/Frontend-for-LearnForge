@@ -64,6 +64,7 @@ const DeleteVideo = (props) => {
           </DialogDescription>
         </DialogHeader>
         <button
+        disabled={loading}
           onClick={handleSubmit}
           className="bg-red-600 hover:bg-red-500 transition-all duration-300 w-full py-2 text-lg select-none rounded-xl cursor-pointer flex items-center justify-center"
         >

@@ -60,7 +60,7 @@ const DeleteCourse = (props) => {
             course.
           </DialogDescription>
         </DialogHeader>
-        <button onClick={handleSubmit} className="bg-red-600 hover:bg-red-500 transition-all duration-300 w-full py-2 text-lg select-none rounded-full cursor-pointer flex items-center justify-center">
+        <button disabled={loading} onClick={handleSubmit} className="bg-red-600 hover:bg-red-500 transition-all duration-300 w-full py-2 text-lg select-none rounded-full cursor-pointer flex items-center justify-center">
           {loading ? <Spinner className='h-5 w-5' /> : "Delete"}
         </button>
       </DialogContent>

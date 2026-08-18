@@ -24,9 +24,9 @@ const Page = () => {
     }
     return docs.filter(
       (doc) =>
-        doc.title.startsWith(text) ||
-        doc.instructor.startsWith(text) ||
-        doc.course_name.startsWith(text),
+        doc.title.toLowerCase().startsWith(text.toLowerCase()) ||
+        doc.instructor.toLowerCase().startsWith(text.toLowerCase()) ||
+        doc.course_name.toLowerCase().startsWith(text.toLowerCase()),
     );
   };
 

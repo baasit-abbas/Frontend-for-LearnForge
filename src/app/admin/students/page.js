@@ -24,7 +24,7 @@ const Page = () => {
     return students.filter(
       (std) =>
         String(std.id).startsWith(text) ||
-        std.username.startsWith(text) ||
+        std.username.toLowerCase().startsWith(text) ||
         std.email.startsWith(text),
     );
   };

@@ -107,7 +107,7 @@ const AddAdmin = () => {
               getter={confirm}
             />
             
-              <button className="w-full py-2 rounded-xl bg-slate-700 hover:bg-slate-600 transition-all duration-300 cursor-pointer text-lg mt-3 flex items-center justify-center">
+              <button disabled={loading} className="w-full py-2 rounded-xl bg-slate-700 hover:bg-slate-600 transition-all duration-300 cursor-pointer text-lg mt-3 flex items-center justify-center">
                 {loading ? <Spinner className='w-10 h-10' />: <p>Submit</p>}
               </button>
           </form>

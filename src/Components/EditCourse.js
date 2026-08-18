@@ -87,6 +87,7 @@ const EditCourse = (props) => {
               />
             </Field>
             <button
+    
               disabled={loading}
               className="w-full py-2 bg-slate-700 hover:bg-slate-600 transition-all duration-300 font-bold text-lg flex items-center justify-center cursor-pointer rounded-md"
             >

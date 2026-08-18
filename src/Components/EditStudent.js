@@ -108,6 +108,7 @@ const EditStudent = (props) => {
             />
           </Field>
           <button
+          disabled={loading}
             type="submit"
             className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center"
           >

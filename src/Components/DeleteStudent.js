@@ -57,6 +57,7 @@ const Delete = (props) => {
           </DialogDescription>
         </DialogHeader>
         <button
+        disabled={loading}
           onClick={handleSubmit}
           className="w-full h-10 rounded-full bg-red-500 hover:bg-red-400 transition-all duration-300 cursor-pointer font-bold flex items-center justify-center"
         >

@@ -20,7 +20,7 @@ const Page = () => {
     if (text == "") {
       return courses;
     }
-    return courses.filter((course) => course.title.startsWith(text));
+    return courses.filter((course) => course.title.toLowerCase().startsWith(text.toLowerCase()));
   };
 
   return (

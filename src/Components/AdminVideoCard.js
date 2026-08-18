@@ -64,7 +64,7 @@ const AdminVideoCard = (props) => {
     videoRef.current?.pause();
   };
   return (
-    <div className="video w-70 h-90 rounded-md flex flex-col gap-3">
+    <div className="video w-70 h-90 rounded-md flex flex-col gap-2 ">
       <div
         onMouseEnter={handlePlay}
         onMouseLeave={handleStop}
@@ -79,7 +79,7 @@ const AdminVideoCard = (props) => {
           <video
             className="absolute top-0 w-full h-full rounded-md"
             ref={videoRef}
-            src={`http://localhost:8000/upload/${props.videoUrl}`}
+            src={`http://localhost:8000/video/${props.videoUrl}`}
             muted={isMuted}
             onLoadStart={() => setloading(true)}
             onWaiting={() => setloading(true)}
@@ -96,7 +96,7 @@ const AdminVideoCard = (props) => {
         )}
         <PlayVideo
           stop={handleStop}
-          src={`http://localhost:8000/upload/${props.videoUrl}`}
+          src={`http://localhost:8000/video/${props.videoUrl}`}
         />
         <div className="bg-slate-700 p-2 rounded-full text-gray-100 absolute bottom-0 left-4 cursor-pointer opacity-0 group-hover:opacity-100 group-hover:bottom-4 hover:bg-slate-800 transition-all duration-300">
           {isPaused ? (
@@ -145,21 +145,23 @@ const AdminVideoCard = (props) => {
       </div>
       <div className="flex justify-between items-center">
         <h1>{props.created_at?.split("T")[0]}</h1>
-        <div className="flex gap-3">
-        <Tooltip>
-          <TooltipTrigger
-            onClick={() => {
-              (setisEdit(true),
-                (inputRef.current.disabled = false),
-                inputRef.current?.focus());
-            }}
-            className="p-2 rounded-full bg-slate-700 cursor-pointer hover:bg-slate-600 transition-all duration-300"
-          >
-            <FaEdit size={20} />
-          </TooltipTrigger>
-          <TooltipContent>
-            <p className="p-1 rounded-full font-bold bg-slate-800 text-white">Edit Title</p>
-          </TooltipContent>
+        <div className="flex gap-1">
+          <Tooltip>
+            <TooltipTrigger
+              onClick={() => {
+                (setisEdit(true),
+                  (inputRef.current.disabled = false),
+                  inputRef.current?.focus());
+              }}
+              className="p-2 rounded-full bg-slate-700 cursor-pointer hover:bg-slate-600 transition-all duration-300"
+            >
+              <FaEdit size={20} />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="p-1 rounded-full font-bold bg-slate-800 text-white">
+                Edit Title
+              </p>
+            </TooltipContent>
           </Tooltip>
 
           <DeleteVideo
