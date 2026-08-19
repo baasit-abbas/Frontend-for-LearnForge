@@ -158,7 +158,7 @@ const AdminVideoCard = (props) => {
               <FaEdit size={20} />
             </TooltipTrigger>
             <TooltipContent>
-              <p className="p-1 rounded-full font-bold bg-slate-800 text-white">
+              <p className="p-2 rounded-xl font-bold bg-slate-800 text-white">
                 Edit Title
               </p>
             </TooltipContent>

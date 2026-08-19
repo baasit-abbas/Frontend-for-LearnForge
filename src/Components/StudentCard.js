@@ -30,19 +30,19 @@ const StudentCard = (props) => {
             <Delete id={props.id} setter={props.setter} getter={props.getter} />
           </div>
         </div>
-        <div className="flex flex-col gap-3">
-          <h1 className="font-bold text-slate-300">ID:</h1>
-          <h1 className="font-bold text-slate-300">Username:</h1>
-          <h1 className="font-bold text-slate-300">Email:</h1>
-          <h1 className="font-bold text-slate-300">Last Login:</h1>
-          <h1 className="font-bold text-slate-300">Date of Birth:</h1>
+        <div className="flex flex-col gap-3 font-bold text-slate-300">
+          <h1 >ID:</h1>
+          <h1 >Username:</h1>
+          <h1 >Email:</h1>
+          <h1 >Last Login:</h1>
+          <h1 >Date of Birth:</h1>
         </div>
-        <div className="flex flex-col gap-3">
-          <p className="text-gray-100 font-bold">{props.id}</p>
-          <p className="text-gray-100 font-bold">{props.username}</p>
-          <p className="text-gray-100 font-bold">{props.email}</p>
-          <p className="text-gray-100 font-bold">{props.last_login}</p>
-          <p className="text-gray-100 font-bold">{props.date_of_birth}</p>
+        <div className="flex flex-col gap-3 text-gray-100 font-bold">
+          <p >{props.id}</p>
+          <p>{props.username}</p>
+          <p>{props.email}</p>
+          <p>{props.last_login}</p>
+          <p>{props.date_of_birth}</p>
         </div>
       </div>
     </div>

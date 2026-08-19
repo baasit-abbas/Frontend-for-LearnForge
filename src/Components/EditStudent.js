@@ -27,11 +27,11 @@ const EditStudent = (props) => {
     e.preventDefault();
     const data = { username, email, date_of_birth: dob };
     setloading(true);
-    let new_stds = []
+    let new_stds = [];
     try {
       await api.patch(`app/student/${props.id}`, data);
       if (props.getter.students) {
-        new_stds = {...props.getter};
+        new_stds = { ...props.getter };
         const idx = new_stds.students.findIndex((std) => std.id == props.id);
         new_stds.students[idx] = { ...new_stds.students[idx], ...data };
       } else {
@@ -108,7 +108,7 @@ const EditStudent = (props) => {
             />
           </Field>
           <button
-          disabled={loading}
+            disabled={loading}
             type="submit"
             className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center"
           >

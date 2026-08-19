@@ -19,10 +19,17 @@ import { IoMdHome } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 
 import BarItem from "./BarItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function AdminSidebar(props) {
   const [selected, setselected] = useState('')
+  useEffect(() => {
+    const setHome = () => {
+      setselected("Home")
+    }
+    setHome()
+  }, [])
+  
   return (
     
     <Sidebar className="p-2 border-r-4 border-slate-900 select-none">

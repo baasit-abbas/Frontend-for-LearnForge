@@ -1,5 +1,6 @@
 "use client";
 import AdminPageHeader from "@/Components/AdminPageHeader";
+import InstructorCard from "@/Components/InstructorCard";
 import api from "@/utils/authClient";
 import React, { useEffect, useState } from "react";
 
@@ -21,26 +22,37 @@ const Page = () => {
     }
     return instructors.filter(
       (inst) =>
-        inst.id.startsWith(text) ||
+        String(inst.id).startsWith(text) ||
         inst.username.toLowerCase().startsWith(text) ||
-        inst.email.startsWith(text),
+        inst.email.startsWith(text) ||
+        inst.specialization.startsWith(text) ||
+        String(inst.experience_years).startsWith(text),
     );
   };
 
   return (
-    <div className="px-10 py-15 flex flex-col gap-5">
+    <div className="px-10 py-8 flex flex-col gap-5 min-h-screen">
       <AdminPageHeader
         heading="Instrcutors"
         search={settext}
-        placeholder="Search by ID , username or email"
+        placeholder="Search by ID , username or email , experiece , specialization"
       />
-      <div className="flex flex-wrap justify-between">
-        {handleSearch.map(inst => {
-            return (
-                <div key={inst.id}>
-
-                </div>
-            )
+      <div className="flex flex-wrap justify-between gap-5">
+        {handleSearch().map((inst) => {
+          return (
+            <InstructorCard
+              key={inst.id}
+              id={inst.id}
+              username={inst.username}
+              email={inst.email}
+              last_login={inst.last_login}
+              specialization={inst.specialization}
+              experience_years={inst.experience_years}
+              phone={inst.phone}
+              getter={instructors}
+              setter={setinstructors}
+            />
+          );
         })}
       </div>
     </div>
