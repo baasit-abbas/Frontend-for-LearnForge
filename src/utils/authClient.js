@@ -23,7 +23,6 @@ api.interceptors.response.use(
                     originalRequest.headers.Authorization = `Bearer ${newToken}`
                     return api(originalRequest)
                 }
-                throw new Error('Refresh token expired')
         }
         return Promise.reject(error);
     }   

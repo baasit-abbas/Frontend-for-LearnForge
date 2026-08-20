@@ -1,5 +1,7 @@
 "use client";
 import AdminCourseCard from "@/Components/AdminCourseCard";
+import AdminDocCard from "@/Components/AdminDocCard";
+import AdminVideoCard from "@/Components/AdminVideoCard";
 import api from "@/utils/authClient";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -65,25 +67,68 @@ const Page = () => {
           )}
           <div className="flex flex-wrap gap-6">
             {instructor.courses?.map((course) => {
+              return (
+                <AdminCourseCard
+                  key={course.id}
+                  id={course.id}
+                  title={course.title}
+                  description={course.description}
+                  instructor={instructor.username}
+                  progress={course.progress}
+                  setter={setinstructor}
+                  getter={instructor}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : selected == "Documents" ? (
+        <>
+          {instructor.docs?.length == 0 && (
+            <div className="text-5xl text-gray-100 font-bold text-center">
+              No Documents found.
+            </div>
+          )}
+          {instructor.docs?.map((doc) => {
             return (
-                
-              <AdminCourseCard
-                key={course.id}
-                id={course.id}
-                title={course.title}
-                description={course.description}
+              <AdminDocCard
+                key={doc.id}
+                id={doc.id}
+                title={doc.title}
+                fileType={doc.fileType}
+                fileUrl={doc.fileUrl}
+                course={doc.course}
                 instructor={instructor.username}
-                progress={course.progress}
-                setter={setinstructor}
                 getter={instructor}
+                setter={setinstructor}
               />
             );
           })}
-          </div>
-          
         </>
       ) : (
-        ""
+        <>
+          {instructor.videos?.length == 0 && (
+            <div className="text-5xl font-bold text-center text-gray-100">
+              No Videos Found
+            </div>
+          )}
+          {instructor.videos?.map((video) => {
+            return (
+              <AdminVideoCard
+                key={video.id}
+                id={video.id}
+                course_name={video.course}
+                instructor={instructor.username}
+                title={video.title}
+                thumbnailUrl={video.thumbnailUrl}
+                videoUrl={video.videoUrl}
+                created_at={video.created_at}
+                getter={instructor}
+                setter={setinstructor}
+              />
+            );
+          })}
+        </>
       )}
     </div>
   );

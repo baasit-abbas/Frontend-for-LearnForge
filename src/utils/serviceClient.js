@@ -40,3 +40,9 @@ export const login = async (data) => {
         toast.error(error.response.data.detail)
     }
 }
+
+export const logout = () => {
+    localStorage.setItem('token',"")
+    localStorage.setItem('refresh',"")
+    localStorage.setItem("user","")
+}

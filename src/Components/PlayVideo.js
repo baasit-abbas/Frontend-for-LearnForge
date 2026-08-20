@@ -14,7 +14,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 const PlayVideo = (props) => {
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger>
         <Tooltip>
           <TooltipTrigger
@@ -28,7 +28,7 @@ const PlayVideo = (props) => {
           </TooltipContent>
         </Tooltip>
       </DialogTrigger>
-      <DialogContent  className='w-250 h-150 bg-slate-800 text-white'>
+      <DialogContent className="w-250 h-150 bg-slate-800 text-white">
         <DialogHeader>
           <DialogTitle></DialogTitle>
           <DialogDescription></DialogDescription>
