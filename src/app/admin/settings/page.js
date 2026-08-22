@@ -18,43 +18,54 @@ import {
 import { FileTextIcon, XIcon } from "lucide-react";
 import { useSidebar } from "@/Components/ui/sidebar";
 import { GoDotFill } from "react-icons/go";
+import { Spinner } from "@/Components/ui/spinner";
+import { toast } from "@/Components/ui/toast";
 
 const Page = () => {
   const router = useRouter();
-  const [name, setname] = useState("");
-  const [logo, setlogo] = useState("None");
-  const [access_token, setaccess] = useState();
-  const [refresh_token, setrefresh] = useState();
-  const [isChange, setisChange] = useState(false);
+  const [initialSettings, setinitialSettings] = useState({});
+  const [settings, setsettings] = useState({});
+  const [image, setimage] = useState();
+  const [loading, setloading] = useState(false);
 
   const { open } = useSidebar();
 
   useEffect(() => {
     const loadData = async () => {
-      const data = await api.get("lifetime");
-      const settings = data.data;
-      setaccess(settings.access_token);
-      setrefresh(settings.refresh_token);
-      setname(settings.name);
-      setlogo(settings.logo);
+      const response = await api.get("settings");
+      const data = response.data;
+      setsettings(data);
+      setinitialSettings(data);
     };
     loadData();
   }, []);
 
-  useEffect(() => {
-    const change = () => {
-      setisChange(true)
-    }
-    change()
-  }, [access_token , refresh_token , name , logo])
-  
+  const isChange =
+    initialSettings &&
+    JSON.stringify(initialSettings) !== JSON.stringify(settings);
 
   const handleChanges = async () => {
-    const data = await api.patch("lifetime", {
-      access_token,
-      refresh_token,
-      name,
+    setloading(true);
+    const data = new FormData();
+    const { logo, logo_size, ...remaining } = settings;
+    Object.entries(remaining).forEach(([key, value]) => {
+      data.append(key, value);
     });
+    if (logo != initialSettings.logo) {
+      data.append("logo", image);
+    }
+    try {
+      await api.patch("settings", data);
+      setinitialSettings({ ...settings });
+      toast.add({ title: "Saved Changes Sucessfully" });
+    } catch (error) {
+      console.log(error);
+      for (const field in error.response.data) {
+        toast.add({ title:`${field} : ${error.response.data[field]}`  });
+      }
+    } finally {
+      setloading(false);
+    }
   };
 
   const handleLogOut = () => {
@@ -71,9 +82,10 @@ const Page = () => {
           <div className="relative w-50 h-13 rounded-md">
             <button
               onClick={handleChanges}
-              className="w-full h-full text-center rounded-md bg-slate-700 hover:bg-slate-600 hover:transition-all duration-300 cursor-pointer font-bold text-lg"
+              disabled={loading}
+              className="w-full h-full text-center rounded-md bg-slate-700 hover:bg-slate-600 hover:transition-all duration-300 cursor-pointer font-bold text-lg flex items-center justify-center"
             >
-              Save Changes
+              {loading ? <Spinner className="w-10 h-10" /> : "Save Changes"}
             </button>
             {isChange && (
               <div className="absolute top-[-10] right-[-8] animate-pulse">
@@ -98,8 +110,10 @@ const Page = () => {
 
           <Input
             id="name"
-            value={name}
-            onChange={(e) => setname(e.target.value)}
+            value={settings?.name || ""}
+            onChange={(e) =>
+              setsettings((prev) => ({ ...prev, name: e.target.value }))
+            }
           />
         </Field>
         <Field className="flex" orientation="horizontal w-60">
@@ -114,24 +128,44 @@ const Page = () => {
             className="hidden"
             type="file"
             accept="image/*"
-            onChange={(e) => setlogo(e.target.files[0])}
+            onChange={(e) => {
+              setimage(
+                e.target.files[0],
+                setsettings((prev) => ({
+                  ...prev,
+                  logo: e.target.files[0].name,
+                  logo_size: (e.target.files[0].size / (1024 * 1024)).toFixed(
+                    2,
+                  ),
+                })),
+              );
+            }}
           />
-          {logo != "None" && (
+          {settings.logo && (
             <Attachment className="">
               <AttachmentMedia>
                 <FileTextIcon />
               </AttachmentMedia>
               <AttachmentContent>
-                <AttachmentTitle>{logo.name}</AttachmentTitle>
+                <AttachmentTitle>{settings.logo}</AttachmentTitle>
                 <AttachmentDescription className="flex gap-1">
                   <p className="font-bold uppercase">
-                    {logo.name.split(".")[1]}
+                    {settings.logo.split(".")[1]}
                   </p>
-                  · <p>{(logo.size / (1024 * 1024)).toFixed(2)}</p> MB
+                  · <p>{settings.logo_size}</p> MB
                 </AttachmentDescription>
               </AttachmentContent>
               <AttachmentActions>
-                <AttachmentAction onClick={() => setlogo("None")}>
+                <AttachmentAction
+                  className="cursor-pointer"
+                  onClick={() =>
+                    setsettings((prev) => ({
+                      ...prev,
+                      logo: "",
+                      logo_size: null,
+                    }))
+                  }
+                >
                   <XIcon />
                 </AttachmentAction>
               </AttachmentActions>
@@ -147,25 +181,29 @@ const Page = () => {
           </h1>
           <Slider
             className=" h-1 bg-gray-100"
-            value={[access_token]}
-            onValueChange={setaccess}
+            value={[settings.access_token]}
+            onValueChange={(value) =>
+              setsettings((prev) => ({ ...prev, access_token: value }))
+            }
             max={120}
             step={1}
           />
-          <p>Current Value : {access_token}</p>
+          <p>Current Value : {settings.access_token}</p>
         </div>
 
         <div className="flex flex-col gap-3 w-full">
           <h1 className="text-xl font-bold">Refresh Token Lifetime in Days</h1>
           <Slider
             className=" h-1 bg-gray-100"
-            value={refresh_token}
-            onValueChange={setrefresh}
+            value={[settings.refresh_token]}
+            onValueChange={(value) =>
+              setsettings((prev) => ({ ...prev, refresh_token: value[0] }))
+            }
             min={1}
             max={15}
             step={1}
           />
-          <p>Current Value : {refresh_token}</p>
+          <p>Current Value : {settings.refresh_token}</p>
         </div>
       </div>
     </div>
