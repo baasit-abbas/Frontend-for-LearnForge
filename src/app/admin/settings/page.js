@@ -61,7 +61,7 @@ const Page = () => {
     } catch (error) {
       console.log(error);
       for (const field in error.response.data) {
-        toast.add({ title:`${field} : ${error.response.data[field]}`  });
+        toast.add({ title: `${field} : ${error.response.data[field]}` });
       }
     } finally {
       setloading(false);
@@ -102,7 +102,7 @@ const Page = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-9 justify-center mb-8">
+      <div className="flex flex-col gap-9 justify-center mb-8 py-6">
         <Field orientation="horizontal">
           <FieldLabel className="text-xl font-bold w-80" htmlFor="name">
             Change Platform Name:
@@ -173,7 +173,7 @@ const Page = () => {
           )}
         </Field>
       </div>
-      <div className="flex flex-col gap-10 justify-center pr-90">
+      <div className="flex flex-col gap-10 justify-center pr-90 py-6">
         <h1 className="text-3xl font-bold">Change Lifetime:</h1>
         <div className="flex flex-col gap-3  w-full">
           <h1 className="text-xl font-bold">
@@ -191,19 +191,47 @@ const Page = () => {
           <p>Current Value : {settings.access_token}</p>
         </div>
 
-        <div className="flex flex-col gap-3 w-full">
+        <div className="w-full flex flex-col gap-3">
           <h1 className="text-xl font-bold">Refresh Token Lifetime in Days</h1>
           <Slider
-            className=" h-1 bg-gray-100"
+            className="h-1 bg-gray-100"
             value={[settings.refresh_token]}
             onValueChange={(value) =>
-              setsettings((prev) => ({ ...prev, refresh_token: value[0] }))
+              setsettings((prev) => ({ ...prev, refresh_token: value }))
             }
             min={1}
             max={15}
             step={1}
           />
           <p>Current Value : {settings.refresh_token}</p>
+        </div>
+      </div>
+      <div className="flex flex-col gap-10 py-6 pr-90">
+        <div className="w-full flex flex-col gap-3">
+          <h1 className="text-3xl font-bold pb-6">Max Login Attempts</h1>
+          <Slider
+            className="bg-gray-100 h-1"
+            value={[settings.max_login_attempts]}
+            onValueChange={(value) =>
+              setsettings(prev => ({ ...prev, max_login_attempts: value }))
+            }
+            min={1}
+            max={15}
+          />
+          <p>Currect Login Attempts : {settings.max_login_attempts}</p>
+        </div>
+        <div className="flex flex-col gap-3">
+          <h1 className="text-3xl font-bold pb-6">Retry Again time in seconds.</h1>
+          <Slider
+            className="bg-gray-100 h-1"
+            value={[settings.retry_time]}
+            onValueChange={(value) =>
+              setsettings(prev => ({ ...prev, retry_time: value }))
+            }
+            min={1}
+            max={120}
+          />
+          <p>Currect Retry Time : {settings.retry_time}</p>
         </div>
       </div>
     </div>

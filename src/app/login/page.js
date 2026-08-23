@@ -3,6 +3,7 @@ import LoaderLogin from "@/Components/LoaderLogin";
 import { toast } from "@/Components/ui/toast";
 import api from "@/utils/authClient";
 import { login } from "@/utils/serviceClient";
+import { Settings } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -18,12 +19,14 @@ const Page = () => {
   const [loading, setloading] = useState(false);
   const [attempts, setattempts] = useState(0);
   const [max_login, setmax_login] = useState(0);
+  const [retry_time, setretry_time] = useState(0)
   const [refresh, setrefresh] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("settings");
       setmax_login(response.data.max_login_attempts);
+      setretry_time(response.data.retry_time)
     };
     fetchData();
   }, []);
@@ -60,7 +63,7 @@ const Page = () => {
     setloading(false);
     if (!user) {
       if (attempts+1 == max_login){
-        setrefresh(30)
+        setrefresh(retry_time)
       } 
       return;
     }
