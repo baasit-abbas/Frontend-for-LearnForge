@@ -1,44 +1,76 @@
 "use client";
 import LoaderLogin from "@/Components/LoaderLogin";
+import { toast } from "@/Components/ui/toast";
+import api from "@/utils/authClient";
 import { login } from "@/utils/serviceClient";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
-
-
 const Page = () => {
-
-  const router = useRouter()
+  const router = useRouter();
 
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [show, setshow] = useState(false);
-  const [loading, setloading] = useState(false)
+  const [loading, setloading] = useState(false);
+  const [attempts, setattempts] = useState(0);
+  const [max_login, setmax_login] = useState(0);
+  const [refresh, setrefresh] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get("settings");
+      setmax_login(response.data.max_login_attempts);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (refresh <= 0) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      setrefresh((prev) => {
+        if (prev == 1) {
+          setattempts(0);
+          clearTimeout(timer);
+          return 0
+        }
+        return prev-1
+      });
+    }, 1000);
+  }, [refresh]);
+
   const handleLogin = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    if (refresh > 0){
+      toast.add({title:`Retry after ${refresh} seconds`})
+      return
+    }
+    setattempts(attempts + 1);
     const data = {
       username,
       password,
     };
-    setloading(true)
-    const user = await login(data)
-    setloading(false)
-    if (!user){
-      return
+    setloading(true);
+    const user = await login(data);
+    setloading(false);
+    if (!user) {
+      if (attempts+1 == max_login){
+        setrefresh(30)
+      } 
+      return;
     }
-    if (user.role == 'Admin'){
-      router.push('/admin')
+    if (user.role == "Admin") {
+      router.push("/admin");
+    } else if (user.role == "Instructor") {
+      router.push("/instructor");
+    } else {
+      router.push("/student");
     }
-    else if (user.role == 'Instructor'){
-      router.push('/instructor')
-    }
-    else{
-      router.push('/student')
-    }
-
   };
 
   return (
@@ -60,7 +92,8 @@ const Page = () => {
                 Welcome back to your learning workspace.
               </h1>
               <p className="mt-5 max-w-md text-base leading-7 text-slate-200/80">
-                Sign in to continue building lessons, tracking progress, and picking up exactly where you left off.
+                Sign in to continue building lessons, tracking progress, and
+                picking up exactly where you left off.
               </p>
             </div>
 
@@ -90,7 +123,10 @@ const Page = () => {
 
               <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700" htmlFor="username">
+                  <label
+                    className="text-sm font-medium text-slate-700"
+                    htmlFor="username"
+                  >
                     Username
                   </label>
                   <input
@@ -105,7 +141,10 @@ const Page = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700" htmlFor="password">
+                  <label
+                    className="text-sm font-medium text-slate-700"
+                    htmlFor="password"
+                  >
                     Password
                   </label>
                   <div className="relative">
@@ -127,22 +166,25 @@ const Page = () => {
                     </button>
                   </div>
                 </div>
-                {loading ? <LoaderLogin />:<button
-                  type="submit"
-                  className="group inline-flex h-12 w-full items-center justify-center rounded-2xl bg-slate-950 px-5 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-950/20 cursor-pointer"
-                >
-                  <span>Submit</span>
-                  <span className="ml-2 transition-transform duration-200 group-hover:translate-x-0.5">
-                    →
-                  </span>
-                </button>}
-                
+                {loading ? (
+                  <LoaderLogin />
+                ) : (
+                  <button
+                    type="submit"
+                    className="group inline-flex h-12 w-full items-center justify-center rounded-2xl bg-slate-950 px-5 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-950/20 cursor-pointer"
+                  >
+                    <span>Submit</span>
+                    <span className="ml-2 transition-transform duration-200 group-hover:translate-x-0.5">
+                      →
+                    </span>
+                  </button>
+                )}
               </form>
               <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-center text-sm text-slate-600">
                 <span>Don&apos;t have an account?</span>{" "}
                 <Link
                   className="font-semibold text-cyan-700 underline-offset-4 transition hover:text-cyan-800 hover:underline"
-                  href={'/register'}
+                  href={"/register"}
                 >
                   Register
                 </Link>

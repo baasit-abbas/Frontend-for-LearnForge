@@ -1,18 +1,30 @@
 "use client"
 import axios from "axios"
 import api from "./authClient"
-import { toast } from "react-toastify"
+import { toast } from "@/Components/ui/toast"
 
 export const getToken = () => {
-    return localStorage.getItem('token')
+    const token = localStorage.getItem('token')
+    if (token == "undefined") {
+        return ""
+    }
+    return token
 }
 
 export const getRefreshToken = () => {
-    return localStorage.getItem('refresh')
+    const refresh =  localStorage.getItem('refresh')
+    if (refresh == "undefined"){
+        return ""
+    }
+    return refresh
 }
 
 export const getUserProfile = () => {
-    return localStorage.getItem('user')
+    const user = localStorage.getItem('user')
+    if (user == "undefined"){
+        return ""
+    }
+    return user
 }
 
 export const refreshToken = async () => {
@@ -36,8 +48,11 @@ export const login = async (data) => {
         return user.data
     }
     catch(error){
-        console.log(error)
-        toast.error(error.response.data.detail)
+        console.log(error.response.data)
+        if (error.response.data){
+            toast.add({title:error.response.data.detail})
+        }
+        return null
     }
 }
 

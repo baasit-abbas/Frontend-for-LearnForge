@@ -1,5 +1,5 @@
 import axios  from "axios";
-import { getToken , refreshToken , getRefreshToken } from "./serviceClient";
+import { getToken , refreshToken } from "./serviceClient";
 
 const url = 'http://localhost:8000/'
 const api = axios.create({baseURL:url})
@@ -18,7 +18,7 @@ api.interceptors.response.use(
         const originalRequest = error.config
             if (error.response.status == 401 && !originalRequest._retry){
                 originalRequest._retry = true
-                const newToken = await refreshToken(getRefreshToken())
+                const newToken = await refreshToken()
                 if (newToken){
                     originalRequest.headers.Authorization = `Bearer ${newToken}`
                     return api(originalRequest)
