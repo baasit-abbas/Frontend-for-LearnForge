@@ -25,14 +25,14 @@ import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
 
 
-const AddCourseAdmin = (props) => {
+const AddCourseAdmin = () => {
   const [title, settitle] = useState("");
   const [description, setemail] = useState("");
   const [Instructor, setInstructor] = useState({"id":"","username":""});
   const [usernames, setusernames] = useState([])
   useEffect(() => {
     const fetchInstructors = async () => {
-        const data = await api.get('app/instructor')
+        const data = await api.get('app/instructors')
         setusernames(data.data.map(inst => ({"id":inst.id,"username":inst.username})))
     }
     fetchInstructors()

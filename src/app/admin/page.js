@@ -12,12 +12,10 @@ import DisplayCard from "@/Components/DisplayCard";
 import AdminItem from "@/Components/AdminItem";
 import AddInstructor from "@/Components/AddInstructor";
 import AddAdmin from "@/Components/AddAdmin";
-import { useRouter } from "next/navigation";
 import AddCourseAdmin from "@/Components/AddCourseAdmin";
 
 const Page = () => {
   const [data, setdata] = useState([]);
-  const router = useRouter()
   useEffect(() => {
     const fetchData = async () => {
         const data = await api.get("app/adminData");

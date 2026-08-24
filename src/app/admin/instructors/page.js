@@ -10,7 +10,7 @@ const Page = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await api.get("app/instructor");
+      const data = await api.get("app/instructors");
       setinstructors(data.data);
     };
     fetchData();

@@ -45,10 +45,10 @@ export function AdminSidebar(props) {
               src={`http://localhost:8000/upload/${settings.logo}`}
             />
           ) : (
-            <SiGreatlearning size={30} />
+            <SiGreatlearning size={60} />
           )}
 
-          <h1 className="text-3xl font-bold w-full">{settings?.name}</h1>
+          <h1 className="text-3xl font-bold w-full text-gray-100">{settings?.name}</h1>
         </div>
 
         <div className="flex gap-3 rounded-lg px-2 py-1 bg-slate-900 items-center">
@@ -64,7 +64,7 @@ export function AdminSidebar(props) {
       </div>
 
       <SidebarContent>
-        <SidebarGroup className="flex flex-col gap-2 " />
+        <SidebarGroup />
         <BarItem
           href="/admin"
           name="Home"

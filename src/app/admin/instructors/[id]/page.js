@@ -14,7 +14,7 @@ const Page = () => {
   useEffect(() => {
     const fetchData = async () => {
       const id = params.id;
-      const data = await api.get(`app/instructor/${id}`);
+      const data = await api.get(`app/instructors/${id}`);
       setinstructor(data.data);
     };
     fetchData();

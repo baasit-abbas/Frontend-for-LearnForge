@@ -27,7 +27,7 @@ const Wrapper = ({ children }) => {
       className={`${toggleTheme ? "bg-gray-100 text-slate-900" : "bg-slate-700 text-gray-100"}`}
     >
       <SidebarProvider>
-        <div
+        {/* <div
           onClick={handleToggle}
           className="p-2 rounded-full bg-slate-500 hover:bg-slate-400 transition-all duration-300 cursor-pointer fixed top-7 right-4"
         >
@@ -36,7 +36,7 @@ const Wrapper = ({ children }) => {
           ) : (
             <MdOutlineWbSunny className="text-gray-100" size={20} />
           )}
-        </div>
+        </div> */}
         <TooltipProvider>{children}</TooltipProvider>
         <Toaster />
       </SidebarProvider>
