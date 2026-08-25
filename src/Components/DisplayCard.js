@@ -7,7 +7,7 @@ const DisplayCard = (props) => {
     <div className="card flex flex-col justify-center p-3 bg-slate-700 text-gray-100 gap-6 w-70 h-50">
       <div className="flex gap-5 items-center">
         {props.icon}
-        <h1>Total {props.name}</h1>
+        <h1>{props.name}</h1>
       </div>
       <h1 className="text-3xl">{props.count}</h1>
       <div className="flex gap-2 items-center">

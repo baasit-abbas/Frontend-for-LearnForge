@@ -44,7 +44,7 @@ const Page = () => {
           <div className="w-[72%] flex flex-col gap-4">
             <div className="flex flex-wrap gap-4 justify-around">
               <DisplayCard
-                name="Users"
+                name="Total Users"
                 icon={
                   <p className="p-2 rounded-full bg-orange-500 text-gray-100">
                     <FaUsers size={35} />
@@ -55,7 +55,7 @@ const Page = () => {
                 month={data.recent_users}
               />
               <DisplayCard
-                name="Students"
+                name="Total Students"
                 icon={
                   <p className="p-2 rounded-full bg-blue-700 text-gray-100">
                     <PiStudentBold size={35} />
@@ -66,7 +66,7 @@ const Page = () => {
                 month={data.recent_students}
               />
               <DisplayCard
-                name="Instructors"
+                name="Total Instructors"
                 icon={
                   <p className="p-2 rounded-full bg-purple-500 text-gray-100">
                     <GiTeacher size={35} />
@@ -77,7 +77,7 @@ const Page = () => {
                 month={data.recent_instructors}
               />
               <DisplayCard
-                name="Courses"
+                name="Total Courses"
                 icon={
                   <p className="p-2 rounded-full bg-cyan-500 text-gray-100">
                     <FaBook size={35} />
@@ -88,7 +88,7 @@ const Page = () => {
                 month={data.recent_courses}
               />
               <DisplayCard
-                name="Documents"
+                name="Total Documents"
                 icon={
                   <p className="p-2 rounded-full bg-green-600 text-gray-100">
                     <SiGoogledocs size={35} />
@@ -99,7 +99,7 @@ const Page = () => {
                 month={data.recent_docs}
               />
               <DisplayCard
-                name="Videos"
+                name="Total Videos"
                 icon={
                   <p className="p-2 rounded-full bg-blue-500 text-gray-100">
                     <RiVideoFill size={35} />

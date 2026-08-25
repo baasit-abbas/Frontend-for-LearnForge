@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
       <InstructorSidebar instructor={instructor} />
       <main className="relative">
         <div
-          className={`p-1 hover:bg-slate-600 cursor-pointer absolute top-0 ${open ? "left-[-35]" : "left-0"} z-50`}
+          className={`p-1 hover:bg-slate-600 cursor-pointer fixed top-0 ${open ? "left-55" : "left-0"} z-50 transition-all duration-300`}
           onClick={toggleSidebar}
         >
           <VscLayoutSidebarLeftDock

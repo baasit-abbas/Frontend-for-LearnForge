@@ -57,7 +57,7 @@ const AddAdmin = () => {
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger className='bg-slate-700 hover:bg-slate-600 transition-all duration-300 cursor-pointer text-gray-100 font-bold text-md rounded-full px-3 py-2'>
+      <DialogTrigger className='bg-slate-700 hover:bg-slate-600 transition-all duration-300 cursor-pointer text-gray-100 font-bold text-md rounded-md px-3 py-2'>
           Add Admin
       </DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 select-none w-100">

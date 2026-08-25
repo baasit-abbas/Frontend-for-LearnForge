@@ -66,7 +66,7 @@ const AddCourseAdmin = () => {
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-    <DialogTrigger className='bg-slate-700 hover:bg-slate-600 transition-all duration-300 font-bold px-3 py-2 rounded-full cursor-pointer'>
+    <DialogTrigger className='bg-slate-700 hover:bg-slate-600 transition-all duration-300 font-bold px-3 py-2 rounded-md cursor-pointer'>
         Add Course
     </DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
