@@ -21,8 +21,8 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="py-8 px-10 flex flex-col gap-6 min-h-screen bg-slate-800">
-      <header className="rounded-md bg-slate-700 flex justify-between items-center px-10 text-gray-100 w-full h-40">
+    <div className="py-8 px-10 flex flex-col gap-6 min-h-screen bg-slate-700">
+      <header className="rounded-md bg-slate-600 flex justify-between items-center px-10 text-gray-100 w-full h-40">
         <div className="flex flex-col gap-5">
           <h1 className="text-5xl font-bold">
             {instructor.username}&apos;s Page
@@ -38,7 +38,7 @@ const Page = () => {
           <GiTeacher size={80} />
         </div>
       </header>
-      <div className="w-full bg-slate-700 rounded-md flex justify-around py-2">
+      <div className="w-full bg-slate-600 rounded-md flex justify-around py-2">
         <button
           onClick={() => setselected("Courses")}
           className={`font-bold text-xl h-full ${selected == "Courses" ? "bg-slate-900" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}

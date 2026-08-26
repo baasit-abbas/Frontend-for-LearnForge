@@ -19,10 +19,11 @@ import { IoSettings } from "react-icons/io5";
 import BarItem from "./BarItem";
 
 const InstructorSidebar = (props) => {
-  const [selected, setselected] = useState("Home");
+  const [selected, setselected] = useState("");
   const [settings, setsettings] = useState();
   useEffect(() => {
     const loadData = async () => {
+      setselected("Home")
       const data = await api.get("settings");
       setsettings(data.data);
     };
@@ -70,7 +71,7 @@ const InstructorSidebar = (props) => {
         <BarItem
           name="Your Courses"
           icon={<FaBook size={30} />}
-          href="/instructo/courses"
+          href="/instructor/courses"
           selected={selected}
           setselected={setselected}
         />
@@ -84,7 +85,7 @@ const InstructorSidebar = (props) => {
         <BarItem
           name="Your Videos"
           icon={<RiVideoFill size={30} />}
-          href="/instructor"
+          href="/instructor/videos"
           selected={selected}
           setselected={setselected}
         />

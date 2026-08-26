@@ -13,8 +13,8 @@ import DeleteCourse from "./DeleteCourse";
 
 const AdminCourseCard = (props) => {
   return (
-    <div className={`card bg-slate-700 w-85 "h-65"  flex flex-col gap-5 p-3`}>
-      <h1 className="bg-slate-800 w-full py-2 rounded-md text-center h-[20%]">
+    <div className={`card bg-slate-800 w-85 "h-65"  flex flex-col gap-5 p-3`}>
+      <h1 className="bg-slate-700 w-full py-2 rounded-md text-center h-[20%]">
         {props.title}
       </h1>
       <p className="h-[30%] bg-slate-600 rounded-md p-1">{props.description}</p>
@@ -31,7 +31,7 @@ const AdminCourseCard = (props) => {
         </div>
         <div className="flex gap-3 w-full items-center justify-between">
           <CardBtn
-            href={`/admin/courses/${props.id}`}
+            href={`${props.href == "instructor" ? `/instructor/courses/${props.id}` : `/admin/courses/${props.id}`}`}
             text="View Course"
             icon={<FaEye size={20} />}
           />

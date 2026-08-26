@@ -37,6 +37,11 @@ const Page = () => {
         search={settext}
         placeholder="Search by ID , username or email , experiece , specialization"
       />
+      {handleSearch().length == 0 && (
+        <div className="w-full h-full flex items-center justify-center">
+          <h1 className="text-5xl font-bold">No Instructor Found</h1>
+        </div>
+      )}
       <div className="flex flex-wrap justify-between gap-5">
         {handleSearch().map((inst) => {
           return (

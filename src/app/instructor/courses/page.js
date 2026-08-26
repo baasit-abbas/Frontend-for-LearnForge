@@ -5,30 +5,30 @@ import api from "@/utils/authClient";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
-  const [courses, setcourses] = useState([]);
   const [text, settext] = useState("");
-
+  const [courses, setcourses] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      const all_data = await api.get("app/course");
-      setcourses(all_data.data);
+    const loadData = async () => {
+      const response = await api.get("app/course");
+      setcourses(response.data);
     };
-    fetchData();
+    loadData();
   }, []);
 
   const handleSearch = () => {
     if (text == "") {
       return courses;
     }
-    return courses.filter((course) => course.title.toLowerCase().startsWith(text.toLowerCase()));
+    const lower_text = text.toLowerCase();
+    return courses.filter((course) => course.title.toLowerCase().startsWith(lower_text));
   };
 
   return (
-    <div className="px-15 bg-slate-700 h-full w-full">
+    <div className="min-h-screen bg-slate-700 px-10 py-5">
       <AdminPageHeader
-        search={settext}
         heading="Courses"
-        placeholder="Search by title"
+        search={settext}
+        placeholder="Search by title."
       />
       {handleSearch().length == 0 && (
         <div className="w-full h-full flex items-center justify-center">
@@ -47,6 +47,7 @@ const Page = () => {
               progress={course.average_progress}
               setter={setcourses}
               getter={courses}
+              href="instructor"
             />
           );
         })}

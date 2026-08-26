@@ -22,11 +22,12 @@ const Page = () => {
     if (text == "") {
       return docs;
     }
+    const lower_text = text.toLocaleLowerCase()
     return docs.filter(
       (doc) =>
-        doc.title.toLowerCase().startsWith(text.toLowerCase()) ||
-        doc.instructor.toLowerCase().startsWith(text.toLowerCase()) ||
-        doc.course_name.toLowerCase().startsWith(text.toLowerCase()),
+        doc.title.toLowerCase().startsWith(lower_text) ||
+        doc.instructor.toLowerCase().startsWith(lower_text) ||
+        doc.course_name.toLowerCase().startsWith(lower_text)
     );
   };
 

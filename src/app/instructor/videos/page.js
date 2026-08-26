@@ -37,7 +37,7 @@ const Page = () => {
       />
       {handleSearch().length == 0 && (
         <div className="w-full h-full flex items-center justify-center">
-          <h1 className="text-5xl font-bold">No Course Found</h1>
+          <h1 className="text-5xl font-bold">No Videos Found</h1>
         </div>
       )}
       <div className="flex flex-wrap gap-8">
