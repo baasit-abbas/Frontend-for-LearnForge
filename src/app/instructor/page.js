@@ -9,6 +9,7 @@ import { SiGoogledocs } from "react-icons/si";
 import { MdQuiz } from "react-icons/md";
 import { IoFlash } from "react-icons/io5";
 import LineChartComp from "@/Components/LineChartComp";
+import AddCourseInstructor from "@/Components/AddCourseInstructor";
 
 const Page = () => {
   const [instrcutor, setinstrcutor] = useState();
@@ -31,9 +32,7 @@ const Page = () => {
           <h1 className="font-bold text-5xl">Welcome {user?.username}</h1>
           <p>Manage your courses , docs , videos etc.</p>
         </div>
-        <button className="px-3 py-2 rounded-md bg-slate-700 hover:bg-slate-600 transition-all duration-300 cursor-pointer">
-          Add Course
-        </button>
+        <AddCourseInstructor />
       </header>
       <div className="mt-9 flex gap-2 w-full">
         <div className="flex flex-wrap gap-4 justify-around w-[75%]">

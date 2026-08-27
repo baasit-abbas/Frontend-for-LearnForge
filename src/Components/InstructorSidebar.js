@@ -7,6 +7,16 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from "@/Components/ui/sidebar";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import api from "@/utils/authClient";
 import { SiGreatlearning } from "react-icons/si";
 import { FcBusinessman } from "react-icons/fc";
@@ -17,18 +27,28 @@ import { RiVideoFill } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import BarItem from "./BarItem";
+import { RiLogoutBoxRLine } from "react-icons/ri";
+import { logout } from "@/utils/serviceClient";
+import { useRouter } from "next/navigation";
+import ChangePassword from "./ChangePassword";
 
 const InstructorSidebar = (props) => {
   const [selected, setselected] = useState("");
   const [settings, setsettings] = useState();
+  const router = useRouter()
   useEffect(() => {
     const loadData = async () => {
-      setselected("Home")
+      setselected("Home");
       const data = await api.get("settings");
       setsettings(data.data);
     };
     loadData();
   }, []);
+
+  const handleLogOut = () => {
+    logout()
+    router.push('/login')
+  }
 
   return (
     <Sidebar className="py-5 px-2 bg-slate-700 text-gray-100">
@@ -91,13 +111,23 @@ const InstructorSidebar = (props) => {
         />
         <SidebarGroup />
       </SidebarContent>
-      <BarItem
-          name="Settings"
-          icon={<IoSettings size={30} />}
-          href="/instructor/settings"
-          selected={selected}
-          setselected={setselected}
-        />
+      <Popover>
+        <PopoverTrigger className={`p-3 rounded-md hover:bg-slate-600 transition-all duration-300 cursor-pointer flex items-center gap-4`}>
+          <IoSettings size={30}/>
+          <h1 className="text-xl">Settings</h1>
+        </PopoverTrigger>
+        <PopoverContent className='bg-slate-800 text-gray-100 rounded-md'>
+          <PopoverHeader>
+            <PopoverTitle></PopoverTitle>
+            <PopoverDescription></PopoverDescription>
+          </PopoverHeader>
+          <button onClick={handleLogOut} className="transition-all duration-300 cursor-pointer hover:bg-slate-600 p-2 rounded-md flex items-center  gap-4 text-lg outline-none">
+            <RiLogoutBoxRLine size={25}/>
+            <p>Log Out</p>
+          </button>
+          <ChangePassword />
+        </PopoverContent>
+      </Popover>
       <SidebarFooter />
     </Sidebar>
   );

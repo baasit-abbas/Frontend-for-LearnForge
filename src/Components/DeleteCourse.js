@@ -13,6 +13,7 @@ import { MdDelete } from "react-icons/md";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
 import { Spinner } from "./ui/spinner";
+import { TooltipTrigger } from "./ui/tooltip";
 
 const DeleteCourse = (props) => {
   const [open, setopen] = useState(false)

@@ -15,6 +15,7 @@ import { Field, FieldLabel } from "./ui/field";
 import { Spinner } from "./ui/spinner";
 import { Input } from "./ui/input";
 import { toast } from "./ui/toast";
+import { TooltipTrigger } from "./ui/tooltip";
 
 const EditCourse = (props) => {
   const [title, settitle] = useState(props.title);
