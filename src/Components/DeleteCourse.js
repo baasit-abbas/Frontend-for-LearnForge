@@ -50,8 +50,7 @@ const DeleteCourse = (props) => {
     }
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger>
-        <CardBtn text="Delete" icon={<MdDelete size={20} />} />
+      <DialogTrigger render={<CardBtn text="Delete" setopen={setopen} icon={<MdDelete size={20} />} />}>
       </DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>

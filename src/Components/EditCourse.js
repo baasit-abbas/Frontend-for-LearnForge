@@ -55,8 +55,7 @@ const EditCourse = (props) => {
   };
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger>
-        <CardBtn text="Edit" icon={<FaEdit size={20} />} />
+      <DialogTrigger render={<CardBtn text="Edit" setopen={setopen} icon={<FaEdit size={20} />} />}>
       </DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>

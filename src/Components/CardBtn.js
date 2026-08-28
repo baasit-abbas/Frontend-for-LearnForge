@@ -17,7 +17,7 @@ const CardBtn = (props) => {
           </TooltipTrigger>
         </Link>
       ) : (
-        <TooltipTrigger className="p-2 bg-slate-800 text-gray-100 cursor-pointer hover:bg-slate-700">
+        <TooltipTrigger onClick={() => props.setopen(true)}  className="p-2 bg-slate-800 text-gray-100 cursor-pointer hover:bg-slate-700">
           {props.icon}
         </TooltipTrigger>
       )}

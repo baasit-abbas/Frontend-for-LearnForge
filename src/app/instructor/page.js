@@ -18,7 +18,6 @@ const Page = () => {
     const loadData = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
       const all_data = await api.get("app/instructors");
-      console.log(all_data);
       setinstrcutor(all_data.data);
       setuser(user);
     };
