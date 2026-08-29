@@ -26,7 +26,7 @@ const Layout = ({children}) => {
       <main className="relative">
         <div
           onClick={toggleSidebar}
-          className={`p-1 hover:bg-slate-600 text-gray-100 transition-all duration-300 absolute ${open ? "-left-9" : "left-0 rotate-180"} cursor-pointer z-50`}
+          className={`p-1 hover:bg-slate-600 text-gray-100 transition-all duration-300 fixed ${open ? "left-55" : "left-0 rotate-180"} cursor-pointer z-50`}
         >
           <VscLayoutSidebarLeftDock size={25} />
         </div>

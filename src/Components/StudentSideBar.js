@@ -68,7 +68,7 @@ const StudentSidebar = (props) => {
           </div>
           <div className="flex flex-col justify-center">
             <h1 className="font-bold text-lg">{props.student?.username}</h1>
-            <p className="text-sm">Instructor</p>
+            <p className="text-sm">Student</p>
           </div>
         </div>
       </div>
@@ -91,21 +91,21 @@ const StudentSidebar = (props) => {
         <BarItem
           name="Your Courses"
           icon={<FaBook size={30} />}
-          href="/instructor/courses"
+          href="/student/courses"
           selected={selected}
           setselected={setselected}
         />
         <BarItem
           name="Generate Quiz"
           icon={<MdQuiz size={30} />}
-          href="/instructor/docs"
+          href="/student/quiz"
           selected={selected}
           setselected={setselected}
         />
         <BarItem
           name="Ask AI"
           icon={<FaRobot size={30} />}
-          href="/instructor/ai"
+          href="/student/ai"
           selected={selected}
           setselected={setselected}
         />

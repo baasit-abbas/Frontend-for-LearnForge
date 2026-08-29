@@ -12,7 +12,7 @@ const CardBtn = (props) => {
     <Tooltip>
       {props.href ? (
         <Link href={props.href}>
-          <TooltipTrigger className="p-2 bg-slate-800 text-gray-100 cursor-pointer hover:bg-slate-700">
+          <TooltipTrigger className="p-2 w-full bg-slate-800 text-gray-100 cursor-pointer hover:bg-slate-700">
             {props.icon}
           </TooltipTrigger>
         </Link>
