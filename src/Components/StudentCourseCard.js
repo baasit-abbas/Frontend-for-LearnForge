@@ -19,14 +19,14 @@ const StudentCourseCard = (props) => {
         <div className="flex items-center justify-between w-full h-full">
           <div className="flex flex-col gap-1">
             <h1 className="fonf-bold text-slate-300">Author</h1>
-            <p>{props.instructor}</p>
+            <p className="uppercase tracking-[5]">{props.instructor}</p>
           </div>
           <Progress value={props.progress} className="w-[50%] max-w-sm b">
             <ProgressLabel>Progress</ProgressLabel>
             <ProgressValue />
           </Progress>
         </div>
-        <Link href={`/student/course/${props.id}`} className="w-full py-2 rounded-md bg-slate-700 hover:bg-slate-600 transition-all duration-300 flex items-center justify-center gap-7">
+        <Link href={`/student/courses/${props.id}`} className="w-full py-2 rounded-md bg-slate-700 hover:bg-slate-600 transition-all duration-300 flex items-center justify-center gap-7">
           <FaEye size={25} />
           <h1 className="font-bold text-lg">View Course</h1>
         </Link>

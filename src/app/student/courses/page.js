@@ -45,11 +45,11 @@ const Page = () => {
           return (
             <StudentCourseCard
               key={course.id}
+              id={course.id}
               title={course.title}
               description={course.description}
               instructor={course.instructor}
               progress={course.progress}
-              href="student"
             />
           );
         })}
