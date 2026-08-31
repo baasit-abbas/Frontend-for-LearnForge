@@ -74,9 +74,27 @@ const Page = () => {
           placeholder="Search by title"
         />
       </div>
+      <div className="flex items-center gap-3 mt-5">
+        {selected == "Documents" ? (
+          <>
+            <h1 className="text-xl font-bold">Progress in Documents :</h1>
+            <p></p>
+            {course.docs?.review?.completed} / {course.docs?.review?.total}
+          </>
+        ) : selected == "Videos" ? (
+          <>
+            <h1 className="text-xl font-bold">Progress in Videos :</h1>
+            <p></p>
+            {course.videos?.review?.completed} / {course.videos?.review?.total}
+          </>
+        ) : (
+          ""
+        )}
+      </div>
+
       <div className="mt-10">
         {selected == "Documents" ? (
-          <div>
+          <div className="flex flex-wrap gap-7">
             {course.docs && handleSearch().length == 0 && (
               <h1 className="text-5xl font-bold text-center">
                 No Documents Found
@@ -87,17 +105,21 @@ const Page = () => {
                 return (
                   <StudentDocCard
                     key={doc.id}
+                    id={doc.id}
                     course={course.title}
                     instructor={course.instructor}
                     title={doc.title}
                     fileType={doc.fileType}
                     fileUrl={doc.fileUrl}
+                    completed={doc.completed}
+                    getter={course}
+                    setter={setcourse}
                   />
                 );
               })}
           </div>
         ) : selected == "Videos" ? (
-          <div>
+          <div className="flex flex-wrap gap-7">
             {course.videos && handleSearch().length == 0 && (
               <h1 className="text-5xl font-bold text-center">
                 No Videos Found
@@ -108,12 +130,15 @@ const Page = () => {
                 return (
                   <StudentVideoCard
                     key={video.id}
+                    id={video.id}
                     course={video.title}
                     instructor={video.instructor}
                     title={video.title}
                     thumbnailUrl={video.thumbnailUrl}
                     videoUrl={video.videoUrl}
                     created_at={video.created_at}
+                    getter={course}
+                    setter={setcourse}
                   />
                 );
               })}

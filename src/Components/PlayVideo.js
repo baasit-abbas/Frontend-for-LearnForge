@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,14 +11,38 @@ import {
 import { FaRegPlayCircle } from "react-icons/fa";
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import api from "@/utils/authClient";
 
 const PlayVideo = (props) => {
   const [open, setopen] = useState(false);
+  const videoRef = useRef();
+  const handleDurationChange = async () => {
+    const total_duration = videoRef.current?.duration;
+    const current_duration = videoRef.current?.currentTime;
+    let percent = 100;
+    if (total_duration != 0) {
+      percent = (current_duration / total_duration) * 100;
+    }
+    console.log(percent)
+    if (percent < 90) {
+      return;
+    }
+    try {
+      await api.patch(`app/videos/progress/${props.id}`, { duration: percent });
+      const old_courses = { ...props.getter };
+      const idx = old_courses.videos.videos.findIndex(
+        (video) => video.id == props.id,
+      );
+      old_courses.videos.videos[idx].completed = true;
+      old_courses.review.review.completed += 1;
+      props.setter(old_courses);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setopen}>
       <DialogTrigger
-        open={open}
-        onOpenChange={setopen}
         render={
           <Tooltip>
             <TooltipTrigger
@@ -41,6 +65,8 @@ const PlayVideo = (props) => {
           <DialogDescription></DialogDescription>
           <div className="w-full h-full">
             <video
+              ref={videoRef}
+              onTimeUpdate={handleDurationChange}
               className="w-full h-full border-none outline-none"
               src={props.src}
               autoPlay

@@ -60,6 +60,9 @@ const StudentVideoCard = (props) => {
         )}
         <PlayVideo
           stop={handleStop}
+          getter={props.getter}
+          setter={props.setter}
+          id={props.id}
           src={`http://localhost:8000/video/${props.videoUrl}`}
         />
         <div className="bg-slate-700 p-2 rounded-full text-gray-100 absolute bottom-0 left-4 cursor-pointer opacity-0 group-hover:opacity-100 group-hover:bottom-4 hover:bg-slate-800 transition-all duration-300">
