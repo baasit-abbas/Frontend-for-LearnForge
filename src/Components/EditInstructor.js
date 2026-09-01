@@ -23,40 +23,43 @@ const EditInstructor = (props) => {
   const [experience_years, setexperience_years] = useState(
     props.experience_years,
   );
-  const [open, setopen] = useState(false)
+  const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const data = {username,email,specialization,experience_years}
-    console.log(data)
-    setloading(true)
-    try{
-        const new_inst = await api.patch(`app/instructor/${props.id}`,data)
-        const instructors = [...props.getter]
-        const idx = instructors.findIndex(inst => inst.id == props.id)
-        instructors[idx] = new_inst.data
-        props.setter(instructors)
-        toast.add({title:"Updated Instructor's data Successfully"})
-        setloading(false)
-        setopen(false)
+    e.preventDefault();
+    const data = { username, email, specialization, experience_years };
+    console.log(data);
+    setloading(true);
+    try {
+      const new_inst = await api.patch(`app/instructor/${props.id}`, data);
+      const instructors = [...props.getter];
+      const idx = instructors.findIndex((inst) => inst.id == props.id);
+      instructors[idx] = new_inst.data;
+      props.setter(instructors);
+      toast.add({ title: "Updated Instructor's data Successfully" });
+      setloading(false);
+      setopen(false);
+    } catch (error) {
+      console.log(error);
+      for (const field in error.response.data) {
+        toast.add({ title: error.response.data[field] });
+      }
     }
-    catch(error){
-        console.log(error)
-        for (const field in error.response.data){
-            toast.add({title:error.response.data[field]})
-        }
-    }
-  }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger>
-        <CardBtn icon={<FaEdit size={20} />} text="Edit" />
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <CardBtn setopen={setopen} icon={<FaEdit size={20} />} text="Edit" />
+        }
+      ></DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
-          <DialogTitle className='text-center text-xl'>Edit Instructor</DialogTitle>
+          <DialogTitle className="text-center text-xl">
+            Edit Instructor
+          </DialogTitle>
           <DialogDescription></DialogDescription>
           <form className="w-full flex flex-col gap-3" onSubmit={handleSubmit}>
             <Field className="flex flex-col gap-3">
@@ -98,7 +101,10 @@ const EditInstructor = (props) => {
                 required
               />
             </Field>
-            <button className="w-full rounded-xl bg-slate-600 transition-all duration-300 hover:bg-slate-500 cursor-pointer outline-none flex items-center justify-center py-3 font-bold text-lg" disabled={loading}>
+            <button
+              className="w-full rounded-xl bg-slate-600 transition-all duration-300 hover:bg-slate-500 cursor-pointer outline-none flex items-center justify-center py-3 font-bold text-lg"
+              disabled={loading}
+            >
               {loading ? (
                 <Spinner className="w-10 h-10" />
               ) : (

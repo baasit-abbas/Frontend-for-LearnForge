@@ -83,7 +83,7 @@ const Page = () => {
           </div>
         </>
       ) : selected == "Documents" ? (
-        <>
+        <div className="flex flex-wrap gap-6">
           {instructor.docs?.length == 0 && (
             <div className="text-5xl text-gray-100 font-bold text-center">
               No Documents found.
@@ -104,9 +104,9 @@ const Page = () => {
               />
             );
           })}
-        </>
+        </div>
       ) : (
-        <>
+        <div className="flex flex-wrap gap-6">
           {instructor.videos?.length == 0 && (
             <div className="text-5xl font-bold text-center text-gray-100">
               No Videos Found
@@ -128,7 +128,7 @@ const Page = () => {
               />
             );
           })}
-        </>
+        </div>
       )}
     </div>
   );

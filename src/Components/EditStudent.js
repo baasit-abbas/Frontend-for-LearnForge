@@ -54,9 +54,15 @@ const EditStudent = (props) => {
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger>
-        <CardBtn icon={<FaEdit size={20} />} text="Edit Student" />
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <CardBtn
+            setopen={setopen}
+            icon={<FaEdit size={20} />}
+            text="Edit Student"
+          />
+        }
+      ></DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle className="font-bold text-xl text-center">

@@ -48,7 +48,7 @@ const EditUser = (props) => {
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <EditBtn />
+      <EditBtn setopen={setopen} />
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle className="text-gray-100 text-center text-2xl">

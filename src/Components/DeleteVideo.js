@@ -45,16 +45,18 @@ const DeleteVideo = (props) => {
   };
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger>
-        <Tooltip>
-          <TooltipTrigger className="p-2 rounded-full bg-slate-700 cursor-pointer hover:bg-slate-600 transition-all duration-300">
-            <MdDelete size={20} />
-          </TooltipTrigger>
-          <TooltipContent className="bg-slate-800 text-gray-100 py-2 font-bold">
-            Delete Video
-          </TooltipContent>
-        </Tooltip>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Tooltip>
+            <TooltipTrigger onClick={() => setopen(true)} className="p-2 rounded-full bg-slate-700 cursor-pointer hover:bg-slate-600 transition-all duration-300">
+              <MdDelete size={20} />
+            </TooltipTrigger>
+            <TooltipContent className="bg-slate-800 text-gray-100 py-2 font-bold">
+              Delete Video
+            </TooltipContent>
+          </Tooltip>
+        }
+      ></DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
@@ -64,7 +66,7 @@ const DeleteVideo = (props) => {
           </DialogDescription>
         </DialogHeader>
         <button
-        disabled={loading}
+          disabled={loading}
           onClick={handleSubmit}
           className="bg-red-600 hover:bg-red-500 transition-all duration-300 w-full py-2 text-lg select-none rounded-xl cursor-pointer flex items-center justify-center"
         >

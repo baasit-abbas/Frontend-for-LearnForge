@@ -11,14 +11,14 @@ import {
 import { MdDelete } from "react-icons/md";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
-import { Tooltip, TooltipContent , TooltipTrigger } from "./ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { Spinner } from "./ui/spinner";
 
 const DeleteDoc = (props) => {
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
   const handleSubmit = async () => {
-    setloading(true)
+    setloading(true);
     try {
       await api.delete(`app/docs/${props.id}`);
       let new_docs = [];
@@ -30,30 +30,31 @@ const DeleteDoc = (props) => {
       }
       props.setter(new_docs);
       toast.add({ title: "Deleted Document Succssfully" });
-      setopen(false)
+      setopen(false);
     } catch (error) {
       console.log(error.response.data);
       for (const field in error.response.data) {
-        console.log(error)
+        console.log(error);
         toast.add({ title: `${field} : ${error.response.data[field]}` });
       }
-    }
-    finally{
-      setloading(false)
+    } finally {
+      setloading(false);
     }
   };
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger>
-        <Tooltip>
-          <TooltipTrigger className="px-3 py-2 cursor-pointer rounded-xl bg-slate-700  hover:bg-slate-800 transition-all duration-300">
-            <MdDelete size={20} />
-          </TooltipTrigger>
-          <TooltipContent className="bg-slate-800 text-gray-100 py-2 font-bold">
-            Delete Document
-          </TooltipContent>
-        </Tooltip>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Tooltip>
+            <TooltipTrigger onClick={() => setopen(true)} className="px-3 py-2 cursor-pointer rounded-xl bg-slate-700  hover:bg-slate-800 transition-all duration-300">
+              <MdDelete size={20} />
+            </TooltipTrigger>
+            <TooltipContent className="bg-slate-800 text-gray-100 py-2 font-bold">
+              Delete Document
+            </TooltipContent>
+          </Tooltip>
+        }
+      ></DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
@@ -63,11 +64,11 @@ const DeleteDoc = (props) => {
           </DialogDescription>
         </DialogHeader>
         <button
-        disabled={loading}
+          disabled={loading}
           onClick={handleSubmit}
           className="bg-red-600 hover:bg-red-500 transition-all duration-300 w-full py-2 text-lg select-none rounded-xl cursor-pointer flex items-center justify-center"
         >
-          {loading ? <Spinner className='h-5 w-5' /> : "Delete"}
+          {loading ? <Spinner className="h-5 w-5" /> : "Delete"}
         </button>
       </DialogContent>
     </Dialog>

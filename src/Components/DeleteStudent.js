@@ -38,9 +38,15 @@ const Delete = (props) => {
   };
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger>
-        <CardBtn icon={<MdDelete size={20} />} text="Delete Student" />
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <CardBtn
+            setopen={setopen}
+            icon={<MdDelete size={20} />}
+            text="Delete Student"
+          />
+        }
+      ></DialogTrigger>
       <DialogContent className="bg-slate-800 text-gray-100 w-100">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-center">

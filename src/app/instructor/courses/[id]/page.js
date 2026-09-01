@@ -74,6 +74,7 @@ const Page = () => {
                   id={std.id}
                   username={std.username}
                   email={std.email}
+                  progress={std.progress}
                 />
               );
             })}
