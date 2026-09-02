@@ -1,5 +1,6 @@
 "use client";
 import StudentDocCard from "@/Components/StudentDocCard";
+import StudentFlashcard from "@/Components/StudentFlashcard";
 import StudentVideoCard from "@/Components/StudentVideoCard";
 import { Input } from "@/Components/ui/input";
 import api from "@/utils/authClient";
@@ -163,28 +164,14 @@ const Page = () => {
             {course.flashcards &&
               course.flashcards.flashcards?.map((flash) => {
                 return (
-                  <div
-                    className="w-96 h-56 cursor-pointer text-slate-800"
+                  <StudentFlashcard
                     key={flash.id}
-                    onClick={() => setisFlipped(!isFlipped)}
-                  >
-                    <div
-                      className={`relative w-full h-full transition-transform duration-500 transform-3d ${
-                        isFlipped ? "rotate-y-180" : ""
-                      }`}
-                    >
-                      <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-white p-6 backface-hidden">
-                        <p className="text-xl font-semibold text-center">
-                          {flash.front_text}
-                        </p>
-                      </div>
-                      <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-slate-800 text-white p-6 backface-hidden rotate-y-180">
-                        <p className="text-xl font-semibold text-center">
-                          {flash.back_text}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                    id={flash.id}
+                    front_text={flash.front_text}
+                    back_text={flash.back_text}
+                    getter={course}
+                    setter={setcourse}
+                  />
                 );
               })}
           </div>

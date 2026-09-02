@@ -15,41 +15,14 @@ import { Input } from "./ui/input";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
 import DeleteVideo from "./DeleteVideo";
+import EditVideo from "./EditVideo";
 
 const AdminVideoCard = (props) => {
-  const [title, settitle] = useState(props.title);
   const [isPlay, setisPlay] = useState(false);
   const [isPaused, setisPaused] = useState(false);
   const [isMuted, setisMuted] = useState(true);
   const [loading, setloading] = useState(false);
-  const [isEdit, setisEdit] = useState(false);
   const videoRef = useRef();
-  const inputRef = useRef();
-
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    try {
-      const new_video = await api.patch(`app/videos/${props.id}`, { title });
-      let new_videos = [];
-      if (props.getter.videos) {
-        new_videos = { ...props.getter };
-        const idx = new_videos.videos.filter((video) => video.id == props.id);
-        new_videos.videos[idx] = { ...new_video.data };
-      } else {
-        new_videos = [...props.getter];
-        const idx = new_videos.filter((video) => video.id == props.id);
-        new_videos[idx] = { ...new_video.data };
-      }
-      props.setter(new_videos);
-      setisEdit(false);
-      toast.add({ title: "Updated video title successfully" });
-    } catch (error) {
-      console.log(error);
-      for (const field in error.response.data) {
-        toast.add({ title: error.response.data[field] });
-      }
-    }
-  };
 
   const handlePlay = () => {
     setisPlay(true);
@@ -132,37 +105,18 @@ const AdminVideoCard = (props) => {
 
       <div className="flex gap-2 items-center">
         <h1>Title: </h1>
-        <form onSubmit={handleEdit}>
-          <Input
-            ref={inputRef}
-            className="border-none"
-            onChange={(e) => settitle(e.target.value)}
-            onBlur={handleEdit}
-            value={title}
-            disabled={!isEdit}
-          />
-        </form>
+        <h1>{props.title}</h1>
       </div>
       <div className="flex justify-between items-center">
         <h1>{props.created_at?.split("T")[0]}</h1>
         <div className="flex gap-1">
-          <Tooltip>
-            <TooltipTrigger
-              onClick={() => {
-                (setisEdit(true),
-                  (inputRef.current.disabled = false),
-                  inputRef.current?.focus());
-              }}
-              className="p-2 rounded-full bg-slate-700 cursor-pointer hover:bg-slate-600 transition-all duration-300"
-            >
-              <FaEdit size={20} />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className="p-2 rounded-xl font-bold bg-slate-800 text-white">
-                Edit Title
-              </p>
-            </TooltipContent>
-          </Tooltip>
+          <EditVideo
+            id={props.id}
+            title={props.title}
+            thumbnailUrl={props.thumbnailUrl}
+            getter={props.getter}
+            setter={props.setter}
+          />
 
           <DeleteVideo
             id={props.id}
