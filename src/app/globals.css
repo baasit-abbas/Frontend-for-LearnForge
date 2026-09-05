@@ -2,3 +2,15 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@keyframes dot-scale {
+    0%,100%{
+        transform :scale(1);
+    }
+    50%{
+        transform: scale(1.5)
+    }
+}
+
+.dot-scale {
+    animation: dot-scale 1s ease-in-out infinite;
+}

@@ -105,7 +105,7 @@ const StudentSidebar = (props) => {
         <BarItem
           name="Ask AI"
           icon={<FaRobot size={30} />}
-          href="/student/ai"
+          href="/student/tutor"
           selected={selected}
           setselected={setselected}
         />

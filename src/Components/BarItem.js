@@ -5,7 +5,8 @@ import React from "react";
 const BarItem = (props) => {
   return (
     <Link
-      onClick={() => props.setselected(props.name)}
+    onClick={() => {props.setselected && props.setselected(props.name)}}
+      
       href={props.href}
       className={`p-3 flex gap-4 items-center hover:cursor-pointer  ${props.selected == props.name ? 'bg-slate-800' : 'hover:bg-slate-500'} transition-all duration-300 rounded-md outline-none`}
     >
