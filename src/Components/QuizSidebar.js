@@ -26,12 +26,13 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 import { logout } from "@/utils/serviceClient";
 import { useRouter } from "next/navigation";
 import ChangePassword from "./ChangePassword";
-import { Input } from "./ui/input";
+import { QuizContext } from "./QuizProvider";
+import QuizItem from "./QuizItem";
 
 const QuizSidebar = () => {
   const [isEdit, setisEdit] = useState("");
   const [settings, setsettings] = useState();
-  const [quizes, setquizes] = useState([])
+  const { quizes, setquizes, selected, setselected } = useContext(QuizContext);
   const router = useRouter();
   useEffect(() => {
     const loadData = async () => {
@@ -61,20 +62,25 @@ const QuizSidebar = () => {
           <h1 className="text-3xl font-bold">{settings?.name}</h1>
         </div>
         <BarItem name="Home" icon={<IoMdHome size={30} />} href="/student" />
-        
       </div>
       <SidebarContent>
-      <h1 className="text-lg font-bold px-3 mt-10">Previous Quizes:</h1>
+        <h1 className="text-lg font-bold px-3 mt-10">Previous Quizes:</h1>
         <SidebarGroup />
-        {quizes?.map(quiz => {
-            return(
-                <form className='h-12 rounded-md px-3' key={quiz.id}>
-                    <Input value={quiz.title} readOnly={true}
-
-                    />
-                </form>
-            )
-        })}
+        <div className="flex flex-col gap-3">
+          {quizes?.map((quiz) => {
+            return (
+              <QuizItem
+                key={quiz.id}
+                id={quiz.id}
+                title={quiz.title}
+                isEdit={isEdit}
+                setisEdit={setisEdit}
+                selected={selected}
+                setselected={setselected}
+              />
+            );
+          })}
+        </div>
         <SidebarGroup />
       </SidebarContent>
       <Popover>
