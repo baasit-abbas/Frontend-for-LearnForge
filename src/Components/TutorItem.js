@@ -20,7 +20,7 @@ import { toast } from "./ui/toast";
 
 const TutorItem = (props) => {
   const [title, settitle] = useState(props.title);
-  const { chats, setchats } = useContext(TutorContext);
+  const { chats, setchats , setconversation } = useContext(TutorContext);
   const inputRef = useRef();
   const router = useRouter();
 
@@ -52,6 +52,10 @@ const TutorItem = (props) => {
     try {
       await api.delete(`app/chat/${props.id}`);
       let newChats = chats.filter((chat) => chat.id != props.id);
+      if (props.selected == props.id){
+        setconversation([])
+        router.push('/student/tutor')
+      }
       setchats(newChats);
       toast.add({ title: "Deleted Chat Successfully" });
     } catch (error) {

@@ -1,6 +1,8 @@
 "use client";
 import McqCard from "@/Components/McqCard";
 import { QuizContext } from "@/Components/QuizProvider";
+import ShortAnswer from "@/Components/ShortAnswer";
+import TrueFalseCard from "@/Components/TrueFalseCard";
 import { Input } from "@/Components/ui/input";
 import { Spinner } from "@/Components/ui/spinner";
 import { toast } from "@/Components/ui/toast";
@@ -9,9 +11,9 @@ import React, { useContext, useState } from "react";
 import { IoSend } from "react-icons/io5";
 
 const Page = () => {
-  const { setselected, quizes, setquizes } = useContext(QuizContext);
+  const { setselected, quizes, setquizes, quiz, setquiz } =
+    useContext(QuizContext);
   const [question, setquestion] = useState("");
-  const [quiz, setquiz] = useState("");
   const [loading, setloading] = useState(false);
 
   const handleQuiz = async (e) => {
@@ -19,13 +21,18 @@ const Page = () => {
     setloading(true);
     try {
       const response = await api.post("app/quiz", { question });
+      console.log(response.data);
       const { data, ...quiz_info } = response.data;
       setquiz(response.data);
-      setquizes([...quizes, { ...quiz_info }]);
+      setquizes((prev) => [quiz_info, ...prev]);
       setselected(quiz_info.id);
     } catch (error) {
       console.log(error);
-      toast.add({ title: error.response.data[error] });
+      if (error in error.response.data) {
+        toast.add({ title: error.response.data[error] });
+      } else {
+        toast.add({ title: "Error while generating quiz. Try again" });
+      }
     } finally {
       setloading(false);
     }
@@ -70,8 +77,8 @@ const Page = () => {
                   return (
                     <McqCard
                       key={mcq.id}
-                      quiz_id = {quiz.id}
-                      course_id = {quiz.course}
+                      quiz_id={quiz.id}
+                      course_id={quiz.course}
                       id={mcq.id}
                       statment={mcq.statment}
                       correct={mcq.correct}
@@ -82,7 +89,37 @@ const Page = () => {
                     />
                   );
                 })
-              : ""}
+              : quiz.type == "true/false"
+                ? quiz.data.map((true_false) => {
+                    return (
+                      <TrueFalseCard
+                        key={true_false.id}
+                        quiz_id={quiz.id}
+                        course_id={quiz.course}
+                        id={true_false.id}
+                        statment={true_false.statment}
+                        correct={true_false.correct}
+                        selected={true_false.selected}
+                        quiz={quiz}
+                        setquiz={setquiz}
+                      />
+                    );
+                  })
+                : quiz.data.map((short) => {
+                    return (
+                      <ShortAnswer
+                        key={short.id}
+                        id={short.id}
+                        quiz_id={quiz.id}
+                        course_id={quiz.course}
+                        statment={short.statment}
+                        selected={short.selected}
+                        marks={short.marks}
+                        quiz={quiz}
+                        setquiz={setquiz}
+                      />
+                    );
+                  })}
           </div>
         </div>
       )}

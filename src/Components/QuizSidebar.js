@@ -28,11 +28,12 @@ import { useRouter } from "next/navigation";
 import ChangePassword from "./ChangePassword";
 import { QuizContext } from "./QuizProvider";
 import QuizItem from "./QuizItem";
+import { MdQuiz } from "react-icons/md";
 
 const QuizSidebar = () => {
   const [isEdit, setisEdit] = useState("");
   const [settings, setsettings] = useState();
-  const { quizes, setquizes, selected, setselected } = useContext(QuizContext);
+  const { quizes, setquizes, selected, setselected , quiz , setquiz } = useContext(QuizContext);
   const router = useRouter();
   useEffect(() => {
     const loadData = async () => {
@@ -62,6 +63,10 @@ const QuizSidebar = () => {
           <h1 className="text-3xl font-bold">{settings?.name}</h1>
         </div>
         <BarItem name="Home" icon={<IoMdHome size={30} />} href="/student" />
+        <div onClick={() => {setselected(""),setquiz(""),router.push('/student/quiz')}} className="text-lg flex items-center gap-2 transition-all duration-300 px-5 rounded-md bg-slate-600 hover:bg-slate-500 cursor-pointer py-3">
+          <MdQuiz size={25} />
+          <p className="font-bold">New Quiz</p>
+        </div>
       </div>
       <SidebarContent>
         <h1 className="text-lg font-bold px-3 mt-10">Previous Quizes:</h1>
@@ -77,6 +82,7 @@ const QuizSidebar = () => {
                 setisEdit={setisEdit}
                 selected={selected}
                 setselected={setselected}
+                setquiz={setquiz}
               />
             );
           })}

@@ -16,7 +16,6 @@ const McqOptionCard = (props) => {
       new_quiz = {
         ...review,data:data
       }
-      console.log(new_quiz)
       props.setquiz(new_quiz)
     } catch (error) {
       console.log(error);
@@ -25,7 +24,7 @@ const McqOptionCard = (props) => {
   return (
     <div
       onClick={() => !props.selected && handleSelect()}
-      className={`${!props.selected ? "bg-slate-800 hover:bg-slate-700" : props.correct == props.statment ? "bg-green-500" : props.selected == props.statment ? "bg-red-500" : ""} w-full px-3  py-2 transition-all duration-300 rounded-md cursor-pointer`}
+      className={`${!props.selected ? "bg-slate-800 hover:bg-slate-700 cursor-pointer" : props.correct == props.statment ? "bg-green-500" : props.selected == props.statment ? "bg-red-500" : ""} w-full px-3  py-2 transition-all duration-300 rounded-md`}
     >
       {props.statment}
     </div>

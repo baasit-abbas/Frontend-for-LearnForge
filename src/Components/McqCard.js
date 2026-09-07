@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import McqOptionCard from "./McqOptionCard";
 
 const McqCard = (props) => {
-    const [selected, setselected] = useState("")
-    console.log(props.statment)
+    const [selected, setselected] = useState(props.selected)
   return (
     <div className="flex flex-col gap-3 w-250 py-5 px-3 rounded-md text-gray-100 bg-slate-800">
       <p className="font-bold">{props.statment}</p>
