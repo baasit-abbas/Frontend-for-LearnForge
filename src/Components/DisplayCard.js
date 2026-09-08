@@ -1,10 +1,12 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { WrapperContext } from "./Wrapper";
 
 const DisplayCard = (props) => {
+  const {toggleTheme} = useContext(WrapperContext)
   return (
-    <div className="card flex flex-col justify-center p-3 bg-slate-700 text-gray-100 gap-6 w-70 h-50">
+    <div className={`card flex flex-col justify-center p-3 ${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-700 text-gray-100"}  gap-6 w-70 h-50`}>
       <div className="flex gap-5 items-center">
         {props.icon}
         <h1>{props.name}</h1>

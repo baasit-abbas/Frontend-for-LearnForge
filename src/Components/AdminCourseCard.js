@@ -1,5 +1,5 @@
 "use cleint";
-import React from "react";
+import React, { useContext } from "react";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import CardBtn from "@/Components/CardBtn";
@@ -10,18 +10,20 @@ import {
 } from "@/components/ui/progress";
 import EditCourse from "./EditCourse";
 import DeleteCourse from "./DeleteCourse";
+import { WrapperContext } from "./Wrapper";
 
 const AdminCourseCard = (props) => {
+  const {toggleTheme} = useContext(WrapperContext)
   return (
-    <div className={`card bg-slate-800 w-85 "h-65"  flex flex-col gap-5 p-3`}>
-      <h1 className="bg-slate-700 w-full py-2 rounded-md text-center h-[20%]">
+    <div className={`card ${toggleTheme ? "bg-slate-400 text-slate-800":"bg-slate-800 text-slate-100"} w-85 h-65 flex flex-col gap-5 p-3`}>
+      <h1 className={`${toggleTheme ? "bg-slate-200":"bg-slate-700"} w-full py-2 rounded-md text-center h-[20%]`}>
         {props.title}
       </h1>
-      <p className="h-[30%] bg-slate-600 rounded-md p-1">{props.description}</p>
+      <p className={`h-[30%] ${toggleTheme ? "bg-slate-100":"bg-slate-600"} rounded-md p-1`}>{props.description}</p>
       <div className="flex flex-col gap-4 h-[50%]">
         <div className="flex items-center justify-between w-full h-full">
           <div className="flex flex-col gap-1">
-            <h1 className="fonf-bold text-slate-300">Author</h1>
+            <h1 className={`font-bold ${toggleTheme ? "text-slate-700":"text-slate-300"}`}>Author</h1>
             <p>{props.instructor}</p>
           </div>
           <Progress value={props.progress} className="w-[50%] max-w-sm b">

@@ -1,20 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { MdDelete } from "react-icons/md";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import DeleteBtn from "./DeleteBtn";
+import { WrapperContext } from "./Wrapper";
 
 const Delete = (props) => {
   const [open, setopen] = useState(false);
+  const {toggleTheme} = useContext(WrapperContext)
 
   const handleDelete = () => {
     props.func(props.id);
@@ -24,7 +23,7 @@ const Delete = (props) => {
   return (
     <Dialog open={open} onOpenChange={setopen}>
       <DeleteBtn setopen={setopen} />
-      <DialogContent className="bg-slate-800 text-gray-100 w-100">
+      <DialogContent className={`${toggleTheme ? "bg-slate-100 text-slate-800":"bg-slate-800 text-gray-100"} w-100`}>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>
@@ -32,7 +31,7 @@ const Delete = (props) => {
           </DialogDescription>
           <button
             onClick={handleDelete}
-            className="w-full py-2 rounded-xl bg-red-600 hover:bg-red-500 transition-all duration-500 font-bold text-lg cursor-pointer"
+            className="w-full py-2 rounded-xl bg-red-600 hover:bg-red-500 transition-all duration-500 font-bold text-lg cursor-pointer text-white"
           >
             Delete
           </button>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,7 @@ import { Input } from "./ui/input";
 import { Spinner } from "./ui/spinner";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
+import { WrapperContext } from "./Wrapper";
 
 const EditInstructor = (props) => {
   const [username, setusername] = useState(props.username);
@@ -25,6 +26,7 @@ const EditInstructor = (props) => {
   );
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
+  const { toggleTheme } = useContext(WrapperContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +57,9 @@ const EditInstructor = (props) => {
           <CardBtn setopen={setopen} icon={<FaEdit size={20} />} text="Edit" />
         }
       ></DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100 w-100">
+      <DialogContent
+        className={`${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-800 text-gray-100"} w-100`}
+      >
         <DialogHeader>
           <DialogTitle className="text-center text-xl">
             Edit Instructor
@@ -102,7 +106,7 @@ const EditInstructor = (props) => {
               />
             </Field>
             <button
-              className="w-full rounded-xl bg-slate-600 transition-all duration-300 hover:bg-slate-500 cursor-pointer outline-none flex items-center justify-center py-3 font-bold text-lg"
+              className={`${toggleTheme ? "text-gray-800 bg-slate-300 hover:bg-slate-200" : "text-gray-100 bg-slate-600 hover:bg-slate-500"} transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center`}
               disabled={loading}
             >
               {loading ? (

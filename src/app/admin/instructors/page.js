@@ -1,12 +1,14 @@
 "use client";
 import AdminPageHeader from "@/Components/AdminPageHeader";
 import InstructorCard from "@/Components/InstructorCard";
+import { WrapperContext } from "@/Components/Wrapper";
 import api from "@/utils/authClient";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const Page = () => {
   const [instructors, setinstructors] = useState([]);
   const [text, settext] = useState("");
+  const  {toggleTheme} = useContext(WrapperContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,18 +22,19 @@ const Page = () => {
     if (text == "") {
       return instructors;
     }
+    const lower_text = text.toLocaleLowerCase()
     return instructors.filter(
       (inst) =>
-        String(inst.id).startsWith(text) ||
-        inst.username.toLowerCase().startsWith(text) ||
-        inst.email.startsWith(text) ||
-        inst.specialization.startsWith(text) ||
-        String(inst.experience_years).startsWith(text),
+        String(inst.id).startsWith(lower_text) ||
+        inst.username.toLowerCase().startsWith(lower_text) ||
+        inst.email.startsWith(lower_text) ||
+        inst.specialization.startsWith(lower_text) ||
+        String(inst.experience_years).startsWith(lower_text),
     );
   };
 
   return (
-    <div className="px-10 py-8 flex flex-col gap-5 min-h-screen">
+    <div className={`${toggleTheme ? "bg-slate-100 text-slate-800":"bg-slate-700 text-slate-100"} px-10 py-8 flex flex-col gap-5 min-h-screen`}>
       <AdminPageHeader
         heading="Instrcutors"
         search={settext}

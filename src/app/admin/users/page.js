@@ -1,14 +1,16 @@
 "use client";
 import AdminPageHeader from "@/Components/AdminPageHeader";
 import api from "@/utils/authClient";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import UserTable from "@/Components/UserTable";
 import { toast } from "@/Components/ui/toast";
+import { WrapperContext } from "@/Components/Wrapper";
 
 const Page = () => {
   const [users, setusers] = useState([]);
   const [text, setText] = useState("");
+  const {toggleTheme} = useContext(WrapperContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,7 +63,7 @@ const Page = () => {
   };
 
   return (
-    <div className="bg-slate-700 text-gray-100 px-15">
+    <div className={`min-h-screen px-15 ${toggleTheme ? "bg-slate-100 text-slate-900":"bg-slate-700 text-slate-100"}`}>
       <AdminPageHeader
         search={setText}
         heading="Users"

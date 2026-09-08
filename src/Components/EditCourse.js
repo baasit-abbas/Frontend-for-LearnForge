@@ -1,5 +1,5 @@
 "us client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -15,21 +15,21 @@ import { Field, FieldLabel } from "./ui/field";
 import { Spinner } from "./ui/spinner";
 import { Input } from "./ui/input";
 import { toast } from "./ui/toast";
-import { TooltipTrigger } from "./ui/tooltip";
+import { WrapperContext } from "./Wrapper";
 
 const EditCourse = (props) => {
   const [title, settitle] = useState(props.title);
   const [description, setdescription] = useState(props.description);
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
-
+  const {toggleTheme} = useContext(WrapperContext)
   const handleSubmit = async (e) => {
     e.preventDefault();
     setloading(true);
     try {
       const data = { title, description };
       await api.patch(`app/course/${props.id}`, data);
-      let new_courses = []
+      let new_courses = [];
       if (props.getter.courses) {
         new_courses = { ...props.getter };
         const idx = new_courses.courses.findIndex(
@@ -55,9 +55,14 @@ const EditCourse = (props) => {
   };
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger render={<CardBtn text="Edit" setopen={setopen} icon={<FaEdit size={20} />} />}>
-      </DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100 w-100">
+      <DialogTrigger
+        render={
+          <CardBtn text="Edit" setopen={setopen} icon={<FaEdit size={20} />} />
+        }
+      ></DialogTrigger>
+      <DialogContent
+        className={`${toggleTheme ? "bg-slate-100 text-slate-700" : "bg-slate-800 text-gray-100"} w-100`}
+      >
         <DialogHeader>
           <DialogTitle className="text-2xl text-center">
             Edit Course
@@ -87,9 +92,8 @@ const EditCourse = (props) => {
               />
             </Field>
             <button
-    
               disabled={loading}
-              className="w-full py-2 bg-slate-700 hover:bg-slate-600 transition-all duration-300 font-bold text-lg flex items-center justify-center cursor-pointer rounded-md"
+              className={`${toggleTheme ? "text-gray-800 bg-slate-300 hover:bg-slate-200": "text-gray-100 bg-slate-600 hover:bg-slate-500"} transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center`}
             >
               {loading ? <Spinner className="w-10 h-10" /> : "Edit"}
             </button>

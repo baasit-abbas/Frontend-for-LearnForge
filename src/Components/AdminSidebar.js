@@ -19,12 +19,14 @@ import { IoMdHome } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 
 import BarItem from "./BarItem";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import api from "@/utils/authClient";
+import { WrapperContext } from "./Wrapper";
 
 export function AdminSidebar(props) {
   const [selected, setselected] = useState("");
   const [settings, setsettings] = useState({});
+  const { toggleTheme } = useContext(WrapperContext);
   useEffect(() => {
     const loadData = async () => {
       setselected("Home");
@@ -48,17 +50,19 @@ export function AdminSidebar(props) {
             <SiGreatlearning size={60} />
           )}
 
-          <h1 className="text-3xl font-bold w-full text-gray-100">{settings?.name}</h1>
+          <h1 className="text-3xl font-bold w-full ">{settings?.name}</h1>
         </div>
 
-        <div className="flex gap-3 rounded-lg px-2 py-1 bg-slate-900 items-center">
+        <div
+          className={`flex gap-3 rounded-lg px-2 py-1 ${toggleTheme ? "bg-slate-300 text-slate-900" : "bg-slate-900 text-gray-100 "} items-center`}
+        >
           <div className=" rounded-full bg-gray-100">
             <FcBusinessman size={40} />
           </div>
 
-          <div className="flex flex-col text-gray-200">
-            <h1>{props.admin.username}</h1>
-            <p className="text-sm text-gray-200">Admin</p>
+          <div className="flex flex-col">
+            <h1 className="font-bold">{props.admin.username}</h1>
+            <p className="text-sm">Admin</p>
           </div>
         </div>
       </div>

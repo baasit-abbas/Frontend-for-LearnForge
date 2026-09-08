@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,12 +18,11 @@ import {
   ComboboxList,
 } from "@/components/ui/combobox";
 
-import { FaEdit } from "react-icons/fa";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { Input } from "./ui/input";
 import { Field, FieldLabel } from "./ui/field";
 import { Spinner } from "./ui/spinner";
 import EditBtn from "./EditBtn";
+import { WrapperContext } from "./Wrapper";
 
 const EditUser = (props) => {
   const [username, setusername] = useState(props.username);
@@ -32,6 +31,7 @@ const EditUser = (props) => {
   const roles = ["Admin", "Instructor", "Student"];
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
+  const { toggleTheme } = useContext(WrapperContext);
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -49,11 +49,11 @@ const EditUser = (props) => {
   return (
     <Dialog open={open} onOpenChange={setopen}>
       <EditBtn setopen={setopen} />
-      <DialogContent className="bg-slate-800 text-gray-100 w-100">
+      <DialogContent
+        className={`${toggleTheme ? "bg-slate-100 text-slate-700" : "bg-slate-800 text-gray-100"} w-100`}
+      >
         <DialogHeader>
-          <DialogTitle className="text-gray-100 text-center text-2xl">
-            Edit User
-          </DialogTitle>
+          <DialogTitle className=" text-center text-2xl">Edit User</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <form
@@ -66,7 +66,7 @@ const EditUser = (props) => {
             </FieldLabel>
             <Input
               id="username"
-              className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
+              className="py-2 px-4 rounded-xl w-full"
               onChange={(e) => setusername(e.target.value)}
               type="text"
               value={username}
@@ -79,7 +79,7 @@ const EditUser = (props) => {
             </FieldLabel>
             <Input
               id="email"
-              className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
+              className="py-2 px-4 rounded-xl w-full"
               onChange={(e) => setemail(e.target.value)}
               type="text"
               value={email}
@@ -89,18 +89,22 @@ const EditUser = (props) => {
           <div className="flex flex-col gap-2 w-full">
             <h1 className="text-xl font-bold">Role:</h1>
             <Combobox
-              className="bg-slate-600"
               items={roles}
               value={role}
               onValueChange={(value) => setrole(value)}
             >
-              <ComboboxInput placeholder={role} />
+              <ComboboxInput
+                className={`${toggleTheme ? "bg-slate-200 text-slate-800" : "bg-slate-700"}`}
+                placeholder={role}
+              />
               <ComboboxContent className="w-full text-gray-100">
                 <ComboboxEmpty>No Role found.</ComboboxEmpty>
-                <ComboboxList className="bg-slate-700">
+                <ComboboxList
+                  className={`${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-700"}`}
+                >
                   {(item) => (
                     <ComboboxItem
-                      className="w-full hover:bg-slate-500 cursor-pointer"
+                      className={`w-full ${toggleTheme ? "hover:bg-slate-200" : "hover:bg-slate-500"} cursor-pointer`}
                       key={item}
                       value={item}
                     >
@@ -112,9 +116,9 @@ const EditUser = (props) => {
             </Combobox>
           </div>
           <button
-          disabled={loading}
+            disabled={loading}
             type="submit"
-            className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center"
+            className={`${toggleTheme ? "text-gray-800 bg-slate-300 hover:bg-slate-200": "text-gray-100 bg-slate-600 hover:bg-slate-500"} transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center`}
           >
             {loading ? <Spinner className="w-10 h-10" /> : "Edit"}
           </button>

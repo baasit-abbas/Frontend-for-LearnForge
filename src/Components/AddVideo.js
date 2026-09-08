@@ -75,7 +75,7 @@ const AddVideo = (props) => {
       <DialogTrigger className="px-3 py-2 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 transition-all duration-300 cursor-pointer">
         Add Video
       </DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100 w-100">
+      <DialogContent className="bg-slate-800 text-gray-100 w-150">
         <DialogHeader>
           <DialogTitle className="text-gray-100 text-center text-2xl">
             Add Video

@@ -2,15 +2,17 @@
 import AdminCourseCard from "@/Components/AdminCourseCard";
 import AdminDocCard from "@/Components/AdminDocCard";
 import AdminVideoCard from "@/Components/AdminVideoCard";
+import { WrapperContext } from "@/Components/Wrapper";
 import api from "@/utils/authClient";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GiTeacher } from "react-icons/gi";
 
 const Page = () => {
   const [selected, setselected] = useState("Courses");
   const params = useParams();
   const [instructor, setinstructor] = useState({});
+  const { toggleTheme } = useContext(WrapperContext);
   useEffect(() => {
     const fetchData = async () => {
       const id = params.id;
@@ -21,39 +23,45 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="py-8 px-10 flex flex-col gap-6 min-h-screen bg-slate-700">
-      <header className="rounded-md bg-slate-600 flex justify-between items-center px-10 text-gray-100 w-full h-40">
+    <div
+      className={`py-8 px-10 flex flex-col gap-6 min-h-screen ${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-700 text-slate-100"}`}
+    >
+      <header
+        className={`rounded-md ${toggleTheme ? "bg-slate-300 " : "bg-slate-600"} flex justify-between items-center px-10 w-full h-40`}
+      >
         <div className="flex flex-col gap-5">
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-5xl font-bold uppercase">
             {instructor.username}&apos;s Page
           </h1>
-          <p className="text-slate-300">
+          <p>
             {instructor.username} has specialization in{" "}
             {instructor.specialization}{" "}
             {instructor.experience_years != 0 &&
               `and has experience of ${instructor.experience_years} years`}
           </p>
         </div>
-        <div className="rounded-full p-5 bg-slate-800">
+        <div
+          className={`rounded-full p-5 ${toggleTheme ? "bg-slate-100" : "bg-slate-800"} `}
+        >
           <GiTeacher size={80} />
         </div>
       </header>
-      <div className="w-full bg-slate-600 rounded-md flex justify-around py-2">
+      <div className={`w-full ${toggleTheme ? "bg-slate-200":"bg-slate-600"}  rounded-md flex justify-around py-2`}>
         <button
           onClick={() => setselected("Courses")}
-          className={`font-bold text-xl h-full ${selected == "Courses" ? "bg-slate-900" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold text-xl h-full ${selected == "Courses" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Uploaded Courses
         </button>
         <button
           onClick={() => setselected("Documents")}
-          className={`font-bold text-xl h-full ${selected == "Documents" ? "bg-slate-900" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold text-xl h-full ${selected == "Documents" ? toggleTheme ? "bg-slate-400": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Uploaded Documents
         </button>
         <button
           onClick={() => setselected("Videos")}
-          className={`font-bold text-xl h-full ${selected == "Videos" ? "bg-slate-900" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold text-xl h-full ${selected == "Videos" ? toggleTheme ? "bg-slate-400": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Uploaded Videos
         </button>
@@ -61,7 +69,7 @@ const Page = () => {
       {selected == "Courses" ? (
         <>
           {instructor.courses?.length == 0 && (
-            <div className="font-bold text-5xl text-center">
+            <div className="font-bold text-5xl text-center w-full mt-10">
               No Courses Found
             </div>
           )}
@@ -85,7 +93,7 @@ const Page = () => {
       ) : selected == "Documents" ? (
         <div className="flex flex-wrap gap-6">
           {instructor.docs?.length == 0 && (
-            <div className="text-5xl text-gray-100 font-bold text-center">
+            <div className="text-5xl font-bold text-center w-full mt-10">
               No Documents found.
             </div>
           )}
@@ -108,7 +116,7 @@ const Page = () => {
       ) : (
         <div className="flex flex-wrap gap-6">
           {instructor.videos?.length == 0 && (
-            <div className="text-5xl font-bold text-center text-gray-100">
+            <div className="text-5xl font-bold text-center w-full mt-10">
               No Videos Found
             </div>
           )}

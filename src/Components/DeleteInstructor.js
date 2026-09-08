@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -13,10 +13,12 @@ import { MdDelete } from "react-icons/md";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
 import { Spinner } from "./ui/spinner";
+import { WrapperContext } from "./Wrapper";
 
 const DeleteInstructor = (props) => {
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
+  const {toggleTheme} = useContext(WrapperContext)
   const handleSubmit = () => {
     setloading(true);
     try {
@@ -45,7 +47,7 @@ const DeleteInstructor = (props) => {
           />
         }
       ></DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100 w-100">
+      <DialogContent className={`${toggleTheme ? "bg-slate-100 text-slate-700" : "bg-slate-800 text-gray-100"} w-100`}>
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-center">
             Are you absolutely sure?
@@ -58,7 +60,7 @@ const DeleteInstructor = (props) => {
         <button
           disabled={loading}
           onClick={handleSubmit}
-          className="w-full h-10 rounded-full bg-red-500 hover:bg-red-400 transition-all duration-300 cursor-pointer font-bold flex items-center justify-center"
+          className="w-full h-10 rounded-full bg-red-500 hover:bg-red-400 transition-all duration-300 cursor-pointer font-bold flex items-center justify-center text-white text-xl"
         >
           {loading ? <Spinner className="h-5 w-5" /> : "Delete"}
         </button>

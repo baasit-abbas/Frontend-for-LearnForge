@@ -1,6 +1,6 @@
 "use client";
 import api from "@/utils/authClient";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa6";
 import { PiStudentBold } from "react-icons/pi";
 import { GiTeacher } from "react-icons/gi";
@@ -13,20 +13,26 @@ import AdminItem from "@/Components/AdminItem";
 import AddInstructor from "@/Components/AddInstructor";
 import AddAdmin from "@/Components/AddAdmin";
 import AddCourseAdmin from "@/Components/AddCourseAdmin";
+import { WrapperContext } from "@/Components/Wrapper";
 
 const Page = () => {
   const [data, setdata] = useState([]);
+  const { toggleTheme } = useContext(WrapperContext);
   useEffect(() => {
     const fetchData = async () => {
-        const data = await api.get("app/adminData");
-        setdata(data.data);
+      const data = await api.get("app/adminData");
+      setdata(data.data);
     };
     fetchData();
   }, []);
 
   return (
-    <div className="min-h-screen pt-17">
-      <main className="bg-slate-900 px-6 flex flex-col gap-8 h-full">
+    <div
+      className={`min-h-screen ${toggleTheme ? "bg-gray-100 text-slate-800" : "bg-slate-700 text-gray-100"} pt-17`}
+    >
+      <main
+        className={`${toggleTheme ? "bg-slate-200" : "bg-slate-900"} px-6 flex flex-col gap-8 h-full`}
+      >
         <div className="py-4 flex justify-between">
           <div className="flex flex-col gap-4">
             <h1 className="text-3xl font-bold">Dashboard</h1>
@@ -110,12 +116,16 @@ const Page = () => {
                 month={data.recent_videos}
               />
             </div>
-            <div className="bg-slate-700 p-3 flex flex-col gap-6">
+            <div
+              className={`${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-700 text-gray-100"} p-3 flex flex-col gap-6`}
+            >
               <h1 className="text-xl font-bold">Registerations Per Month</h1>
               <LineChartComp data={data.registeration_per_month} />
             </div>
           </div>
-          <div className="w-[27%] bg-slate-700 text-gray-100 flex flex-col gap-6 px-3 py-4">
+          <div
+            className={`w-[27%] ${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-700 text-gray-100"}  flex flex-col gap-6 px-3 py-4`}
+          >
             <h1 className="font-bold text-xl">Averages</h1>
             <div className="flex flex-col gap-2">
               <AdminItem

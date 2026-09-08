@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,7 @@ import { Input } from "./ui/input";
 import { Field, FieldLabel } from "./ui/field";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
+import { WrapperContext } from "./Wrapper";
 
 const EditStudent = (props) => {
   const [username, setusername] = useState(props.username);
@@ -22,6 +23,7 @@ const EditStudent = (props) => {
   const [dob, setdob] = useState(props.dob);
   const [loading, setloading] = useState(false);
   const [open, setopen] = useState(false);
+  const {toggleTheme} = useContext(WrapperContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +65,7 @@ const EditStudent = (props) => {
           />
         }
       ></DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100 w-100">
+      <DialogContent className={`${toggleTheme ? "bg-slate-100 text-slate-800":"bg-slate-800 text-gray-100"} w-100`}>
         <DialogHeader>
           <DialogTitle className="font-bold text-xl text-center">
             Edit Student
@@ -80,7 +82,7 @@ const EditStudent = (props) => {
             </FieldLabel>
             <Input
               id="username"
-              className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
+              className="py-2 px-4 rounded-xl  w-full"
               onChange={(e) => setusername(e.target.value)}
               type="text"
               value={username}
@@ -93,7 +95,7 @@ const EditStudent = (props) => {
             </FieldLabel>
             <Input
               id="email"
-              className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
+              className="py-2 px-4 rounded-xl  w-full"
               onChange={(e) => setemail(e.target.value)}
               type="text"
               value={email}
@@ -106,7 +108,7 @@ const EditStudent = (props) => {
             </FieldLabel>
             <Input
               id="dob"
-              className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
+              className="py-2 px-4 rounded-xl  w-full"
               onChange={(e) => setdob(e.target.value)}
               type="date"
               value={dob}
@@ -116,7 +118,7 @@ const EditStudent = (props) => {
           <button
             disabled={loading}
             type="submit"
-            className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center"
+            className={`${toggleTheme ? "text-gray-800 bg-slate-300 hover:bg-slate-200":"text-gray-100 bg-slate-600 hover:bg-slate-500"} transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center`}
           >
             {loading ? <Spinner className="w-10 h-10" /> : "Edit"}
           </button>

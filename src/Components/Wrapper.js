@@ -1,46 +1,52 @@
 "use client";
-import React, { useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { SidebarProvider } from "./ui/sidebar";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { MdNightlight } from "react-icons/md";
 import { Toaster } from "./ui/toast";
-import { TooltipProvider } from './ui/tooltip';
+import { TooltipProvider } from "./ui/tooltip";
 
+export const WrapperContext = createContext();
 const Wrapper = ({ children }) => {
-  // const theme = localStorage.getItem("theme");
-  // let toggle = false;
-  // if (theme == "light") {
-  //   toggle = true;
-  // }
   const [toggleTheme, settoggleTheme] = useState(false);
+  useEffect(() => {
+    const loadData = () => {
+      const theme = localStorage.getItem("theme");
+      let toggle = false;
+      if (theme == "light") {
+        toggle = true;
+      }
+      settoggleTheme(toggle);
+    };
+    loadData()
+  }, []);
 
   const handleToggle = () => {
+    let toggle = !toggleTheme;
     settoggleTheme(!toggleTheme);
-    // let theme = "dark";
-    // if (toggle == true) {
-    //   theme = "light";
-    // }
-    // localStorage.setItem("theme", false);
+    let theme = "dark";
+    if (toggle == true) {
+      theme = "light";
+    }
+    localStorage.setItem("theme", theme);
   };
   return (
-    <div
-      className={`${toggleTheme ? "bg-gray-100 text-slate-900" : "bg-slate-700 text-gray-100"}`}
-    >
+    <WrapperContext.Provider value={{toggleTheme,settoggleTheme}}>
       <SidebarProvider>
-        {/* <div
+        <div
           onClick={handleToggle}
-          className="p-2 rounded-full bg-slate-500 hover:bg-slate-400 transition-all duration-300 cursor-pointer fixed top-7 right-4"
+          className="p-2 rounded-full bg-slate-500 hover:bg-slate-400 transition-all duration-300 cursor-pointer fixed top-4 right-4"
         >
           {toggleTheme ? (
             <MdNightlight className="text-gray-100" size={20} />
           ) : (
             <MdOutlineWbSunny className="text-gray-100" size={20} />
           )}
-        </div> */}
+        </div>
         <TooltipProvider>{children}</TooltipProvider>
         <Toaster />
       </SidebarProvider>
-    </div>
+    </WrapperContext.Provider>
   );
 };
 

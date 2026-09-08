@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -8,16 +8,18 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import { WrapperContext } from "./Wrapper";
 
 const LineChartComp = (props) => {
   const data = props.data;
+  const {toggleTheme} = useContext(WrapperContext)
 
   return (
     <ResponsiveContainer width={"100%"} height={300}>
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis stroke="#ffffff" dataKey={"month"} />
-        <YAxis stroke="#ffffff" />
+        <XAxis stroke={`${toggleTheme ? '#000000':'#ffffff'}`} dataKey={"month"} />
+        <YAxis stroke={`${toggleTheme ? '#000000':'#ffffff'}`} />
         <Tooltip />
         <Line
           type="monotone"

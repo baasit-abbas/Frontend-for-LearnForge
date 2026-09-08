@@ -1,13 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "@/utils/authClient";
 import { toast } from "@/Components/ui/toast";
 import AdminPageHeader from "@/Components/AdminPageHeader";
 import StudentCard from "@/Components/StudentCard";
+import { WrapperContext } from "@/Components/Wrapper";
 
 const Page = () => {
   const [students, setstudents] = useState([]);
   const [text, settext] = useState("");
+  const { toggleTheme } = useContext(WrapperContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,16 +23,19 @@ const Page = () => {
     if (text == "") {
       return students;
     }
+    const lower_text = text.toLocaleLowerCase()
     return students.filter(
       (std) =>
-        String(std.id).startsWith(text) ||
-        std.username.toLowerCase().startsWith(text) ||
-        std.email.startsWith(text),
+        String(std.id).startsWith(lower_text) ||
+        std.username.toLowerCase().startsWith(lower_text) ||
+        std.email.startsWith(lower_text),
     );
   };
 
   return (
-    <div className="flex flex-col gap-3 px-15">
+    <div
+      className={`min-h-screen flex flex-col gap-3 px-15 ${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-700 text-slate-100"}`}
+    >
       <AdminPageHeader
         search={settext}
         heading="Students"
