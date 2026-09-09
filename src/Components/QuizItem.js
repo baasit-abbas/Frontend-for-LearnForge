@@ -15,13 +15,14 @@ import { MdDelete } from "react-icons/md";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
 import { QuizContext } from "./QuizProvider";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { WrapperContext } from "./Wrapper";
 
 const QuizItem = (props) => {
   const [title, settitle] = useState(props.title);
   const inputRef = useRef();
   const { quizes, setquizes } = useContext(QuizContext);
+  const {toggleTheme} = useContext(WrapperContext)
   const router = useRouter()
   useEffect(() => {
     if (props.isEdit == props.id && inputRef.current) {
@@ -77,7 +78,7 @@ const QuizItem = (props) => {
           }
           onBlur={handleEdit}
           onChange={(e) => settitle(e.target.value)}
-          className={`w-full h-full ${props.isEdit == props.id ? "cursor-text border-2" : props.selected == props.id ? "cursor-pointer bg-slate-800" : "cursor-pointer bg-slate-600 hover:bg-slate-500"} transition-all duration-300 pr-10 border-none outline-none p-3 rounded-md`}
+          className={`w-full h-full ${props.isEdit == props.id ? "cursor-text border-2" : props.selected == props.id ? toggleTheme ? "cursor-pointer bg-slate-200" : "cursor-pointer bg-slate-800" : toggleTheme ? "cursor-pointer bg-slate-400 hover:bg-slate-300" : "cursor-pointer bg-slate-600 hover:bg-slate-500"} transition-all duration-300 pr-10 border-none outline-none p-3 rounded-md`}
           value={title}
           readOnly={props.isEdit != props.id}
         />
@@ -85,14 +86,14 @@ const QuizItem = (props) => {
           <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} className="absolute top-[50%] translate-y-[-50%] right-2 p-2 hover:bg-slate-500 rounded-full  cursor-pointer">
             <BsThreeDots size={15} />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-slate-800 text-gray-100">
+          <DropdownMenuContent className={`${toggleTheme ? "bg-slate-300 text-slate-800":"bg-slate-800 text-gray-100"}`}>
             <DropdownMenuGroup>
               <DropdownMenuLabel></DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => {
                   props.setisEdit(props.id);
                 }}
-                className="hover:bg-slate-700 transition-all duration-300 cursor-pointer flex items-center gap-3 px-2 text-lg"
+                className={`${toggleTheme ? "hover:bg-slate-100" :"hover:bg-slate-700"} transition-all duration-300 cursor-pointer flex items-center gap-3 px-2 text-lg`}
               >
                 <FaEdit size={20} />
                 <p>Rename</p>

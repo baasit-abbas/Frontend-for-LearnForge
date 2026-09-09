@@ -2,9 +2,10 @@
 import { Input } from "@/Components/ui/input";
 import { useSidebar } from "@/Components/ui/sidebar";
 import { toast } from "@/Components/ui/toast";
+import { WrapperContext } from "@/Components/Wrapper";
 import api from "@/utils/authClient";
 import { useParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { IoSend } from "react-icons/io5";
 import ReactMarkdown from "react-markdown";
 
@@ -13,6 +14,7 @@ const Page = () => {
   const [question, setquestion] = useState("");
   const [chat, setchat] = useState([]);
   const [loading, setloading] = useState(false);
+  const {toggleTheme} = useContext(WrapperContext)
   const {open} = useSidebar()
   const [id, setid] = useState()
   const bottomRef = useRef()
@@ -54,6 +56,8 @@ const Page = () => {
     catch(error){
       console.log(error)
       toast.add({title:"Error while generating answer.Please try again."})
+      newconverstion = newconverstion.filter(convo => convo.id != "abc")
+      setconversation(newconverstion)
       setloading(false)
     }
     
@@ -76,13 +80,13 @@ const Page = () => {
           <Input
             type="text"
             onChange={(e) => setquestion(e.target.value)}
-            className="w-full rounded-full py-6 px-3 pr-20 z-50 bg-slate-800"
+            className={`w-full rounded-full py-6 px-3 pr-20 z-50 ${toggleTheme ? "bg-slate-200":"bg-slate-800"} `}
             placeholder="Ask Anything about your courses"
             value={question}
           />
           <button
             type="submit"
-            className="p-2 rounded-full bg-slate-900 hover:bg-slate-800 transition-all duration-300 absolute top-[50%] translate-y-[-50%] right-3 cursor-pointer"
+            className={`p-2 rounded-full ${toggleTheme ? "bg-slate-300 hover:bg-slate-200":"bg-slate-900 hover:bg-slate-800 "} transition-all duration-300 absolute top-[50%] translate-y-[-50%] right-3 cursor-pointer`}
           >
             <IoSend size={20} />
           </button>
@@ -91,7 +95,7 @@ const Page = () => {
           return (
             <div
               key={message.id}
-              className={`${message.role == "human" ? "self-end rounded-full bg-slate-800 max-w-[55%]" : "max-w-full self-start"}  py-3 px-2`}
+              className={`${message.role == "human" ? toggleTheme ? "bg-slate-300 max-w-[55%] self-end rounded-full px-3 py-2" : "self-end rounded-full bg-slate-800 max-w-[55%]  px-3 py-2" : "max-w-full self-start"}  py-3 px-2`}
             >
               <ReactMarkdown>{message.message}</ReactMarkdown>
             </div>

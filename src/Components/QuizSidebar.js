@@ -29,12 +29,15 @@ import ChangePassword from "./ChangePassword";
 import { QuizContext } from "./QuizProvider";
 import QuizItem from "./QuizItem";
 import { MdQuiz } from "react-icons/md";
+import { WrapperContext } from "./Wrapper";
 
 const QuizSidebar = () => {
   const [isEdit, setisEdit] = useState("");
   const [settings, setsettings] = useState();
-  const { quizes, setquizes, selected, setselected , quiz , setquiz } = useContext(QuizContext);
+  const { quizes, setquizes, selected, setselected, quiz, setquiz } =
+    useContext(QuizContext);
   const router = useRouter();
+  const { toggleTheme } = useContext(WrapperContext);
   useEffect(() => {
     const loadData = async () => {
       const data = await api.get("settings");
@@ -51,7 +54,9 @@ const QuizSidebar = () => {
   };
 
   return (
-    <Sidebar className="py-5 px-2 bg-slate-700 text-gray-100">
+    <Sidebar
+      className={`${toggleTheme ? "bg-gray-100 text-slate-800" : "bg-slate-700 text-gray-100"} py-5 px-2`}
+    >
       <SidebarHeader />
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-4">
@@ -63,7 +68,12 @@ const QuizSidebar = () => {
           <h1 className="text-3xl font-bold">{settings?.name}</h1>
         </div>
         <BarItem name="Home" icon={<IoMdHome size={30} />} href="/student" />
-        <div onClick={() => {setselected(""),setquiz(""),router.push('/student/quiz')}} className="text-lg flex items-center gap-2 transition-all duration-300 px-5 rounded-md bg-slate-600 hover:bg-slate-500 cursor-pointer py-3">
+        <div
+          onClick={() => {
+            (setselected(""), setquiz(""), router.push("/student/quiz"));
+          }}
+          className={`text-lg flex items-center gap-2 transition-all duration-300 px-5 rounded-md ${toggleTheme ? "bg-slate-300 hover:bg-slate-200":"bg-slate-600 hover:bg-slate-500"}  cursor-pointer py-3`}
+        >
           <MdQuiz size={25} />
           <p className="font-bold">New Quiz</p>
         </div>
@@ -89,23 +99,18 @@ const QuizSidebar = () => {
         </div>
         <SidebarGroup />
       </SidebarContent>
-      <Popover>
-        <PopoverTrigger
-          className={`p-3 rounded-md hover:bg-slate-600 transition-all duration-300 cursor-pointer flex items-center gap-4`}
-        >
-          <IoSettings size={30} />
+       <Popover>
+        <PopoverTrigger className={`p-3 flex gap-4 items-center hover:cursor-pointer  ${ toggleTheme ? "hover:bg-slate-300": 'hover:bg-slate-500'} transition-all duration-300 rounded-md outline-none`}>
+          <IoSettings size={30}/>
           <h1 className="text-xl">Settings</h1>
         </PopoverTrigger>
-        <PopoverContent className="bg-slate-800 text-gray-100 rounded-md">
+        <PopoverContent className='bg-slate-800 text-gray-100 rounded-md'>
           <PopoverHeader>
             <PopoverTitle></PopoverTitle>
             <PopoverDescription></PopoverDescription>
           </PopoverHeader>
-          <button
-            onClick={handleLogOut}
-            className="transition-all duration-300 cursor-pointer hover:bg-slate-600 p-2 rounded-md flex items-center  gap-4 text-lg outline-none"
-          >
-            <RiLogoutBoxRLine size={25} />
+          <button onClick={handleLogOut} className="transition-all duration-300 cursor-pointer hover:bg-slate-600 p-2 rounded-md flex items-center  gap-4 text-lg outline-none">
+            <RiLogoutBoxRLine size={25}/>
             <p>Log Out</p>
           </button>
           <ChangePassword />

@@ -29,11 +29,13 @@ import { useRouter } from "next/navigation";
 import ChangePassword from "./ChangePassword";
 import { TutorContext } from "./TutorProvider";
 import TutorItem from "./TutorItem";
+import { WrapperContext } from "./Wrapper";
 
 const TutorSidebar = () => {
   const [isEdit, setisEdit] = useState("");
   const [settings, setsettings] = useState();
   const { chats, setchats, setid, setconversation , selected , setselected } = useContext(TutorContext);
+  const {toggleTheme} = useContext(WrapperContext)
   const router = useRouter();
   useEffect(() => {
     const loadData = async () => {
@@ -51,7 +53,7 @@ const TutorSidebar = () => {
   };
 
   return (
-    <Sidebar className="py-5 px-2 bg-slate-700 text-gray-100">
+    <Sidebar className={`${toggleTheme ? "bg-gray-100 text-slate-800" : "bg-slate-700 text-gray-100"} py-5 px-2`}>
       <SidebarHeader />
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-4">
@@ -92,23 +94,18 @@ const TutorSidebar = () => {
         </div>
         <SidebarGroup />
       </SidebarContent>
-      <Popover>
-        <PopoverTrigger
-          className={`p-3 rounded-md hover:bg-slate-600 transition-all duration-300 cursor-pointer flex items-center gap-4`}
-        >
-          <IoSettings size={30} />
+       <Popover>
+        <PopoverTrigger className={`p-3 flex gap-4 items-center hover:cursor-pointer  ${ toggleTheme ? "hover:bg-slate-300": 'hover:bg-slate-500'} transition-all duration-300 rounded-md outline-none`}>
+          <IoSettings size={30}/>
           <h1 className="text-xl">Settings</h1>
         </PopoverTrigger>
-        <PopoverContent className="bg-slate-800 text-gray-100 rounded-md">
+        <PopoverContent className='bg-slate-800 text-gray-100 rounded-md'>
           <PopoverHeader>
             <PopoverTitle></PopoverTitle>
             <PopoverDescription></PopoverDescription>
           </PopoverHeader>
-          <button
-            onClick={handleLogOut}
-            className="transition-all duration-300 cursor-pointer hover:bg-slate-600 p-2 rounded-md flex items-center  gap-4 text-lg outline-none"
-          >
-            <RiLogoutBoxRLine size={25} />
+          <button onClick={handleLogOut} className="transition-all duration-300 cursor-pointer hover:bg-slate-600 p-2 rounded-md flex items-center  gap-4 text-lg outline-none">
+            <RiLogoutBoxRLine size={25}/>
             <p>Log Out</p>
           </button>
           <ChangePassword />

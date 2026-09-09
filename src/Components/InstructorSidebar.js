@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -31,10 +31,12 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 import { logout } from "@/utils/serviceClient";
 import { useRouter } from "next/navigation";
 import ChangePassword from "./ChangePassword";
+import { WrapperContext } from "./Wrapper";
 
 const InstructorSidebar = (props) => {
   const [selected, setselected] = useState("");
   const [settings, setsettings] = useState();
+  const {toggleTheme} = useContext(WrapperContext)
   const router = useRouter()
   useEffect(() => {
     const loadData = async () => {
@@ -51,7 +53,7 @@ const InstructorSidebar = (props) => {
   }
 
   return (
-    <Sidebar className="py-5 px-2 bg-slate-700 text-gray-100">
+    <Sidebar className="py-5 px-2">
       <SidebarHeader />
       <div className="flex flex-col gap-5">
         <div className="flex items-center gap-4">
@@ -62,7 +64,7 @@ const InstructorSidebar = (props) => {
           )}
           <h1 className="text-3xl font-bold">{settings?.name}</h1>
         </div>
-        <div className="rounded-md bg-slate-800 flex gap-3 items-center py-1 px-4">
+        <div className={`flex gap-3 rounded-lg px-2 py-1 ${toggleTheme ? "bg-slate-300 text-slate-900" : "bg-slate-900 text-gray-100 "} items-center`}>
           <div className="rounded-full bg-slate-100">
             <FcBusinessman size={40} />
           </div>
@@ -112,7 +114,7 @@ const InstructorSidebar = (props) => {
         <SidebarGroup />
       </SidebarContent>
       <Popover>
-        <PopoverTrigger className={`p-3 rounded-md hover:bg-slate-600 transition-all duration-300 cursor-pointer flex items-center gap-4`}>
+        <PopoverTrigger className={`p-3 flex gap-4 items-center hover:cursor-pointer  ${ toggleTheme ? "hover:bg-slate-300": 'hover:bg-slate-500'} transition-all duration-300 rounded-md outline-none`}>
           <IoSettings size={30}/>
           <h1 className="text-xl">Settings</h1>
         </PopoverTrigger>

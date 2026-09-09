@@ -1,14 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSidebar } from "@/Components/ui/sidebar";
 import InstructorSidebar from "@/Components/InstructorSidebar";
 import { VscLayoutSidebarLeftDock } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
+import { WrapperContext } from "@/Components/Wrapper";
 
 const Layout = ({ children }) => {
   const router = useRouter();
   const [instructor, setinstructor] = useState({});
   const { open, toggleSidebar } = useSidebar();
+  const { toggleTheme } = useContext(WrapperContext);
   useEffect(() => {
     const loadData = () => {
       try {
@@ -26,19 +28,27 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <InstructorSidebar instructor={instructor} />
-      <main className="relative">
-        <div
-          className={`p-1 hover:bg-slate-600 cursor-pointer fixed top-0 ${open ? "left-55" : "left-0"} z-50 transition-all duration-300`}
-          onClick={toggleSidebar}
-        >
-          <VscLayoutSidebarLeftDock
-            size={25}
-            className={`${open ? "" : "rotate-180"} transition-all duration-300`}
-          />
-        </div>
-      </main>
-      <div className="flex-1">{children}</div>
+      <div
+        className={`${toggleTheme ? "bg-gray-100 text-slate-800" : "bg-slate-700 text-gray-100"}`}
+      >
+        <InstructorSidebar instructor={instructor} />
+        <main>
+          <div
+            onClick={toggleSidebar}
+            className={`cursor-pointer ${toggleTheme ? "hover:bg-slate-200" : "hover:bg-slate-500"}  transition-all duration-300  p-1 fixed ${open ? "left-55" : "left-0"} z-10`}
+          >
+            <VscLayoutSidebarLeftDock
+              className={`transition-all duration-300 ${open ? "" : "rotate-180"}`}
+              size={25}
+            />
+          </div>
+        </main>
+      </div>
+      <div
+        className={`${toggleTheme ? "bg-gray-100 text-slate-800" : "bg-slate-700 text-gray-100"} flex-1`}
+      >
+        {children}
+      </div>
     </>
   );
 };

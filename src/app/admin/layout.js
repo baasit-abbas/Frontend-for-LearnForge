@@ -44,7 +44,7 @@ const Layout = ({ children }) => {
           </div>
         </main>
       </div>
-      <div className="flex-1">{children}</div>
+      <div className={`${toggleTheme ? "bg-gray-100 text-slate-800" : "bg-slate-700 text-gray-100"} flex-1`}>{children}</div>
     </>
   );
 };

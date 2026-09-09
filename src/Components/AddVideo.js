@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -26,6 +26,7 @@ import { Field, FieldLabel } from "./ui/field";
 import { Spinner } from "./ui/spinner";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
+import { WrapperContext } from "./Wrapper";
 
 const AddVideo = (props) => {
   const [title, settitle] = useState("");
@@ -34,6 +35,8 @@ const AddVideo = (props) => {
 
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
+
+  const {toggleTheme} = useContext(WrapperContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,12 +75,12 @@ const AddVideo = (props) => {
 
   return (
     <Dialog open={open} onOpenChange={setopen}>
-      <DialogTrigger className="px-3 py-2 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 transition-all duration-300 cursor-pointer">
+      <DialogTrigger className={`px-3 py-2 rounded-xl font-bold ${toggleTheme ? "bg-slate-300 hover:bg-slate-200" : "bg-slate-900 hover:bg-slate-800"}  transition-all duration-300 cursor-pointer`}>
         Add Video
       </DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100 w-150">
+      <DialogContent className={`${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-800 text-gray-100"} w-150`}>
         <DialogHeader>
-          <DialogTitle className="text-gray-100 text-center text-2xl">
+          <DialogTitle className="text-center text-2xl">
             Add Video
           </DialogTitle>
           <DialogDescription></DialogDescription>
@@ -92,7 +95,7 @@ const AddVideo = (props) => {
             </FieldLabel>
             <Input
               id="title"
-              className="py-2 px-4 rounded-xl bg-slate-600 border-2 border-slate-500 outline-none active:border-slate-700 w-full"
+              className="py-2 px-4 rounded-xl w-full"
               onChange={(e) => settitle(e.target.value)}
               type="text"
               value={title}
@@ -101,7 +104,7 @@ const AddVideo = (props) => {
           </Field>
           <Field className="flex flex-col gap-2 w-full text-xl">
             <FieldLabel
-              className="font-bold w-full px-3 py-2 cursor-pointer bg-slate-600 border-2 border-slate-500 rounded-xl"
+              className="font-bold w-full px-3 py-2 cursor-pointer  rounded-xl"
               htmlFor="doc"
             >
               Upload Thumbnail Image
@@ -137,7 +140,7 @@ const AddVideo = (props) => {
           )}
           <Field className="flex flex-col gap-2 w-full text-xl">
             <FieldLabel
-              className="font-bold w-full px-3 py-2 cursor-pointer bg-slate-600 border-2 border-slate-500 rounded-xl"
+              className="font-bold w-full px-3 py-2 cursor-pointer rounded-xl"
               htmlFor="video"
             >
               Upload Video
@@ -174,7 +177,7 @@ const AddVideo = (props) => {
           <button
           disabled={loading}
             type="submit"
-            className="text-gray-100 bg-slate-600 hover:bg-slate-500 transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center"
+            className={`${toggleTheme ? "text-slate-800 bg-slate-300 hover:bg-slate-200" : "text-gray-100 bg-slate-600 hover:bg-slate-500"} transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center`}
           >
             {loading ? <Spinner className="w-10 h-10" /> : "Upload Video"}
           </button>

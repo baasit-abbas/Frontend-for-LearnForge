@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { logout } from "@/utils/serviceClient";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ import { useSidebar } from "@/Components/ui/sidebar";
 import { GoDotFill } from "react-icons/go";
 import { Spinner } from "@/Components/ui/spinner";
 import { toast } from "@/Components/ui/toast";
+import { WrapperContext } from "@/Components/Wrapper";
 
 const Page = () => {
   const router = useRouter();
@@ -29,6 +30,8 @@ const Page = () => {
   const [loading, setloading] = useState(false);
 
   const { open } = useSidebar();
+
+  const { toggleTheme } = useContext(WrapperContext);
 
   useEffect(() => {
     const loadData = async () => {
@@ -73,9 +76,11 @@ const Page = () => {
     router.push("/register");
   };
   return (
-    <div className="min-h-screen bg-slate-800 px-10 py-30">
+    <div
+      className={`min-h-screen ${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-800 text-slate-100"} px-10 py-30`}
+    >
       <div
-        className={`flex items-center justify-between text-gray-100 fixed top-6  z-10  ${open ? "w-290 left-74" : "w-355 left-10"} transition-all duration-300`}
+        className={`flex items-center justify-between fixed top-6  z-10  ${open ? "w-290 left-74" : "w-355 left-10"} transition-all duration-300`}
       >
         <h1 className="font-bold text-5xl">Page Settings</h1>
         <div className="flex gap-4">
@@ -83,7 +88,7 @@ const Page = () => {
             <button
               onClick={handleChanges}
               disabled={loading}
-              className="w-full h-full text-center rounded-md bg-slate-700 hover:bg-slate-600 hover:transition-all duration-300 cursor-pointer font-bold text-lg flex items-center justify-center"
+              className={`w-full h-full text-center rounded-md ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  hover:transition-all duration-300 cursor-pointer font-bold text-lg flex items-center justify-center`}
             >
               {loading ? <Spinner className="w-10 h-10" /> : "Save Changes"}
             </button>
@@ -96,7 +101,7 @@ const Page = () => {
 
           <button
             onClick={handleLogOut}
-            className="px-4 py-2 rounded-md bg-slate-700 hover:bg-slate-600 hover:transition-all duration-300 cursor-pointer font-bold text-lg"
+            className={`text-center rounded-md ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  hover:transition-all duration-300 cursor-pointer font-bold text-lg flex items-center justify-center px-4 py-2`}
           >
             Log out
           </button>
@@ -118,7 +123,7 @@ const Page = () => {
         </Field>
         <Field className="flex" orientation="horizontal w-60">
           <FieldLabel
-            className="text-lg font-bold p-1 rounded-md bg-slate-700 transition-all duration-300 hover:bg-slate-600 cursor-pointer "
+            className={`text-center rounded-md ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  hover:transition-all duration-300 cursor-pointer font-bold text-lg flex items-center justify-center px-4 py-2`}
             htmlFor="logo"
           >
             Change Logo
@@ -180,7 +185,7 @@ const Page = () => {
             Access Token Lifetime in Minutes
           </h1>
           <Slider
-            className=" h-1 bg-gray-100"
+            className={`h-1 ${toggleTheme ? "bg-slate-800":"bg-gray-100"} `}
             value={[settings.access_token]}
             onValueChange={(value) =>
               setsettings((prev) => ({ ...prev, access_token: value }))
@@ -194,7 +199,7 @@ const Page = () => {
         <div className="w-full flex flex-col gap-3">
           <h1 className="text-xl font-bold">Refresh Token Lifetime in Days</h1>
           <Slider
-            className="h-1 bg-gray-100"
+            className={`h-1 ${toggleTheme ? "bg-slate-800":"bg-gray-100"} `}
             value={[settings.refresh_token]}
             onValueChange={(value) =>
               setsettings((prev) => ({ ...prev, refresh_token: value }))
@@ -210,10 +215,10 @@ const Page = () => {
         <div className="w-full flex flex-col gap-3">
           <h1 className="text-3xl font-bold pb-6">Max Login Attempts</h1>
           <Slider
-            className="bg-gray-100 h-1"
+            className={`h-1 ${toggleTheme ? "bg-slate-800":"bg-gray-100"} `}
             value={[settings.max_login_attempts]}
             onValueChange={(value) =>
-              setsettings(prev => ({ ...prev, max_login_attempts: value }))
+              setsettings((prev) => ({ ...prev, max_login_attempts: value }))
             }
             min={1}
             max={15}
@@ -221,12 +226,14 @@ const Page = () => {
           <p>Currect Login Attempts : {settings.max_login_attempts}</p>
         </div>
         <div className="flex flex-col gap-3">
-          <h1 className="text-3xl font-bold pb-6">Retry Again time in seconds.</h1>
+          <h1 className="text-3xl font-bold pb-6">
+            Retry Again time in seconds.
+          </h1>
           <Slider
-            className="bg-gray-100 h-1"
+            className={`h-1 ${toggleTheme ? "bg-slate-800":"bg-gray-100"} `}
             value={[settings.retry_time]}
             onValueChange={(value) =>
-              setsettings(prev => ({ ...prev, retry_time: value }))
+              setsettings((prev) => ({ ...prev, retry_time: value }))
             }
             min={1}
             max={120}

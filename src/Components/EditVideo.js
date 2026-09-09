@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -25,12 +25,14 @@ import {
   AttachmentTitle,
 } from "@/components/ui/attachment";
 import { FileTextIcon, XIcon } from "lucide-react";
+import { WrapperContext } from "./Wrapper";
 
 const EditVideo = (props) => {
   const [title, settitle] = useState(props.title);
   const [image, setimage] = useState();
   const [open, setopen] = useState(false);
   const [loading, setloading] = useState(false);
+  const {toggleTheme} = useContext(WrapperContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,7 +74,7 @@ const EditVideo = (props) => {
           <Tooltip>
             <TooltipTrigger
               onClick={() => setopen(true)}
-              className="p-2 rounded-full bg-slate-700 cursor-pointer hover:bg-slate-600 transition-all duration-300"
+              className={`p-2 rounded-full ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  cursor-pointer transition-all duration-300`}
             >
               <FaEdit size={20} />
             </TooltipTrigger>
@@ -84,7 +86,7 @@ const EditVideo = (props) => {
           </Tooltip>
         }
       ></DialogTrigger>
-      <DialogContent className="bg-slate-800 text-gray-100 w-100">
+      <DialogContent className={`${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-800 text-gray-100"} w-100`}>
         <DialogHeader>
           <DialogTitle className="text-center text-xl">
             Edit Instructor
@@ -101,7 +103,7 @@ const EditVideo = (props) => {
               />
             </Field>
             <Field className="flex flex-col gap-3">
-              <FieldLabel className=" rounded-md  cursor-pointer bg-slate-700 p-2" htmlFor="image">
+              <FieldLabel className=" rounded-md  cursor-pointer p-2" htmlFor="image">
                 Change Thumbail
               </FieldLabel>
               <Input
@@ -134,7 +136,7 @@ const EditVideo = (props) => {
             )}
 
             <button
-              className="w-full rounded-xl bg-slate-600 transition-all duration-300 hover:bg-slate-500 cursor-pointer outline-none flex items-center justify-center py-3 font-bold text-lg"
+              className={`${toggleTheme ? "text-slate-800 bg-slate-300 hover:bg-slate-200" : "text-gray-100 bg-slate-600 hover:bg-slate-500"} transition-all duration-300 w-full py-3 cursor-pointer text-xl rounded-xl font-bold flex items-center justify-center`}
               disabled={loading}
             >
               {loading ? <Spinner className="w-10 h-10" /> : "Update Video"}

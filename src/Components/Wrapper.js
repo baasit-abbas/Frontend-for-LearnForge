@@ -18,7 +18,7 @@ const Wrapper = ({ children }) => {
       }
       settoggleTheme(toggle);
     };
-    loadData()
+    loadData();
   }, []);
 
   const handleToggle = () => {
@@ -31,7 +31,7 @@ const Wrapper = ({ children }) => {
     localStorage.setItem("theme", theme);
   };
   return (
-    <WrapperContext.Provider value={{toggleTheme,settoggleTheme}}>
+    <WrapperContext.Provider value={{ toggleTheme, settoggleTheme }}>
       <SidebarProvider>
         <div
           onClick={handleToggle}

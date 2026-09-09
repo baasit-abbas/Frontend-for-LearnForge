@@ -17,10 +17,12 @@ import { MdDelete } from "react-icons/md";
 import api from "@/utils/authClient";
 import { TutorContext } from "./TutorProvider";
 import { toast } from "./ui/toast";
+import { WrapperContext } from "./Wrapper";
 
 const TutorItem = (props) => {
   const [title, settitle] = useState(props.title);
   const { chats, setchats , setconversation } = useContext(TutorContext);
+  const {toggleTheme} = useContext(WrapperContext)
   const inputRef = useRef();
   const router = useRouter();
 
@@ -72,7 +74,7 @@ const TutorItem = (props) => {
             (props.setselected(props.id),
             router.push(`/student/tutor/${props.id}`));
         }}
-        className={`w-full h-full ${props.isEdit == props.id ? "border-2 cursor-text" : props.selected == props.id ? "bg-slate-800 " : "bg-slate-600 hover:bg-slate-500 "} text-slate-100 transition-all duration-300 p-3 rounded-md text-md cursor-pointer border-none outline-none pr-15`}
+        className={`w-full h-full ${props.isEdit == props.id ? "border-2 cursor-text" : props.selected == props.id ? toggleTheme ? "bg-slate-400" : "bg-slate-800" : toggleTheme ? "bg-slate-300 hover:bg-slate-200" : "bg-slate-600 hover:bg-slate-500 "} transition-all duration-300 p-3 rounded-md text-md cursor-pointer border-none outline-none pr-15`}
         value={title}
         onChange={(e) => settitle(e.target.value)}
         readOnly={props.isEdit != props.id}
@@ -81,14 +83,14 @@ const TutorItem = (props) => {
         <DropdownMenuTrigger className="absolute top-[50%] translate-y-[-50%] right-2 p-2 hover:bg-slate-500 rounded-full  cursor-pointer">
           <BsThreeDots size={15} />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-slate-800 text-gray-100">
+        <DropdownMenuContent className={`${toggleTheme ? "bg-slate-300 text-slate-800":"bg-slate-800 text-gray-100"}`}>
           <DropdownMenuGroup>
             <DropdownMenuLabel></DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
                 (props.setisEdit(props.id));
               }}
-              className="hover:bg-slate-700 transition-all duration-300 cursor-pointer flex items-center gap-3 px-2 text-lg"
+              className={`${toggleTheme ? "hover:bg-slate-100" :"hover:bg-slate-700"} transition-all duration-300 cursor-pointer flex items-center gap-3 px-2 text-lg`}
             >
               <FaEdit size={20} />
               <p>Rename</p>

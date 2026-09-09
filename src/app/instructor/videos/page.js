@@ -1,12 +1,15 @@
 "use client";
 import AdminPageHeader from "@/Components/AdminPageHeader";
 import AdminVideoCard from "@/Components/AdminVideoCard";
+import { WrapperContext } from "@/Components/Wrapper";
 import api from "@/utils/authClient";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const Page = () => {
   const [text, settext] = useState("");
   const [videos, setvideos] = useState([]);
+
+  const {toggleTheme} = useContext(WrapperContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +32,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col px-15 py-5 gap-10">
+    <div className={`flex flex-col px-15 py-5 gap-10 ${toggleTheme ? "bg-slate-100 text-slate-800":"bg-slate-800 text-slate-100"} min-h-screen`}>
       <AdminPageHeader
         heading="Videos"
         placeholder="Search by title , instructor Name and Course name."

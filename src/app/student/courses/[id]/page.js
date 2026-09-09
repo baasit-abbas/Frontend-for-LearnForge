@@ -3,16 +3,17 @@ import StudentDocCard from "@/Components/StudentDocCard";
 import StudentFlashcard from "@/Components/StudentFlashcard";
 import StudentVideoCard from "@/Components/StudentVideoCard";
 import { Input } from "@/Components/ui/input";
+import { WrapperContext } from "@/Components/Wrapper";
 import api from "@/utils/authClient";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const Page = () => {
   const [course, setcourse] = useState([]);
   const [selected, setselected] = useState("Documents");
   const [text, settext] = useState("");
-  const [isFlipped, setisFlipped] = useState(false);
   const params = useParams();
+  const {toggleTheme} = useContext(WrapperContext)
   useEffect(() => {
     const loadData = async () => {
       const id = params.id;
@@ -36,8 +37,8 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-800 text-gray-100 px-10 py-5">
-      <header className="bg-slate-700 flex justify-between items-center px-5 h-20">
+    <div className={`min-h-screen ${toggleTheme ? "bg-slate-300 text-slate-800":"bg-slate-800 text-slate-100"}  text-gray-100 px-10 py-5 flex flex-col gap-5`}>
+      <header className={`${toggleTheme ? "bg-slate-200":"bg-slate-700"} flex justify-between items-center px-5 h-20`}>
         <div className="flex flex-col gap-3">
           <h1 className="text-2xl font-bold">{course?.title}</h1>
           <p>{course?.description}</p>
@@ -49,22 +50,22 @@ const Page = () => {
           <p className="text-lg uppercase tracking-[5]">{course?.instructor}</p>
         </div>
       </header>
-      <div className="flex items-center justify-around mt-5 w-full rounded-md bg-slate-700 h-10">
+      <div className={`w-full ${toggleTheme ? "bg-slate-200 text-slate-800":"bg-slate-700 text-slate-100"}  rounded-md h-10 flex justify-around`}>
         <button
           onClick={() => setselected("Documents")}
-          className={`font-bold px-3 py-2 cursor-pointer text-lg h-full ${selected == "Documents" ? "bg-slate-800" : "hover:bg-slate-600"}`}
+          className={`font-bold text-xl h-full ${selected == "Documents" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Documents
         </button>
         <button
           onClick={() => setselected("Videos")}
-          className={`font-bold px-3 py-2 cursor-pointer h-full text-lg ${selected == "Videos" ? "bg-slate-800" : "hover:bg-slate-600"}`}
+          className={`font-bold text-xl h-full ${selected == "Videos" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Videos
         </button>
         <button
           onClick={() => setselected("Flashcards")}
-          className={`font-bold px-3 py-2 h-full cursor-pointer text-lg ${selected == "Flashcards" ? "bg-slate-800" : "hover:bg-slate-600"}`}
+          className={`font-bold text-xl h-full ${selected == "Flashcards" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Flashcards
         </button>
@@ -107,7 +108,7 @@ const Page = () => {
         {selected == "Documents" ? (
           <div className="flex flex-wrap gap-7">
             {course.docs && handleSearch().length == 0 && (
-              <h1 className="text-5xl font-bold text-center">
+              <h1 className="text-5xl font-bold text-center w-full">
                 No Documents Found
               </h1>
             )}
@@ -132,7 +133,7 @@ const Page = () => {
         ) : selected == "Videos" ? (
           <div className="flex flex-wrap gap-7">
             {course.videos && handleSearch().length == 0 && (
-              <h1 className="text-5xl font-bold text-center">
+              <h1 className="text-5xl font-bold text-center w-full">
                 No Videos Found
               </h1>
             )}
@@ -157,7 +158,7 @@ const Page = () => {
         ) : (
           <div className="flex flex-wrap gap-3">
             {course.flashcards && course.flashcards.flashcards?.length == 0 && (
-              <h1 className="text-5xl font-bold text-center">
+              <h1 className="text-5xl font-bold text-center w-full">
                 No Flascards Due Today.
               </h1>
             )}

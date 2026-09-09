@@ -24,7 +24,7 @@ const Page = () => {
   };
 
   return (
-    <div className="px-15 bg-slate-700 h-full w-full">
+    <div className="px-15 h-full w-full">
       <AdminPageHeader
         search={settext}
         heading="Courses"

@@ -33,7 +33,7 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-700 px-10 py-5">
+    <div className="min-h-screen px-10 py-5">
       <AdminPageHeader
         heading="Students"
         placeholder="Search by Student name or email."
