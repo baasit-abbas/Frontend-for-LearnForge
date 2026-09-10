@@ -35,7 +35,7 @@ const Wrapper = ({ children }) => {
       <SidebarProvider>
         <div
           onClick={handleToggle}
-          className="p-2 rounded-full bg-slate-500 hover:bg-slate-400 transition-all duration-300 cursor-pointer fixed top-4 right-4"
+          className="p-2 rounded-full bg-slate-500 hover:bg-slate-400 transition-all duration-300 cursor-pointer fixed top-1 right-4"
         >
           {toggleTheme ? (
             <MdNightlight className="text-gray-100" size={20} />

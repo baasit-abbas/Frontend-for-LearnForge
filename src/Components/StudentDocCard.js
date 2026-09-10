@@ -34,7 +34,7 @@ const StudentDocCard = (props) => {
   };
   return (
     <div
-      className={`${toggleTheme ? "bg-slate-300/90 text-slate-800" : "bg-slate-900/80 text-gray-100"} p-4 rounded-xl border-2 border-slate-500 w-140 flex flex-col gap-4`}
+      className={`${toggleTheme ? "bg-slate-300/90 text-slate-800" : "bg-slate-900/80 text-gray-100"} p-4 rounded-xl border-2 border-slate-500 md:w-140 w-full flex flex-col gap-4`}
     >
       <div className="flex items-center justify-between">
         <div className="flex gap-4 items-center">

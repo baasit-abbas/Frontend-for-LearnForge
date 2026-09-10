@@ -53,7 +53,7 @@ const StudentSidebar = (props) => {
   }
 
   return (
-    <Sidebar className="py-5 px-2">
+    <Sidebar className={`${toggleTheme ? "bg-gray-100 text-slate-800" : "bg-slate-700 text-gray-100"} px-5 py-2`} >
       <SidebarHeader />
       <div className="flex flex-col gap-5">
         <div className="flex items-center gap-4">

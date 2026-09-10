@@ -6,7 +6,7 @@ const InstrctorStudentCard = (props) => {
   const {toggleTheme} = useContext(WrapperContext)
   return (
     <div
-      className={`flex flex-col gap-3 p-2 rounded-md ${toggleTheme ? "bg-slate-300":"bg-slate-800"}  w-90 text-center`}
+      className={`flex flex-col gap-3 p-2 rounded-md ${toggleTheme ? "bg-slate-300":"bg-slate-800"}  md:w-90 w-full text-center`}
     >
       <h1 className={`font-bold w-full p-2 rounded-md text-lg ${toggleTheme ? "bg-slate-200":"bg-slate-600"}`}>
         {props.username}

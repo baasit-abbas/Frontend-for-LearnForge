@@ -33,7 +33,7 @@ const Page = () => {
       <main
         className={`${toggleTheme ? "bg-slate-200" : "bg-slate-900"} px-6 flex flex-col gap-8 h-full`}
       >
-        <div className="py-4 flex justify-between">
+        <div className="py-4 flex md:flex-row flex-col md:justify-between md:gap-0 gap-5">
           <div className="flex flex-col gap-4">
             <h1 className="text-3xl font-bold">Dashboard</h1>
             <p>
@@ -46,9 +46,9 @@ const Page = () => {
             <AddCourseAdmin />
           </div>
         </div>
-        <div className="flex gap-3">
-          <div className="w-[72%] flex flex-col gap-4">
-            <div className="flex flex-wrap gap-4 justify-around">
+        <div className="flex md:flex-row flex-col gap-3">
+          <div className="md:w-[72%] w-full flex flex-col gap-4">
+            <div className="flex flex-wrap gap-4 justify-around w-full">
               <DisplayCard
                 name="Total Users"
                 icon={
@@ -124,7 +124,7 @@ const Page = () => {
             </div>
           </div>
           <div
-            className={`w-[27%] ${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-700 text-gray-100"}  flex flex-col gap-6 px-3 py-4`}
+            className={`md:w-[27%] w-full ${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-700 text-gray-100"}  flex flex-col gap-6 px-3 py-4`}
           >
             <h1 className="font-bold text-xl">Averages</h1>
             <div className="flex flex-col gap-2">

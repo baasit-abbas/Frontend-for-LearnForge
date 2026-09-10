@@ -23,9 +23,9 @@ const Page = () => {
   }, []);
 
   return (
-    <div className={`${toggleTheme ? "bg-slate-200":"bg-slate-900"} mt-20 min-h-screen px-10 pb-5`}>
+    <div className={`${toggleTheme ? "bg-slate-200":"bg-slate-900"} mt-20 min-h-screen md:px-10 px-5 pb-5`}>
       <header className="flex flex-col justify-center-center gap-3 py-5">
-        <h1 className="font-bold text-5xl">Welcome {userProfile?.username}</h1>
+        <h1 className="font-bold md:text-5xl text-xl">Welcome {userProfile?.username}</h1>
         <p>
           Every lesson you complete brings you one step closer to mastering your
           goals
@@ -67,22 +67,22 @@ const Page = () => {
             month={student?.in_progress_this_month}
           />
         </div>
-        <div className="flex gap-3 items-center justify-around w-full mt-10">
-          <div className={`flex items-center justify-center gap-3 ${toggleTheme ? "bg-slate-300":"bg-slate-700"}  rounded-lg py-2 w-70`}>
+        <div className="flex  md:flex-row flex-col gap-3 items-center justify-around w-full mt-10">
+          <div className={`flex items-center justify-center gap-3 ${toggleTheme ? "bg-slate-300":"bg-slate-700"}  rounded-lg py-2 md:w-70 w-full`}>
             <div className={`p-2 rounded-full ${toggleTheme ? "bg-slate-200 text-slate-900":"bg-slate-900 text-slate-100"}`}>
               <MdQuiz size={20} />
             </div>
             <h1 className="text-lg font-bold ">Average Quiz Score</h1>
             <p>{student.average_quiz_score}%</p>
           </div>
-          <div className={`flex items-center justify-center gap-3 ${toggleTheme ? "bg-slate-300":"bg-slate-700"}  rounded-lg py-2 w-70`}>
+          <div className={`flex items-center justify-center gap-3 ${toggleTheme ? "bg-slate-300":"bg-slate-700"}  rounded-lg py-2 md:w-70 w-full`}>
             <div className={`p-2 rounded-full ${toggleTheme ? "bg-slate-200 text-slate-900":"bg-slate-900 text-slate-100"}`}>
               <IoFlash size={20} />
             </div>
             <h1 className="text-lg font-bold">Flashcards Attempted</h1>
             <p>{student.flashcards_attempted}</p>
           </div>
-          <div className={`flex items-center justify-center gap-3 ${toggleTheme ? "bg-slate-300":"bg-slate-700"}  rounded-lg py-2 w-70`}>
+          <div className={`flex items-center justify-center gap-3 ${toggleTheme ? "bg-slate-300":"bg-slate-700"}  rounded-lg py-2 md:w-70 w-full`}>
             <div className={`p-2 rounded-full ${toggleTheme ? "bg-slate-200 text-slate-900":"bg-slate-900 text-slate-100"}`}>
               <IoCheckmarkDoneCircleSharp size={20} />
             </div>
@@ -90,7 +90,7 @@ const Page = () => {
             <p>{student.average_course_complition}%</p>
           </div>
         </div>
-        <div className="p-3 flex flex-col gap-6 mt-10">
+        <div className="md:p-3 flex flex-col gap-6 mt-10">
           <h1 className="text-xl font-bold">
             Enrolled Per Month
           </h1>

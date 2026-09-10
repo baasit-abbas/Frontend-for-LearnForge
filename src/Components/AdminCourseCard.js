@@ -15,7 +15,7 @@ import { WrapperContext } from "./Wrapper";
 const AdminCourseCard = (props) => {
   const {toggleTheme} = useContext(WrapperContext)
   return (
-    <div className={`card ${toggleTheme ? "bg-slate-400 text-slate-800":"bg-slate-800 text-slate-100"} w-85 h-65 flex flex-col gap-5 p-3`}>
+    <div className={`card ${toggleTheme ? "bg-slate-400 text-slate-800":"bg-slate-800 text-slate-100"} md:w-85 w-full h-65 flex flex-col gap-5 p-3`}>
       <h1 className={`${toggleTheme ? "bg-slate-200":"bg-slate-700"} w-full py-2 rounded-md text-center h-[20%]`}>
         {props.title}
       </h1>

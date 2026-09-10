@@ -47,6 +47,7 @@ const Page = () => {
       } catch (error) {
         toast.add({ title: "Error while generating answer. Try again." });
         newconverstion = newconverstion.filter(convo => convo.id != "abc")
+        setconversation(newconverstion)
         setloading(false)
         return;
       }

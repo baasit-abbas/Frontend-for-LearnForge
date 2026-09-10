@@ -32,7 +32,7 @@ const Page = () => {
   };
 
   return (
-    <div className={`flex flex-col px-15 py-5 gap-10 ${toggleTheme ? "bg-slate-100 text-slate-800":"bg-slate-800 text-slate-100"} min-h-screen`}>
+    <div className={`flex flex-col md:px-15 px-5 py-5 gap-10 ${toggleTheme ? "bg-slate-100 text-slate-800":"bg-slate-800 text-slate-100"} min-h-screen`}>
       <AdminPageHeader
         heading="Videos"
         placeholder="Search by title , instructor Name and Course name."

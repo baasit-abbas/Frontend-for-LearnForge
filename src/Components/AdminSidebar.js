@@ -37,7 +37,9 @@ export function AdminSidebar(props) {
   }, []);
 
   return (
-    <Sidebar className="p-2 border-r-4 border-slate-900 select-none">
+    <Sidebar
+      className={`p-2 border-r-4 border-slate-900 select-none ${toggleTheme ? "bg-gray-100 text-slate-800" : "bg-slate-700 text-gray-100"}`}
+    >
       <SidebarHeader />
       <div className="flex flex-col gap-5 ">
         <div className="flex gap-4 items-center h-15 overflow-hidden">

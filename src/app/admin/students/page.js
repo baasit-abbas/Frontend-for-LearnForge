@@ -34,7 +34,7 @@ const Page = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col gap-3 px-15 ${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-700 text-slate-100"}`}
+      className={`min-h-screen flex flex-col gap-3 md:px-15 px-2 ${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-700 text-slate-100"}`}
     >
       <AdminPageHeader
         search={settext}
@@ -43,7 +43,7 @@ const Page = () => {
       />
       {handleSearch().length == 0 && (
         <div className="w-full h-full flex items-center justify-center">
-          <h1 className="text-5xl font-bold">No Students Found</h1>
+          <h1 className="md:text-5xl text-2xl font-bold">No Students Found</h1>
         </div>
       )}
       <div className="w-full flex flex-wrap justify-between gap-3">

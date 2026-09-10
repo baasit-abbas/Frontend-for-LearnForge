@@ -22,6 +22,7 @@ const AdminVideoCard = (props) => {
   const [isPaused, setisPaused] = useState(false);
   const [isMuted, setisMuted] = useState(true);
   const [loading, setloading] = useState(false);
+  const [open, setopen] = useState(false)
   const videoRef = useRef();
 
   const handlePlay = () => {
@@ -37,7 +38,7 @@ const AdminVideoCard = (props) => {
     videoRef.current?.pause();
   };
   return (
-    <div className="video w-70 h-90 rounded-md flex flex-col gap-2 ">
+    <div className="video md:w-70 w-full h-90 rounded-md flex flex-col gap-2 ">
       <div
         onMouseEnter={handlePlay}
         onMouseLeave={handleStop}
@@ -57,18 +58,21 @@ const AdminVideoCard = (props) => {
             onLoadStart={() => setloading(true)}
             onWaiting={() => setloading(true)}
             onPlay={() => setloading(false)}
+            onClick={() => {handleStop(), setopen(true)}}
             loop
             autoPlay
           />
         ) : (
           <img
             src={`http://localhost:8000/upload/${props.thumbnailUrl}`}
+            onClick={() => {handleStop(), setopen(true)}}
             alt="Course Tumbnail"
             className="w-full rounded-md h-full"
           />
         )}
         <PlayVideo
-          stop={handleStop}
+          open={open}
+          setopen={setopen}
           src={`http://localhost:8000/video/${props.videoUrl}`}
         />
         <div className="bg-slate-700 p-2 rounded-full text-gray-100 absolute bottom-0 left-4 cursor-pointer opacity-0 group-hover:opacity-100 group-hover:bottom-4 hover:bg-slate-800 transition-all duration-300">

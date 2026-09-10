@@ -29,38 +29,38 @@ const Page = () => {
   }, [params.id]);
 
   return (
-    <div className={`flex flex-col gap-5 ${toggleTheme ? "bg-slate-300 text-slate-800":"bg-slate-800 text-gray-100"}  w-full h-full p-10 pt-12`}>
-      <header className={`flex justify-between px-10 rounded-lg ${toggleTheme ? "bg-slate-100":"bg-slate-700"}  w-full py-6 items-center`}>
-        <div className="flex flex-col gap-8">
-          <h1 className="text-3xl font-bold">{course.title}</h1>
+    <div className={`flex flex-col gap-5 ${toggleTheme ? "bg-slate-300 text-slate-800":"bg-slate-800 text-gray-100"}  w-full h-full md:p-10 p-4 pt-12`}>
+      <header className={`flex justify-between md:px-10 px-2 rounded-lg ${toggleTheme ? "bg-slate-100":"bg-slate-700"}  w-full md:py-6 py-2 items-center`}>
+        <div className="flex flex-col md:gap-8 gap-3 md:w-auto w-[65%]">
+          <h1 className="md:text-3xl text-lg font-bold">{course.title}</h1>
           <p>{course.description}</p>
         </div>
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center md:w-auto w-[35%]">
           <div className="flex flex-col gap-3">
             <AddDoc course_id={course.id} getter={course} setter={setcourse} />
             <AddVideo course_id={course.id} getter={course} setter={setcourse} />
           </div>
-          <div className={`p-6 rounded-full ${toggleTheme ? "bg-slate-300":"bg-slate-500"}`}>
+          <div className={`p-6 rounded-full ${toggleTheme ? "bg-slate-300":"bg-slate-500"} hidden md:block`}>
             <FaBook size={80} />
           </div>
         </div>
       </header>
-      <div className={`w-full ${toggleTheme ? "bg-slate-200 text-slate-800":"bg-slate-700 text-slate-100"}  rounded-md h-10 flex justify-around`}>
+      <div className={`w-full ${toggleTheme ? "bg-slate-200 text-slate-800":"bg-slate-700 text-slate-100"}  rounded-md md:h-10 h-15 flex justify-around`}>
         <button
           onClick={() => setselected("Students")}
-          className={`font-bold text-xl h-full ${selected == "Students" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Students" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Current Enrolled Students
         </button>
         <button
           onClick={() => setselected("Documents")}
-          className={`font-bold text-xl h-full ${selected == "Documents" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Documents" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md md:px-2 p-1 md:py-1`}
         >
           Uploaded Documents
         </button>
         <button
           onClick={() => setselected("Videos")}
-          className={`font-bold text-xl h-full ${selected == "Videos" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Videos" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Uploaded Videos
         </button>

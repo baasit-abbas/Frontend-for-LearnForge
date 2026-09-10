@@ -25,10 +25,10 @@ const Page = () => {
       className={`min-h-screen ${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-900 text-slate-100"} p-3 pt-10 flex flex-col gap-4`}
     >
       <header
-        className={`flex items-center justify-between rounded-xl w-full ${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-700 text-slate-100"}  px-20 h-45`}
+        className={`flex items-center justify-between rounded-xl w-full ${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-700 text-slate-100"}  md:px-20 px-5 h-45`}
       >
-        <div className="flex flex-col gap-5">
-          <h1 className="font-bold text-5xl">
+        <div className="flex flex-col md:gap-5 gap-3">
+          <h1 className="font-bold md:text-5xl text-2xl">
             {students.username}&apos;s Page
           </h1>
           <p>Education is the passport to the future, So learn more and more</p>

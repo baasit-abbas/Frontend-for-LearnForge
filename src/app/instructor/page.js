@@ -30,15 +30,15 @@ const Page = () => {
     <div
       className={`${toggleTheme ? "bg-slate-200" : "bg-slate-900"} mt-20 min-h-screen px-4`}
     >
-      <header className=" px-7 py-4 flex items-center justify-between">
+      <header className="md:px-7 px-1 py-4 flex items-center justify-between">
         <div className="flex flex-col gap-3">
-          <h1 className="font-bold text-5xl">Welcome {user?.username}</h1>
+          <h1 className="font-bold md:text-5xl text-xl">Welcome {user?.username}</h1>
           <p>Manage your courses , docs , videos etc.</p>
         </div>
         <AddCourseInstructor />
       </header>
-      <div className="mt-9 flex gap-2 w-full">
-        <div className="flex flex-wrap gap-4 justify-around w-[75%]">
+      <div className="mt-9 flex md:flex-row flex-col gap-2 w-full">
+        <div className="flex flex-wrap gap-4 justify-around md:w-[75%] w-full">
           <DisplayCard
             name="My Courses"
             icon={
@@ -106,7 +106,7 @@ const Page = () => {
             month={instrcutor?.flashcards_this_month}
           />
         </div>
-        <div className={`w-[25%] ${toggleTheme ? "bg-slate-300":"bg-slate-700"} flex flex-col gap-3 py-4 px-2`}>
+        <div className={`md:w-[25%] w-full ${toggleTheme ? "bg-slate-300":"bg-slate-700"} flex flex-col gap-3 py-4 px-2`}>
           <h1 className="text-2xl font-bold">Averages</h1>
           <div className="flex justify-between items-center">
             <h1>Avergae Course Complition:</h1>

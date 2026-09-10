@@ -34,7 +34,7 @@ const Page = () => {
   };
 
   return (
-    <div className={`${toggleTheme ? "bg-slate-100 text-slate-800":"bg-slate-700 text-slate-100"} px-10 py-8 flex flex-col gap-5 min-h-screen`}>
+    <div className={`${toggleTheme ? "bg-slate-100 text-slate-800":"bg-slate-700 text-slate-100"} md:px-10 px-3 py-8 flex flex-col gap-5 min-h-screen`}>
       <AdminPageHeader
         heading="Instrcutors"
         search={settext}
@@ -42,7 +42,7 @@ const Page = () => {
       />
       {handleSearch().length == 0 && (
         <div className="w-full h-full flex items-center justify-center">
-          <h1 className="text-5xl font-bold">No Instructor Found</h1>
+          <h1 className="md:text-5xl text-2xl font-bold">No Instructor Found</h1>
         </div>
       )}
       <div className="flex flex-wrap justify-between gap-5">

@@ -37,35 +37,35 @@ const Page = () => {
   };
 
   return (
-    <div className={`min-h-screen ${toggleTheme ? "bg-slate-300 text-slate-800":"bg-slate-800 text-slate-100"}  text-gray-100 px-10 py-5 flex flex-col gap-5`}>
-      <header className={`${toggleTheme ? "bg-slate-200":"bg-slate-700"} flex justify-between items-center px-5 h-20`}>
-        <div className="flex flex-col gap-3">
-          <h1 className="text-2xl font-bold">{course?.title}</h1>
+    <div className={`min-h-screen ${toggleTheme ? "bg-slate-300 text-slate-800":"bg-slate-800 text-slate-100"}  text-gray-100 md:px-10 px-3 py-5 flex flex-col gap-5`}>
+      <header className={`flex justify-between md:px-10 px-1 rounded-lg ${toggleTheme ? "bg-slate-100":"bg-slate-700"}  w-full py-6 items-center`}>
+        <div className="flex flex-col md:gap-8 gap-3 md:w-auto w-[65%]">
+          <h1 className="md:text-3xl text-lg font-bold">{course?.title}</h1>
           <p>{course?.description}</p>
         </div>
-        <div className="flex gap-3">
-          <h1 className="text-xl font-bold uppercase tracking-[3]">
+        <div className="flex md:flex-row flex-col gap-3 md:w-auto w-[35%]">
+          <h1 className="md:text-xl text-lg font-bold uppercase md:tracking-[3]">
             Instructor:{" "}
           </h1>
-          <p className="text-lg uppercase tracking-[5]">{course?.instructor}</p>
+          <p className="md:text-lg uppercase md:tracking-[5]">{course?.instructor}</p>
         </div>
       </header>
-      <div className={`w-full ${toggleTheme ? "bg-slate-200 text-slate-800":"bg-slate-700 text-slate-100"}  rounded-md h-10 flex justify-around`}>
+      <div className={`w-full ${toggleTheme ? "bg-slate-200 text-slate-800":"bg-slate-700 text-slate-100"}  rounded-md md:h-10 h-15 flex justify-around`}>
         <button
           onClick={() => setselected("Documents")}
-          className={`font-bold text-xl h-full ${selected == "Documents" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Documents" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Documents
         </button>
         <button
           onClick={() => setselected("Videos")}
-          className={`font-bold text-xl h-full ${selected == "Videos" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Videos" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Videos
         </button>
         <button
           onClick={() => setselected("Flashcards")}
-          className={`font-bold text-xl h-full ${selected == "Flashcards" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Flashcards" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Flashcards
         </button>

@@ -25,7 +25,7 @@ const DisoverCourse = (props) => {
     }
   };
   return (
-    <div className={`card flex flex-col justify-center gap-4 rounded-md ${toggleTheme ? "bg-slate-300":"bg-slate-800"}  w-140 p-2`}>
+    <div className={`card flex flex-col justify-center gap-4 rounded-md ${toggleTheme ? "bg-slate-300":"bg-slate-800"} md:w-140 w-full p-2`}>
       <h1 className={`w-full py-2 text-center ${toggleTheme ? "bg-slate-200":"bg-slate-700 "} rounded-md`}>
         {props.title}
       </h1>

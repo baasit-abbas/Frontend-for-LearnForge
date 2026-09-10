@@ -29,10 +29,10 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col px-15 py-5 gap-10">
+    <div className="flex flex-col md:px-15 px-5 py-5 gap-10">
       <AdminPageHeader
         heading="Videos"
-        placeholder="Search by title , instructor Name and Course name."
+        placeholder="Search by title,instructor,course name."
         search={settext}
       />
       {handleSearch().length == 0 && (

@@ -26,7 +26,7 @@ const UserTable = (props) => {
   };
 
   return (
-    <div className="max-h-135">
+    <div className="md:max-h-135 w-80">
       <Table className="min-w-full">
         <TableCaption></TableCaption>
         <TableHeader className={`sticky top-0 z-10 ${toggleTheme ? "bg-slate-300":"bg-slate-900"}`}>

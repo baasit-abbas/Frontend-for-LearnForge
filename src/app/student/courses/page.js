@@ -28,7 +28,7 @@ const Page = () => {
   };
 
   return (
-    <div className="px-10 py-5">
+    <div className="md:px-10 px-5 py-5">
       <AdminPageHeader
         heading="Enrolled Courses"
         search={settext}
@@ -36,7 +36,7 @@ const Page = () => {
       />
       <div className="mt-10">
         {handleSearch().length == 0 && (
-          <div className="text-5xl font-bold pt-10 text-center">
+          <div className="md:text-5xl text-xl font-bold pt-10 text-center">
             No Courses Found
           </div>
         )}

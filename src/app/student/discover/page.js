@@ -26,14 +26,14 @@ const Page = () => {
   };
 
   return (
-    <div className="px-15">
+    <div className="md:px-15 px-5">
       <AdminPageHeader
         heading="Discover Courses"
         search={settext}
         placeholder="Enter Course you want to enroll"
       />
       {handleSearch().length == 0 && (
-        <div className="text-5xl font-bold text-center mt-25">
+        <div className="md:text-5xl text-xl font-bold text-center md:mt-25 mt-10">
           No Courses Found
         </div>
       )}

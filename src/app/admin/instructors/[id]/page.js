@@ -24,13 +24,13 @@ const Page = () => {
 
   return (
     <div
-      className={`py-8 px-10 flex flex-col gap-6 min-h-screen ${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-700 text-slate-100"}`}
+      className={`py-8 md:px-10 px-3 flex flex-col gap-6 min-h-screen ${toggleTheme ? "bg-slate-100 text-slate-800" : "bg-slate-700 text-slate-100"}`}
     >
       <header
         className={`rounded-md ${toggleTheme ? "bg-slate-300 " : "bg-slate-600"} flex justify-between items-center px-10 w-full h-40`}
       >
         <div className="flex flex-col gap-5">
-          <h1 className="text-5xl font-bold uppercase">
+          <h1 className="md:text-5xl text-xl font-bold uppercase">
             {instructor.username}&apos;s Page
           </h1>
           <p>
@@ -46,22 +46,22 @@ const Page = () => {
           <GiTeacher size={80} />
         </div>
       </header>
-      <div className={`w-full ${toggleTheme ? "bg-slate-200":"bg-slate-600"}  rounded-md flex justify-around py-2`}>
+      <div className={`w-full ${toggleTheme ? "bg-slate-200":"bg-slate-600"}  rounded-md flex justify-around md:h-10 h-15`}>
         <button
           onClick={() => setselected("Courses")}
-          className={`font-bold text-xl h-full ${selected == "Courses" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Courses" ? toggleTheme ? "bg-slate-300": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Uploaded Courses
         </button>
         <button
           onClick={() => setselected("Documents")}
-          className={`font-bold text-xl h-full ${selected == "Documents" ? toggleTheme ? "bg-slate-400": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Documents" ? toggleTheme ? "bg-slate-400": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Uploaded Documents
         </button>
         <button
           onClick={() => setselected("Videos")}
-          className={`font-bold text-xl h-full ${selected == "Videos" ? toggleTheme ? "bg-slate-400": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
+          className={`font-bold md:text-xl text-sm h-full ${selected == "Videos" ? toggleTheme ? "bg-slate-400": "bg-slate-900" : toggleTheme ? "bg-slate-100" : "bg-slate-600"} cursor-pointer rounded-md px-2 py-1`}
         >
           Uploaded Videos
         </button>
@@ -69,7 +69,7 @@ const Page = () => {
       {selected == "Courses" ? (
         <>
           {instructor.courses?.length == 0 && (
-            <div className="font-bold text-5xl text-center w-full mt-10">
+            <div className="font-bold md:text-5xl text-xl text-center w-full mt-10">
               No Courses Found
             </div>
           )}
@@ -93,7 +93,7 @@ const Page = () => {
       ) : selected == "Documents" ? (
         <div className="flex flex-wrap gap-6">
           {instructor.docs?.length == 0 && (
-            <div className="text-5xl font-bold text-center w-full mt-10">
+            <div className="md:text-5xl text-xl font-bold text-center w-full mt-10">
               No Documents found.
             </div>
           )}
@@ -116,7 +116,7 @@ const Page = () => {
       ) : (
         <div className="flex flex-wrap gap-6">
           {instructor.videos?.length == 0 && (
-            <div className="text-5xl font-bold text-center w-full mt-10">
+            <div className="md:text-5xl text-xl font-bold text-center w-full mt-10">
               No Videos Found
             </div>
           )}

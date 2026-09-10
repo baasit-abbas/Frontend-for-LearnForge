@@ -29,7 +29,7 @@ const Page = () => {
   const [image, setimage] = useState();
   const [loading, setloading] = useState(false);
 
-  const { open } = useSidebar();
+  const { open , isMobile } = useSidebar();
 
   const { toggleTheme } = useContext(WrapperContext);
 
@@ -77,18 +77,18 @@ const Page = () => {
   };
   return (
     <div
-      className={`min-h-screen ${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-800 text-slate-100"} px-10 py-30`}
+      className={`min-h-screen ${toggleTheme ? "bg-slate-300 text-slate-800" : "bg-slate-800 text-slate-100"} md:px-10 px-5 py-30`}
     >
       <div
-        className={`flex items-center justify-between fixed top-6  z-10  ${open ? "w-290 left-74" : "w-355 left-10"} transition-all duration-300`}
+        className={`flex items-center justify-between fixed md:top-6 top-12 z-10  ${!isMobile ? open ? "md:w-290 left-74" : "md:w-355 left-10":"left-5 right-5"}  transition-all duration-300`}
       >
-        <h1 className="font-bold text-5xl">Page Settings</h1>
+        <h1 className="font-bold md:text-5xl text-xl">Page Settings</h1>
         <div className="flex gap-4">
-          <div className="relative w-50 h-13 rounded-md">
+          <div className="relative md:w-50 w-25 h-13 rounded-md">
             <button
               onClick={handleChanges}
               disabled={loading}
-              className={`w-full h-full text-center rounded-md ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  hover:transition-all duration-300 cursor-pointer font-bold text-lg flex items-center justify-center`}
+              className={`w-full h-full text-center rounded-md ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  hover:transition-all duration-300 cursor-pointer font-bold md:text-lg text-sm flex items-center justify-center`}
             >
               {loading ? <Spinner className="w-10 h-10" /> : "Save Changes"}
             </button>
@@ -101,15 +101,15 @@ const Page = () => {
 
           <button
             onClick={handleLogOut}
-            className={`text-center rounded-md ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  hover:transition-all duration-300 cursor-pointer font-bold text-lg flex items-center justify-center px-4 py-2`}
+            className={`text-center rounded-md ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  hover:transition-all duration-300 cursor-pointer font-bold md:text-lg text-sm flex items-center justify-center md:px-4 md:py-2 p-2`}
           >
             Log out
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-9 justify-center mb-8 py-6">
-        <Field orientation="horizontal">
-          <FieldLabel className="text-xl font-bold w-80" htmlFor="name">
+      <div className="flex flex-col gap-9 justify-center mb-8 py-6 md:w-auto w-full">
+        <Field className='flex md:flex-row flex-col md:w-auto w-full'>
+          <FieldLabel className="text-xl font-bold md:w-80 w-full" htmlFor="name">
             Change Platform Name:
           </FieldLabel>
 
@@ -121,7 +121,7 @@ const Page = () => {
             }
           />
         </Field>
-        <Field className="flex" orientation="horizontal w-60">
+        <Field className="flex md:flex-row flex-col md:w-60 w-full">
           <FieldLabel
             className={`text-center rounded-md ${toggleTheme ? "bg-slate-200 hover:bg-slate-100":"bg-slate-700 hover:bg-slate-600"}  hover:transition-all duration-300 cursor-pointer font-bold text-lg flex items-center justify-center px-4 py-2`}
             htmlFor="logo"
@@ -178,8 +178,8 @@ const Page = () => {
           )}
         </Field>
       </div>
-      <div className="flex flex-col gap-10 justify-center pr-90 py-6">
-        <h1 className="text-3xl font-bold">Change Lifetime:</h1>
+      <div className="flex flex-col gap-10 justify-center md:pr-90 py-6">
+        <h1 className="md:text-3xl text-xl font-bold">Change Lifetime:</h1>
         <div className="flex flex-col gap-3  w-full">
           <h1 className="text-xl font-bold">
             Access Token Lifetime in Minutes
@@ -211,9 +211,9 @@ const Page = () => {
           <p>Current Value : {settings.refresh_token}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-10 py-6 pr-90">
+      <div className="flex flex-col gap-10 py-6 md:pr-90">
         <div className="w-full flex flex-col gap-3">
-          <h1 className="text-3xl font-bold pb-6">Max Login Attempts</h1>
+          <h1 className="md:text-3xl text-xl font-bold pb-6">Max Login Attempts</h1>
           <Slider
             className={`h-1 ${toggleTheme ? "bg-slate-800":"bg-gray-100"} `}
             value={[settings.max_login_attempts]}
@@ -226,7 +226,7 @@ const Page = () => {
           <p>Currect Login Attempts : {settings.max_login_attempts}</p>
         </div>
         <div className="flex flex-col gap-3">
-          <h1 className="text-3xl font-bold pb-6">
+          <h1 className="md:text-3xl text-xl font-bold pb-6">
             Retry Again time in seconds.
           </h1>
           <Slider

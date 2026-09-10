@@ -63,7 +63,7 @@ const Page = () => {
   };
 
   return (
-    <div className={`min-h-screen px-15 ${toggleTheme ? "bg-slate-100 text-slate-900":"bg-slate-700 text-slate-100"}`}>
+    <div className={`min-h-screen md:px-15 px-3 w-full`}>
       <AdminPageHeader
         search={setText}
         heading="Users"
@@ -71,10 +71,10 @@ const Page = () => {
       />
       {handleSearch().length == 0 ? (
         <div className="w-full h-full flex items-center justify-center">
-          <h1 className="text-5xl font-bold">No Users Found</h1>
+          <h1 className="md:text-5xl text-2xl font-bold">No Users Found</h1>
         </div>
       ) : (
-        <div className="w-full max-h-135 text-gray-100 mt-7">
+        <div className="md:max-h-135 max-w-full text-gray-100 mt-7">
           <ScrollArea className="max-h-full w-full border-none outline-none rounded-lg">
             <UserTable
               users={handleSearch}

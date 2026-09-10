@@ -69,7 +69,7 @@ const AddDoc = (props) => {
   return (
     <Dialog open={open} onOpenChange={setopen}>
       <DialogTrigger
-        className={`px-3 py-2 rounded-xl font-bold ${toggleTheme ? "bg-slate-300 hover:bg-slate-200" : "bg-slate-900 hover:bg-slate-800"}  transition-all duration-300 cursor-pointer`}
+        className={`md:px-3 p-2 md:py-2 rounded-xl font-bold ${toggleTheme ? "bg-slate-300 hover:bg-slate-200" : "bg-slate-900 hover:bg-slate-800"}  transition-all duration-300 cursor-pointer mf:text-md text-sm`}
       >
         Add Document
       </DialogTrigger>

@@ -12,7 +12,7 @@ import { WrapperContext } from "./Wrapper";
 const StudentCourseCard = (props) => {
   const {toggleTheme} = useContext(WrapperContext)
   return (
-    <div className={`card ${toggleTheme ? "bg-slate-300":"bg-slate-800"}  w-85 "h-65"  flex flex-col gap-5 p-3`}>
+    <div className={`card ${toggleTheme ? "bg-slate-300":"bg-slate-800"}  md:w-85 w-full h-65  flex flex-col gap-5 p-3`}>
       <h1 className={`${toggleTheme ? "bg-slate-200":"bg-slate-700"} w-full py-2 rounded-md text-center h-[20%]`}>
         {props.title}
       </h1>
