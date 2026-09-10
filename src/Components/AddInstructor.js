@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import PasswordInput from "./PasswordInput";
 import { Input } from "./ui/input";
 import { Field } from "./ui/field";

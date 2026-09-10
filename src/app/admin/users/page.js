@@ -2,7 +2,7 @@
 import AdminPageHeader from "@/Components/AdminPageHeader";
 import api from "@/utils/authClient";
 import React, { useContext, useEffect, useState } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/Components/ui/scroll-area";
 import UserTable from "@/Components/UserTable";
 import { toast } from "@/Components/ui/toast";
 import { WrapperContext } from "@/Components/Wrapper";

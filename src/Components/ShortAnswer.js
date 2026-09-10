@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useState } from "react";
-import { Field, FieldLabel } from "@/components/ui/field";
-import { InputGroupTextarea } from "@/components/ui/input-group";
+import { Field, FieldLabel } from "@/Components/ui/field";
+import { InputGroupTextarea } from "@/Components/ui/input-group";
 import api from "@/utils/authClient";
 import { Spinner } from "./ui/spinner";
 import { WrapperContext } from "./Wrapper";
@@ -29,7 +29,7 @@ const ShortAnswer = (props) => {
     setloading(false);
   };
   return (
-    <div className={`flex flex-col gap-5 px-3 py-2 ${toggleTheme ? "bg-slate-300":"bg-slate-800"}  w-250`}>
+    <div className={`flex flex-col gap-5 px-3 py-2 ${toggleTheme ? "bg-slate-300":"bg-slate-800"}  md:w-250 w-full`}>
       <h1 className="font-bold text-lg">{props.statment}</h1>
       <Field>
         <FieldLabel htmlFor="answer">Your answer:</FieldLabel>

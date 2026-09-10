@@ -7,7 +7,7 @@ const McqCard = (props) => {
     const [selected, setselected] = useState(props.selected)
     const {toggleTheme} = useContext(WrapperContext)
   return (
-    <div className={`flex flex-col gap-3 w-250 py-5 px-3 rounded-md ${toggleTheme ? "text-slate-900 bg-slate-200":"text-gray-100 bg-slate-800"} `}>
+    <div className={`flex flex-col gap-3 md:w-250 w-full py-5 px-3 rounded-md ${toggleTheme ? "text-slate-900 bg-slate-200":"text-gray-100 bg-slate-800"} `}>
       <p className="font-bold">{props.statment}</p>
       <div className="flex flex-col bg-slate-800 rounded-md">
         {props.options.map((option) => {

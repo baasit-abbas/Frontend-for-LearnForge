@@ -1,7 +1,8 @@
 import axios  from "axios";
 import { getToken , refreshToken } from "./serviceClient";
-
-const url = 'http://localhost:8000/'
+import dotenv from 'dotenv'
+dotenv.config
+const url = process.env.NEXT_PUBLIC_API_URL
 const api = axios.create({baseURL:url})
 api.interceptors.request.use(
 config => {

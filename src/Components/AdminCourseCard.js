@@ -7,7 +7,7 @@ import {
   Progress,
   ProgressLabel,
   ProgressValue,
-} from "@/components/ui/progress";
+} from "@/Components/ui/progress";
 import EditCourse from "./EditCourse";
 import DeleteCourse from "./DeleteCourse";
 import { WrapperContext } from "./Wrapper";

@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import { Slider } from "@/components/ui/slider";
+import { Slider } from "@/Components/ui/slider";
 import { logout } from "@/utils/serviceClient";
 import { useRouter } from "next/navigation";
 import api from "@/utils/authClient";
@@ -14,7 +14,7 @@ import {
   AttachmentDescription,
   AttachmentMedia,
   AttachmentTitle,
-} from "@/components/ui/attachment";
+} from "@/Components/ui/attachment";
 import { FileTextIcon, XIcon } from "lucide-react";
 import { useSidebar } from "@/Components/ui/sidebar";
 import { GoDotFill } from "react-icons/go";

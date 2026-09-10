@@ -15,7 +15,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/Components/ui/popover";
 
 import api from "@/utils/authClient";
 import { SiGreatlearning } from "react-icons/si";
@@ -64,7 +64,7 @@ const StudentSidebar = (props) => {
           )}
           <h1 className="text-3xl font-bold">{settings?.name}</h1>
         </div>
-        <div className={`flex gap-3 rounded-lg px-2 py-1 ${toggleTheme ? "bg-slate-300 text-slate-900" : "bg-slate-900 text-gray-100 "} items-center`}>
+        <div className={` flex gap-3 rounded-lg px-2 py-1 ${toggleTheme ? "bg-slate-300 text-slate-900" : "bg-slate-900 text-gray-100 "} items-center`}>
           <div className="rounded-full bg-slate-100">
             <FcBusinessman size={40} />
           </div>

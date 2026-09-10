@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 import {
   Attachment,
@@ -17,7 +17,7 @@ import {
   AttachmentDescription,
   AttachmentMedia,
   AttachmentTitle,
-} from "@/components/ui/attachment";
+} from "@/Components/ui/attachment";
 
 import { FileCodeIcon, XIcon } from "lucide-react";
 

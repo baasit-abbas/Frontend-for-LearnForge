@@ -15,7 +15,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/Components/ui/popover";
 
 import api from "@/utils/authClient";
 import { SiGreatlearning } from "react-icons/si";

@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/Components/ui/table";
 import EditUser from "./EditUser";
 import Delete from "./DeleteUser";
 import { WrapperContext } from "./Wrapper";

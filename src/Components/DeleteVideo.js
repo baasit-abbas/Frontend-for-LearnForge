@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import { MdDelete } from "react-icons/md";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";

@@ -44,7 +44,7 @@ const Layout = ({ children }) => {
           <main>
             <div
               onClick={toggleSidebar}
-              className={`cursor-pointer ${toggleTheme ? "hover:bg-slate-200" : "hover:bg-slate-500"}  transition-all duration-300  p-1 fixed ${open ? "left-55" : "left-0"} z-10`}
+              className={`cursor-pointer ${toggleTheme ? "hover:bg-slate-200" : "hover:bg-slate-500"}  transition-all duration-300  p-1 fixed ${open ? "left-55" : "left-0"} z-70`}
             >
               <VscLayoutSidebarLeftDock
                 className={`transition-all duration-300 ${open ? "" : "rotate-180"}`}

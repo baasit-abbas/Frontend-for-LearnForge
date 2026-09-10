@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import CardBtn from "./CardBtn";
 import { FaEdit } from "react-icons/fa";
 import { Spinner } from "./ui/spinner";

@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 import { Input } from "./ui/input";
 import { Field, FieldLabel } from "./ui/field";

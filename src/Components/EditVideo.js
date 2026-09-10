@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import { FaEdit } from "react-icons/fa";
 import { Field, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
@@ -23,7 +23,7 @@ import {
   AttachmentDescription,
   AttachmentMedia,
   AttachmentTitle,
-} from "@/components/ui/attachment";
+} from "@/Components/ui/attachment";
 import { FileTextIcon, XIcon } from "lucide-react";
 import { WrapperContext } from "./Wrapper";
 

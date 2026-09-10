@@ -15,7 +15,7 @@ const Page = () => {
   const [chat, setchat] = useState([]);
   const [loading, setloading] = useState(false);
   const {toggleTheme} = useContext(WrapperContext)
-  const {open} = useSidebar()
+  const {open , isMobile , openMobile} = useSidebar()
   const [id, setid] = useState()
   const bottomRef = useRef()
   useEffect(() => {
@@ -71,16 +71,16 @@ const Page = () => {
   }
 
   return (
-    <div className="p-20 flex justify-center w-full">
-      <div className="w-[80%] flex flex-col gap-3">
+    <div className="md:p-20 px-5 py-15 flex justify-center w-full">
+      <div className="md:w-[80%] w-full flex flex-col gap-3">
         <form
-          className={`fixed ${open ? "left-110":"left-50"} right-40  bottom-5 transition-all duration-500 `}
+          className={`fixed ${!isMobile ?open ? "left-110":"left-50":"left-5 right-5"} md:right-40  bottom-5 transition-all duration-500 `}
           onSubmit={handleAnswer}
         >
           <Input
             type="text"
             onChange={(e) => setquestion(e.target.value)}
-            className={`w-full rounded-full py-6 px-3 pr-20 z-50 ${toggleTheme ? "bg-slate-200":"bg-slate-800"} `}
+            className={`w-full rounded-full py-6 px-3 pr-20 z-50 ${toggleTheme ? "bg-slate-200 placeholder:text-slate-800":"bg-slate-800 placeholder:text-slate-300"} `}
             placeholder="Ask Anything about your courses"
             value={question}
           />

@@ -6,7 +6,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 import DeleteBtn from "./DeleteBtn";
 import { WrapperContext } from "./Wrapper";

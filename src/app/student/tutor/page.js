@@ -13,7 +13,7 @@ const Page = () => {
   const [question, setquestion] = useState("");
   const { chats, setchats, id, setid, conversation, setconversation , selected , setselected } =
     useContext(TutorContext);
-  const {open} = useSidebar()
+  const {open , isMobile , openMobile} = useSidebar()
   const [loading, setloading] = useState(false);
   const {toggleTheme} = useContext(WrapperContext)
   const bottomRef = useRef()
@@ -79,17 +79,17 @@ const Page = () => {
     setconversation(newconverstion);
   };
   return (
-    <div className="p-20 min-h-screen flex justify-center">
-      <div className="w-[80%]">
+    <div className="md:p-20 px-5 py-15 min-h-screen flex justify-center w-full">
+      <div className="md:w-[80%] w-full">
         {!id && (
-          <h1 className={`text-2xl fixed ${open ? "left-110":"left-95"} right-40 top-[33%] translate-y-[-50%] transition-all duration-500`}>
+          <h1 className={`md:text-2xl text-xl fixed ${!isMobile ? open ? "left-110":"left-95":"left-5 right-5"} md:right-40 top-[33%] translate-y-[-50%] transition-all duration-500`}>
             Ask me anything about your course, and I&apos;ll help you understand
             it step by step.
           </h1>
         )}
 
         <form
-          className={` fixed ${open ? "left-110":"left-50"} right-40 ${id ? "bottom-5" : "top-[40%]"} transition-all duration-500`}
+          className={` fixed ${!isMobile ? open ? "left-110":"left-50":"left-5 right-5"} md:right-40 ${id ? "bottom-5" : "top-[40%]"} transition-all duration-500`}
           onSubmit={handleAnswer}
         >
           <Input

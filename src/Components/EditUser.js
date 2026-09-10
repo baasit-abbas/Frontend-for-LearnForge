@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 import {
   Combobox,
@@ -16,7 +16,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@/components/ui/combobox";
+} from "@/Components/ui/combobox";
 
 import { Input } from "./ui/input";
 import { Field, FieldLabel } from "./ui/field";

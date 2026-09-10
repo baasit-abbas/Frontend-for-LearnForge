@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import api from "@/utils/authClient";
 import { toast } from "./ui/toast";
 import { MdChangeCircle } from "react-icons/md";
